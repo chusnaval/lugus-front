@@ -5,6 +5,7 @@ export const peliculas = [
         tituloGest: "Blade Runner",
         formato: "BD",
         anyo: 1982,
+        generoCode: "CIF",
         genero: "Ciencia Ficción",
         codigo: "BR82",
         pack: false,
@@ -27,6 +28,7 @@ export const peliculas = [
         sinopsis: "En un futuro distópico, un ex-policía es contratado para cazar a unos androides rebeldes que se han infiltrado en la sociedad humana.",
         visto: true,
         ultimaRevision: "Abril 2026",
+        pais: "US",
         imdbUrl: "https://www.imdb.com/title/tt0064757/",
         faUrl: 'filmaffinity',
         cover: "/covers/blade-runner.jpg"
@@ -37,6 +39,7 @@ export const peliculas = [
         tituloGest: "Alien",
         formato: "4K",
         anyo: 1979,
+        generoCode: "TER",
         genero: "TERROR",
         codigo: "AL79",
         pack: true,
@@ -58,6 +61,7 @@ export const peliculas = [
         sinopsis: "La tripulación de una nave espacial responde a una señal de socorro y descubre una forma de vida alienígena que los acecha uno por uno.",
         visto: true,
         ultimaRevision: "Marzo 2026",
+        pais: "US",
         imdbUrl: "https://www.imdb.com/title/tt0064757/",
         faUrl: 'filmaffinity',
         cover: "/covers/alien.jpg"
@@ -68,6 +72,7 @@ export const peliculas = [
         tituloGest: "The Godfather",
         formato: "DVD",
         anyo: 1972,
+        generoCode: "DRA",
         genero: "DRAMA",
         codigo: "GF72",
         pack: false,
@@ -89,6 +94,7 @@ export const peliculas = [
         sinopsis: "La historia de la familia Corleone, una dinastía de la mafia italiana en Nueva York.",
         visto: false,
         ultimaRevision: "Febrero 2026",
+        pais: "US",
         imdbUrl: "https://www.imdb.com/title/tt0064757/",
         faUrl: 'filmaffinity',
         cover: "/covers/godfather.jpg"

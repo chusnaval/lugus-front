@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { peliculas } from "../../data/peliculasMock"
-import { formatIcons } from "../../utils/formatIcons"
+import { formatIconsFormat, formatIconsGenero  } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
+import { PencilLine, Undo2, Bot } from "lucide-react"
+import { countries } from "../../utils/countries"
 
 export default function MovieDetail() {
     const { id } = useParams()
@@ -15,8 +17,7 @@ export default function MovieDetail() {
                 <p className="text-xl">Película no encontrada</p>
                 <button
                     onClick={() => navigate(-1)}
-                    className="mt-4 px-4 py-2 bg-lugus-gold text-black rounded"
-                >
+                    className="mt-4 px-4 py-2 bg-lugus-gray text-black rounded">
                     Volver
                 </button>
             </div>
@@ -34,18 +35,18 @@ export default function MovieDetail() {
                         <img
                             src={movie.cover}
                             alt={movie.titulo}
-                            className="rounded-lg shadow-xl w-full object-cover border-4 border-lugus-gold"
+                            className="rounded-lg shadow-xl w-full object-cover border-4 border-lugus-gray"
                         />
                     ) : (
-                        <div className="h-96 bg-gray-700 rounded-lg flex items-center justify-center text-white border-4 border-lugus-gold">
+                        <div className="h-96 bg-gray-700 rounded-lg flex items-center justify-center text-white border-4 border-lugus-gray">
                             {movie.titulo}
                         </div>
                     )}
 
                     {/* TRAILER PLACEHOLDER */}
                     <div className="flex items-center justify-center mt-8 mb-8">
-                        <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-gold rounded-lg 
-                    flex items-center justify-center text-lugus-gold text-sm">
+                        <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-red rounded-lg 
+                    flex items-center justify-center text-lugus-gray text-sm">
                             Tráiler próximamente
                         </div>
                     </div>
@@ -55,13 +56,13 @@ export default function MovieDetail() {
 
                     {/* Título */}
                     <h1 className="text-xl font-bold mb-1">
-                        {movie.titulo}
+                        {movie.titulo} ({movie.anyo})
                     </h1>
                     <div className="w-full h-[1px] bg-[#2e303a]"></div>
 
                     {/* Rating + Género + Estado */}
-                    <div className="text-lugus-gray text-sm mt-2 mb-2">
-                        <Chip icon={formatIcons[movie.formato] ?? "💿"} label={movie.formato} color="blue" /> ⭐ {movie.rating ?? "–"} | {movie.genero} | Año Lanzamiento: {movie.anyo}
+                    <div className="flex text-lugus-gray text-sm mt-2 mb-2">
+                        <span className="mr-2">⭐ {movie.rating ?? "–"} </span><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.generoCode] ?? "💿"}</span> <span className="mr-2">{movie.genero}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.pais]?.flag}  {countries[movie.pais]?.name}</span>
                     </div>
 
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
@@ -95,7 +96,7 @@ export default function MovieDetail() {
                                 {/* Sinopsis */}
                                 {movie.sinopsis && (
                                     <div className="mb-8">
-                                        <h2 className="text-2xl font-semibold mb-3">Sinopsis</h2>
+                                        <h2 className="text-2xl font-semibold mb-3">Sinopsis:</h2>
                                         <p className="text-sm leading-relaxed">{movie.sinopsis}</p>
                                     </div>
                                 )}
@@ -103,27 +104,27 @@ export default function MovieDetail() {
                             </div>
                         </div>
                         {/* TARJETA DE INFORMACIÓN ADICIONAL */}
-                        <div className="bg-[#1f1f1f] border border-lugus-gold rounded-lg p-6 h-fit">
+                        <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 h-fit">
 
                             <h2 className="text-xl font-semibold mb-3">Información adicional</h2>
-                            <div className="w-full h-px bg-lugus-gold mb-4"></div>
+                            <div className="w-full h-px bg-lugus-gray mb-4"></div>
 
                             <ul className="text-sm space-y-2">
+                                <li> <Chip icon={formatIconsFormat[movie.formato] ?? "💿"} label={movie.formato} color="blue" /></li>
                                 <li><strong>Código:</strong> {movie.codigo}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
                                 <li><strong>Grupo:</strong> {movie.group ?? "–"}</li>
                                 <li><strong>Estado:</strong> {movie.estado ?? "–"}</li>
                                 <li><strong>Visto:</strong> {movie.visto ? "Sí" : "No"}</li>
+                                <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
+                                <li><strong>Funda:</strong> {movie.funda ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.ultimaRevision ?? "–"}</li>
-                                <li><a
-                                    href={movie.imdbUrl}
+                                <li><a href={movie.imdbUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] 
-                                     border border-lugus-gold text-lugus-gold text-sm hover:bg-[#2a2a2a]"
-                                >
-                                    <span>🎬</span>
-                                    Ver en IMDb
+                                     border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
+                                    <span>🎬</span> Ver en IMDb
                                 </a>
                                 </li>
                                 <li>
@@ -132,8 +133,7 @@ export default function MovieDetail() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-3 py-2 rounded bg-[#1f1f1f] 
-             border border-lugus-gold text-lugus-gold text-sm hover:bg-[#2a2a2a]"
-                                    >
+                                         border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
                                         ⭐ Filmaffinity
                                     </a>
 
@@ -147,12 +147,11 @@ export default function MovieDetail() {
 
             </div>
             <div className="flex gap-4 mt-2">
-                <button className="px-4 py-2 bg-lugus-gold text-black rounded">Editar</button>
+                <button className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
                 <button
                     onClick={() => navigate(-1)}
-                    className="px-4 py-2 bg-lugus-bgAlt border border-lugus-gold text-lugus-gold rounded"
-                >
-                    Volver
+                    className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">
+                    <Undo2 className="w-4 h-4 text-lugus-gray" />Volver
                 </button>
             </div>
         </div>

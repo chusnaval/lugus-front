@@ -18,11 +18,10 @@ export default function Chip({
   }
 
   return (
-    <span
-      className={`px-3 py-1 rounded-full text-sm font-medium ${colors[color]} ${className}`}
-    >
+    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${colors[color]} ${className}`}>
       <span className="text-lg">{icon}</span>
       {label}
     </span>
   )
+
 }

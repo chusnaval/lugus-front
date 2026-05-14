@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Inter Variable"', "sans-serif"],
+      },
       colors: {
         lugus: {
           bg: "#121212",
@@ -14,6 +17,7 @@ module.exports = {
           muted: "#9e9e9e",
           blue: "#0078d4",
           gold: "#cfae5a",
+          red: "#ff3b3b"
         }
       }
     },
