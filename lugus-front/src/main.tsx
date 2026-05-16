@@ -8,12 +8,15 @@ import "@fontsource-variable/inter/index.css"
 import './index.css'
 import App from './App.tsx'
 import { ToastProvider } from "./components/ui/ToastContext"
+import { AuthProvider } from './context/AuthContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-     <ToastProvider>
+    <ToastProvider>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </ToastProvider>
   </StrictMode>,

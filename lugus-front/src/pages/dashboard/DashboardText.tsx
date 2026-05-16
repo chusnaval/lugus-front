@@ -13,9 +13,9 @@ export default function DashboardText() {
   }
 
   const ultimas = [
-    { title: "Heat", year: 1995, format: "Blu-ray" },
-    { title: "Alien 3", year: 1992, format: "4K" },
-    { title: "The Thing", year: 1982, format: "Blu-ray" },
+    { title: "Heat", year: 1995, format: "Blu-ray", genre: "Thriller" },
+    { title: "Alien 3", year: 1992, format: "4K" , genre: "Acción"},
+    { title: "The Thing", year: 1982, format: "Blu-ray", genre: "Terror" },
   ]
 
   const sagasIncompletas = [
@@ -49,10 +49,8 @@ export default function DashboardText() {
         <Card>
           <h3 className="text-lg font-semibold">Sagas</h3>
           <p className="mt-2">
-            <Chip color="blue">{stats.sagasCompletas} completas</Chip>
-            <Chip color="gold" className="ml-2">
-              {stats.sagasIncompletas} incompletas
-            </Chip>
+               <Chip icon='' label='{stats.sagasCompletas} completas' color="blue"/>
+               <Chip icon='' label='{stats.sagasIncompletas} incompletas' color="gold" className="ml-2"/>
           </p>
         </Card>
       </div>
@@ -66,6 +64,7 @@ export default function DashboardText() {
             { key: "title", label: "Título" },
             { key: "year", label: "Año" },
             { key: "format", label: "Formato" },
+            { key: "genre", label: "Genero" },
           ]}
           data={ultimas}
         />
