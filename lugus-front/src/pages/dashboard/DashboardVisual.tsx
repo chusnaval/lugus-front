@@ -23,41 +23,7 @@ export default function DashboardVisual() {
     return () => clearTimeout(timer)
   }, [])
 
-  // FILTRADO REAL basado en tu entidad Pelicula
-  const filteredCollection = peliculas
-    .filter((p) => {
-      // Año
-      if (filters.year && !p.anyo.toString().startsWith(filters.year)) return false
-
-      // Formato
-      if (filters.format && p.formato !== filters.format) return false
-
-      // Género
-      if (filters.genre && p.genero !== filters.genre) return false
-
-      // Comprado
-      if (filters.bought && p.comprado !== (filters.bought === "yes")) return false
-
-      // Pack
-      if (filters.pack && p.pack !== (filters.pack === "yes")) return false
-
-      return true
-    })
-    .sort((a, b) => {
-      switch (filters.sort) {
-        case "title":
-          return a.titulo.localeCompare(b.titulo)
-        case "year":
-          return b.anyo - a.anyo
-        case "format":
-          return a.formato.localeCompare(b.formato)
-        case "genre":
-          return a.genero.localeCompare(b.genero)
-        default:
-          return 0
-      }
-    })
-
+  
   // SKELETONS mientras carga
   if (isLoading) {
     return (

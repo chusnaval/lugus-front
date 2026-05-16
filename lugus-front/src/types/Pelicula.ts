@@ -4,21 +4,17 @@ export interface Pelicula {
   tituloGest: string
   formato: Formato
   anyo: number
+  generoCode: string | ''
   genero: Genero
   codigo: string
   notas?: string | null
-
+  
   pack: boolean
   steelbook: boolean
   funda: boolean
   comprado: boolean
-
-  usrAlta?: string | null
-  tsAlta: string // Instant → string ISO
-  usrModif?: string | null
-  tsModif?: string | null
-  tsBaja?: string | null
-
+  visto : boolean
+  
   imdbId?: string | null
   rating?: number | null
   votes?: number | null
@@ -28,6 +24,19 @@ export interface Pelicula {
   // Relaciones que NO están @JsonIgnore
   estado?: Estado | null
   padre?: Pelicula | null
+
+  directores?: Director[] | null
+  actores?: Inteprete[] | null
+
+
+  cover?: string | null
+  sinopsis?: string | null
+  imdbUrl?: string | undefined
+  faUrl?: string | undefined
+  ultimaRevision?: string | null
+  location?: string | null
+  group?: string | null
+  pais: string | ''
 }
 
 // Si tus enums vienen como string desde el backend:
@@ -59,6 +68,18 @@ export type Genero =
   | "WESTERN"
   | "DOCUMENTAL"
   | "DEPORTES"
+
+export interface Director {
+  id: number
+  nombre: string
+}
+
+export interface Inteprete {
+  id: number
+  nombre: string
+  personaje: string
+}
+
 
 // Si Estado tiene más campos, los añadimos
 export interface Estado {

@@ -1,16 +1,29 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { peliculas } from "../../data/peliculasMock"
-import { formatIconsFormat, formatIconsGenero  } from "../../utils/formatIcons"
+import { getFilmById } from "../../api/peliculas"
+import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
 import { PencilLine, Undo2, Bot } from "lucide-react"
 import { countries } from "../../utils/countries"
+import { useEffect, useState } from "react"
+import type { Pelicula } from "../../types/Pelicula"
 
 export default function MovieDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const movie = peliculas.find((p) => p.id === Number(id))
+    const [movie, setMovie] = useState<Pelicula | null>(null)
+    const [loading, setLoading] = useState(true)
 
+    useEffect(() => {
+        if (!id) return
+
+        getFilmById(Number(id))
+            .then((data) => setMovie(data))
+            .catch(() => navigate("/"))
+            .finally(() => setLoading(false))
+    }, [id, navigate])
+    
+    if (loading) return <div>Cargando...</div>
     if (!movie) {
         return (
             <div className="text-center mt-20">
@@ -114,7 +127,7 @@ export default function MovieDetail() {
                                 <li><strong>Código:</strong> {movie.codigo}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
                                 <li><strong>Grupo:</strong> {movie.group ?? "–"}</li>
-                                <li><strong>Estado:</strong> {movie.estado ?? "–"}</li>
+                                <li><strong>Estado:</strong> {movie.estado?.nombre}</li>
                                 <li><strong>Visto:</strong> {movie.visto ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
                                 <li><strong>Funda:</strong> {movie.funda ? "Sí" : "No"}</li>
