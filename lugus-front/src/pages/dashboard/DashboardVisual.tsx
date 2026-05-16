@@ -6,14 +6,19 @@ import { Link } from "react-router-dom"
 import SkeletonCard from "../../components/SkeletonCard"
 import Card from "../../components/ui/Card"
 import Chip from "../../components/ui/Chip"
+import { getUltimasPeliculas } from "../../api/peliculas"
+import type { Pelicula } from "../../types/Pelicula"
 
 export default function DashboardVisual() {
   const { filters } = useFiltersContext()
+  const [ultimas, setUltimas] = useState<Pelicula[]>([])
+
 
   // Simulación de carga (cuando conectemos backend, esto vendrá del fetch)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+     getUltimasPeliculas().then(setUltimas).catch(console.error)
     const timer = setTimeout(() => setIsLoading(false), 600)
     return () => clearTimeout(timer)
   }, [])
@@ -87,7 +92,7 @@ export default function DashboardVisual() {
           </Card>
 
           <Card>
-            <h3 className="text-lg font-semibold">Nuevas esta semana</h3>
+            <h3 className="text-lg font-semibold">Últimas añadidas</h3>
             <p className="text-3xl font-bold mt-2">{stats.nuevasSemana}</p>
           </Card>
 
@@ -106,7 +111,7 @@ export default function DashboardVisual() {
           <h3 className="text-xl font-semibold mb-4">Últimas añadidas</h3>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {filteredCollection.map((p) => (
+            {ultimas.map((p) => (
               <Link key={p.id} to={`/movie/${p.id}`}>
                 <div className="relative bg-lugus-bgAlt rounded-lg overflow-hidden shadow-md hover:scale-[1.02] transition-transform group">
                   {p.cover ? (
