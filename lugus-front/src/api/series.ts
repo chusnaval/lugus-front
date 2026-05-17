@@ -1,9 +1,10 @@
 import type { MediaItem } from "../components/MediaSection";
-import type { Pelicula } from "../types/Pelicula"
+import type { Serie } from "../types/Serie";
+
 import { fetchWithAuth } from "./fetchWithAuth"
 
-export async function getUltimasPeliculas(): Promise<Pelicula[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/ultimas", {
+export async function getUltimasSeries(): Promise<Serie[]> {
+  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/ultimas", {
     credentials: "include", // MUY IMPORTANTE
   });
 
@@ -20,8 +21,8 @@ export async function getUltimasPeliculas(): Promise<Pelicula[]> {
   return res.json();
 }
 
-export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/ultimas", {
+export async function getUltimasSeriesForHome(): Promise<MediaItem[]> {
+  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/ultimas", {
     credentials: "include",
   });
 
@@ -29,7 +30,7 @@ export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
     throw new Error("No se pudieron cargar las últimas películas");
   }
 
-  const data: Pelicula[] = await res.json();
+  const data: Serie[] = await res.json();
 
   // Transformación Pelicula → MediaItem
   return data.map((p) => ({
@@ -39,8 +40,8 @@ export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
   }));
 }
 
-export async function getFilmById(id: number): Promise<Pelicula> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + id, {
+export async function getSerieById(id: number): Promise<Serie> {
+  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/" + id, {
     credentials: "include", // MUY IMPORTANTE
   });
 

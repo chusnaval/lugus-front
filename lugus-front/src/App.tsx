@@ -3,11 +3,15 @@ import Layout from "./components/Layout"
 import Projects from "./pages/Projects"
 import Settings from "./pages/Settings"
 import MovieDetail from "./pages/movie/MovieDetail"
-import Dashboard from "./pages/Dashboard"
+
 
 import { useEffect, useState, type ReactNode } from "react"
 import Login from "./pages/Login"
 import { useAuth } from "./context/AuthContext"
+import FilmDashboardVisual from "./pages/dashboard/FilmDashboardVisual"
+import HomeDashboardVisual from "./pages/dashboard/HomeDashboardVisual"
+import SeriesDashboardVisual from "./pages/dashboard/SeriesDashboardVisual"
+import SerieDetail from "./pages/series/SerieDetail"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -32,10 +36,13 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />}/>
-        <Route path="/" element={  <PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/" element={  <PrivateRoute><HomeDashboardVisual /></PrivateRoute>} />
+        <Route path="/films" element={  <PrivateRoute><FilmDashboardVisual /></PrivateRoute>} />
+        <Route path="/series" element={  <PrivateRoute><SeriesDashboardVisual /></PrivateRoute>} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/films/:id" element={  <PrivateRoute><MovieDetail /></PrivateRoute>} />
+        <Route path="/series/:id" element={  <PrivateRoute><SerieDetail /></PrivateRoute>} />
 
       </Route>
     </Routes>

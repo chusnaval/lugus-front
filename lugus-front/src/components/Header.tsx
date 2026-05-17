@@ -1,27 +1,48 @@
+import { Link } from "react-router-dom"
+import { LucideSearch, LucideUser } from "lucide-react"
+
 export default function Header({ onOpenFilters }: { onOpenFilters: () => void }) {
   return (
-    <header className="bg-lugus-bg text-lugus-text h-14 flex items-center justify-between px-4 border-b border-lugus-bgAlt">
-      
-      {/* Logo / Nombre */}
-      <h1 className="text-xl font-semibold tracking-wide">
+<header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-[#0b0b0b] border-b border-[#2a2a2a]">
+      {/* Logo */}
+      <h1 className="text-grey font-bold text-xl tracking-wide select-none">
         LUGUS
       </h1>
 
-   
-      
+      {/* Navegación */}
+      <nav className="hidden md:flex space-x-6 text-sm text-gray-300">
+        <Link to="/" className="hover:text-[#d4af37] transition-colors">
+          Inicio
+        </Link>
+        <Link to="/films" className="hover:text-[#d4af37] transition-colors">
+          Películas
+        </Link>
+        <Link to="/series" className="hover:text-[#d4af37] transition-colors">
+          Series
+        </Link>
+        <Link to="/libros" className="hover:text-[#d4af37] transition-colors">
+          Libros
+        </Link>
+        <Link to="/musica" className="hover:text-[#d4af37] transition-colors">
+          Música
+        </Link>
+      </nav>
 
-      <div className="flex items-center gap-4">
-         <button onClick={onOpenFilters} className="text-lugus-text hover:text-lugus-gold transition-colors text-2xl">
-        🔍
-       </button>
-        <button className="hover:text-lugus-gold transition-colors">
-          🔔
+      {/* Acciones */}
+      <div className="flex items-center space-x-4">
+        <button
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Buscar"
+        >
+          <LucideSearch size={18} />
         </button>
-        <button className="hover:text-lugus-gold transition-colors">
-          ⚙️
+        <button
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Perfil"
+        >
+          <LucideUser size={18} />
         </button>
       </div>
-
     </header>
   )
 }

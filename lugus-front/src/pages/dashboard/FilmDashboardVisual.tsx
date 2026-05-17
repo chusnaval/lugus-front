@@ -10,7 +10,7 @@ import type { Pelicula } from "../../types/Pelicula"
 import { getStats } from "../../api/stats"
 import type { FilmStats } from "../../types/FilmStats"
 
-export default function DashboardVisual() {
+export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()
   const [ultimas, setUltimas] = useState<Pelicula[]>([])
   const [stats, setStats] = useState<FilmStats>({
@@ -78,7 +78,7 @@ export default function DashboardVisual() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {ultimas.map((p) => (
-              <Link key={p.id} to={`/movie/${p.id}`}>
+              <Link key={p.id} to={`/films/${p.id}`}>
                 <div className="relative bg-lugus-bgAlt rounded-lg overflow-hidden shadow-md hover:scale-[1.02] transition-transform group">
                   {p.coverSrc ? (
                     <img

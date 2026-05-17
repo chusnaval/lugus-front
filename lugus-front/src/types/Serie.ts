@@ -1,42 +1,18 @@
-export interface Pelicula {
+export interface Serie {
   id: number
   title: string
   titleMgmt: string
   format: Format
-  year: number
+  startYear: number
+  finishYear?: number
   genreCode: string
   genreDesc: string
   mgmtCode: string
   notes?: string | ''
-
-  pack: boolean
-  steelbook: boolean
-  slipcover: boolean
+  location?: string | null  
   owned: boolean
-  watched: boolean
-
-  imdbId?: string | null
-  rating?: number | null
-  votes?: number | null
-
-  situation?: string | null
-
-  // Relaciones que NO están @JsonIgnore
-  condition?: Condition | null
-  father?: Pelicula | null
-
-  director?: Director[] | null
-  casting?: Cast[] | null
-
-
+  completed: boolean
   coverSrc?: string | null
-  synopsis?: string | null
-  imdbUrl?: string | undefined
-  faUrl?: string | undefined
-  lastSeen?: string | null
-  location?: string | null
-  group?: Group | null
-  country: string | ''
 }
 
 
