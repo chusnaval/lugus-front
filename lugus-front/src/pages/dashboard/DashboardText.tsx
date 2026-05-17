@@ -4,8 +4,8 @@ import Chip from "../../components/ui/Chip"
 import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import type { FilmStats } from "../../types/FilmStats"
-import { getUltimasPeliculas } from "../../api/peliculas"
-import { getStats } from "../../api/stats"
+import { getUltimasPeliculas } from "../../api/filmService"
+import { getStats } from "../../api/statsService"
 import SkeletonCard from "../../components/SkeletonCard"
 
 export default function DashboardText() {

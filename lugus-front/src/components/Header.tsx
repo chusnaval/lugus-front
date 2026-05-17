@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
 import { LucideSearch, LucideUser } from "lucide-react"
 
+
 export default function Header({ onOpenFilters }: { onOpenFilters: () => void }) {
+
+
   return (
-<header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-[#0b0b0b] border-b border-[#2a2a2a]">
+    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-[#0b0b0b] border-b border-[#2a2a2a]">
       {/* Logo */}
       <h1 className="text-grey font-bold text-xl tracking-wide select-none">
         LUGUS

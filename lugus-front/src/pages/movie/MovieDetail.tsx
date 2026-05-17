@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { getFilmById } from "../../api/peliculas"
+import { getFilmById } from "../../api/filmService"
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
 import { PencilLine, Undo2, Bot } from "lucide-react"
 import { countries } from "../../utils/countries"
 import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
+import Rating from "../../components/ui/Rating"
 
 export default function MovieDetail() {
     const { id } = useParams()
@@ -75,7 +76,7 @@ export default function MovieDetail() {
 
                     {/* Rating + Género + Estado */}
                     <div className="flex text-lugus-gray text-sm mt-2 mb-2">
-                        <span className="mr-2">⭐ {movie.rating ?? "–"} </span><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.country]?.flag}  {countries[movie.country]?.name}</span>
+                        <Rating value={movie.rating} /><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.country]?.flag}  {countries[movie.country]?.name}</span>
                     </div>
 
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
@@ -115,6 +116,19 @@ export default function MovieDetail() {
                                 )}
 
                             </div>
+
+
+                            <div className="w-full h-[2px] bg-[#2e303a]"></div>
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
+                                {/* Notas */}
+                                {movie.notes && (
+                                    <div className="mb-8">
+                                        <h2 className="text-2xl font-semibold mb-3">Notas:</h2>
+                                        <p className="text-sm leading-relaxed">{movie.notes}</p>
+                                    </div>
+                                )}
+
+                            </div>
                         </div>
                         {/* TARJETA DE INFORMACIÓN ADICIONAL */}
                         <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 h-fit">
@@ -125,6 +139,7 @@ export default function MovieDetail() {
                             <ul className="text-sm space-y-2">
                                 <li> <Chip icon={formatIconsFormat[movie.format] ?? "💿"} label={movie.format} color="blue" /></li>
                                 <li><strong>Código:</strong> {movie.mgmtCode}</li>
+                                <li><strong>Comprado:</strong> {movie.owned ? "Sí" : "No"}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
                                 <li><strong>Grupo:</strong> {movie.group? movie.group.name : '-'}</li>
                                 <li><strong>Estado:</strong> {movie.condition?.desc}</li>
@@ -137,7 +152,7 @@ export default function MovieDetail() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] 
                                      border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                    <span>🎬</span> Ver en IMDb
+                                    <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb"  className="w-6 h-6 inline-block" /></span> Ver en IMDb
                                 </a>
                                 </li>
                                 <li>
@@ -147,7 +162,7 @@ export default function MovieDetail() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-3 py-2 rounded bg-[#1f1f1f] 
                                          border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                        ⭐ Filmaffinity
+                                        <img src="/icons/filmaff.png" alt="Ver en Filmaffinity"  className="w-6 h-6 inline-block" /> Ver en Filmaffinity
                                     </a>
 
                                 </li>

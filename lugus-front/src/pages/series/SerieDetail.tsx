@@ -7,7 +7,7 @@ import { countries } from "../../utils/countries"
 import { useEffect, useState } from "react"
 
 import type { Serie } from "../../types/Serie"
-import { getSerieById } from "../../api/series"
+import { getSerieById } from "../../api/seriesService"
 
 export default function MovieDetail() {
     const { id } = useParams()

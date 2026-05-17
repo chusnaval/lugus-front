@@ -38,7 +38,7 @@ export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
     coverSrc: p.coverSrc ?? null,
   }));
 }
-
+ 
 export async function getFilmById(id: number): Promise<Pelicula> {
   const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + id, {
     credentials: "include", // MUY IMPORTANTE
@@ -49,4 +49,15 @@ export async function getFilmById(id: number): Promise<Pelicula> {
   }
 
   return res.json();
+}
+
+export async function createMovie(movie: any) {
+  const res = await fetch("http://localhost:8080/lugus/v1/api/films", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(movie)
+  })
+
+  if (!res.ok) throw new Error("Error al crear la película")
 }

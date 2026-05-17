@@ -6,11 +6,11 @@ import SkeletonCard from "../../components/SkeletonCard"
 import Card from "../../components/ui/Card"
 
 
-import { getSeriesStats, getStats } from "../../api/stats"
+import { getSeriesStats, getStats } from "../../api/statsService"
 
 import type { Serie } from "../../types/Serie"
 import type { SeriesStats } from "../../types/SeriesStats"
-import { getUltimasSeries} from "../../api/series"
+import { getUltimasSeries} from "../../api/seriesService"
 
 export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()

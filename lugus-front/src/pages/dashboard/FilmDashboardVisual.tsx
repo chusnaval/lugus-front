@@ -5,10 +5,12 @@ import { Link } from "react-router-dom"
 import SkeletonCard from "../../components/SkeletonCard"
 import Card from "../../components/ui/Card"
 import Chip from "../../components/ui/Chip"
-import { getUltimasPeliculas } from "../../api/peliculas"
+import { getUltimasPeliculas } from "../../api/filmService"
 import type { Pelicula } from "../../types/Pelicula"
-import { getStats } from "../../api/stats"
+import { getStats } from "../../api/statsService"
 import type { FilmStats } from "../../types/FilmStats"
+import { useAuth } from "../../context/AuthContext"
+import { LucideUser } from "lucide-react"
 
 export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()
@@ -23,7 +25,9 @@ export default function FilmDashboardVisual() {
 
   // Simulación de carga (cuando conectemos backend, esto vendrá del fetch)
   const [isLoading, setIsLoading] = useState(true)
+  const user = useAuth()
 
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN")
   useEffect(() => {
     getUltimasPeliculas().then(setUltimas).catch(console.error)
     getStats().then(setStats).catch(console.error)
@@ -113,6 +117,20 @@ export default function FilmDashboardVisual() {
             ))}
           </div>
         </Card>
+
+         <div className="flex items-center space-x-4">
+
+        {isAdmin && (
+          <Link
+            to="/films/new"
+            className="px-3 py-1 border border-[#d4af37] text-[#d4af37] rounded hover:bg-[#d4af37] hover:text-black transition-colors"
+          >
+            + Añadir
+          </Link>
+        )}
+
+      
+      </div>
       </div>
 
 

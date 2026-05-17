@@ -12,6 +12,7 @@ import FilmDashboardVisual from "./pages/dashboard/FilmDashboardVisual"
 import HomeDashboardVisual from "./pages/dashboard/HomeDashboardVisual"
 import SeriesDashboardVisual from "./pages/dashboard/SeriesDashboardVisual"
 import SerieDetail from "./pages/series/SerieDetail"
+import AddMoviePage from "./pages/movie/AddMoviePage"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/films/:id" element={  <PrivateRoute><MovieDetail /></PrivateRoute>} />
         <Route path="/series/:id" element={  <PrivateRoute><SerieDetail /></PrivateRoute>} />
+        <Route path="/films/new" element={<PrivateRoute><AddMoviePage /></PrivateRoute>} />
 
       </Route>
     </Routes>

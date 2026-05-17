@@ -3,13 +3,13 @@ import { useFiltersContext } from "../../context/FiltersContext"
 
 import SkeletonCard from "../../components/SkeletonCard"
 
-import { getUltimasPeliculasForHome } from "../../api/peliculas"
+import { getUltimasPeliculasForHome } from "../../api/filmService"
 
-import { getSeriesStats, getStats } from "../../api/stats"
+import { getSeriesStats, getStats } from "../../api/statsService"
 import type { FilmStats } from "../../types/FilmStats"
 import type { SeriesStats } from "../../types/SeriesStats"
 import MediaSection, { type MediaItem } from "../../components/MediaSection"
-import { getUltimasSeriesForHome } from "../../api/series"
+import { getUltimasSeriesForHome } from "../../api/seriesService"
 
 export default function HomeDashboardVisual() {
     const { filters } = useFiltersContext()
