@@ -58,15 +58,15 @@ export default function DashboardVisual() {
           </Card>
 
           <Card>
-            <h3 className="text-lg font-semibold">Últimas añadidas</h3>
+            <h3 className="text-lg font-semibold">Nuevas último mes</h3>
             <p className="text-3xl font-bold mt-2">{stats.recentFilms}</p>
           </Card>
 
           <Card>
             <h3 className="text-lg font-semibold">Sagas</h3>
             <p className="mt-2">
-              <Chip icon='' label='{stats.sagasCompletas} completas' color="blue" />
-              <Chip icon='' label='{stats.sagasIncompletas} incompletas' color="gold" className="ml-2" />
+              <Chip icon="" label={`${stats.completeGroups} completas`} color="blue" />
+              <Chip icon="" label={`${stats.incompleteGroups} incompletas`} color="gold" className="ml-2" />
 
             </p>
           </Card>
