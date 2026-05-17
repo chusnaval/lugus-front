@@ -44,15 +44,15 @@ export default function MovieDetail() {
 
                 {/* Portada */}
                 <div className="w-full md:w-1/5 flex-shrink-0">
-                    {movie.cover ? (
+                    {movie.coverSrc ? (
                         <img
-                            src={movie.cover}
-                            alt={movie.titulo}
+                            src={movie.coverSrc}
+                            alt={movie.title}
                             className="rounded-lg shadow-xl w-full object-cover border-4 border-lugus-gray"
                         />
                     ) : (
                         <div className="h-96 bg-gray-700 rounded-lg flex items-center justify-center text-white border-4 border-lugus-gray">
-                            {movie.titulo}
+                            {movie.title}
                         </div>
                     )}
 
@@ -69,13 +69,13 @@ export default function MovieDetail() {
 
                     {/* Título */}
                     <h1 className="text-xl font-bold mb-1">
-                        {movie.titulo} ({movie.anyo})
+                        {movie.title} ({movie.year})
                     </h1>
                     <div className="w-full h-[1px] bg-[#2e303a]"></div>
 
                     {/* Rating + Género + Estado */}
                     <div className="flex text-lugus-gray text-sm mt-2 mb-2">
-                        <span className="mr-2">⭐ {movie.rating ?? "–"} </span><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.generoCode] ?? "💿"}</span> <span className="mr-2">{movie.genero}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.pais]?.flag}  {countries[movie.pais]?.name}</span>
+                        <span className="mr-2">⭐ {movie.rating ?? "–"} </span><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.country]?.flag}  {countries[movie.country]?.name}</span>
                     </div>
 
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
@@ -85,18 +85,18 @@ export default function MovieDetail() {
 
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-1 text-sm mt-2 mb-2">
-                                <p><strong>Director:</strong> {movie.directores?.map(d => d.nombre).join(", ")}</p>
+                                <p><strong>Director:</strong> {movie.directores?.map(d => d.name).join(", ")}</p>
                             </div>
 
                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
 
                             {/* Reparto */}
-                            {movie.actores && movie.actores.length > 0 && (
+                            {movie.cast && movie.cast.length > 0 && (
                                 <div className="mb-8 mt-2">
                                     <ul className="space-y-1 text-sm">
-                                        {movie.actores.map((a, i) => (
+                                        {movie.cast.map((a, i) => (
                                             <li key={i}>
-                                                <strong>{a.nombre}</strong> – {a.personaje}
+                                                <strong>{a.name}</strong> – {a.character}
                                             </li>
                                         ))}
                                     </ul>
@@ -107,10 +107,10 @@ export default function MovieDetail() {
 
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
                                 {/* Sinopsis */}
-                                {movie.sinopsis && (
+                                {movie.synopsis && (
                                     <div className="mb-8">
                                         <h2 className="text-2xl font-semibold mb-3">Sinopsis:</h2>
-                                        <p className="text-sm leading-relaxed">{movie.sinopsis}</p>
+                                        <p className="text-sm leading-relaxed">{movie.synopsis}</p>
                                     </div>
                                 )}
 
@@ -123,15 +123,15 @@ export default function MovieDetail() {
                             <div className="w-full h-px bg-lugus-gray mb-4"></div>
 
                             <ul className="text-sm space-y-2">
-                                <li> <Chip icon={formatIconsFormat[movie.formato] ?? "💿"} label={movie.formato} color="blue" /></li>
-                                <li><strong>Código:</strong> {movie.codigo}</li>
+                                <li> <Chip icon={formatIconsFormat[movie.format] ?? "💿"} label={movie.format} color="blue" /></li>
+                                <li><strong>Código:</strong> {movie.mgmtCode}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
-                                <li><strong>Grupo:</strong> {movie.group ?? "–"}</li>
-                                <li><strong>Estado:</strong> {movie.estado?.nombre}</li>
-                                <li><strong>Visto:</strong> {movie.visto ? "Sí" : "No"}</li>
+                                <li><strong>Grupo:</strong> {movie.group? movie.group.name : '-'}</li>
+                                <li><strong>Estado:</strong> {movie.condition?.desc}</li>
+                                <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
-                                <li><strong>Funda:</strong> {movie.funda ? "Sí" : "No"}</li>
-                                <li><strong>Última revisión:</strong> {movie.ultimaRevision ?? "–"}</li>
+                                <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
+                                <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
                                 <li><a href={movie.imdbUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"

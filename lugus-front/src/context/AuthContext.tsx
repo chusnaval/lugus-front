@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
+
 interface AuthContextType {
   isAuthenticated: boolean | null
   refreshSession: () => Promise<void>
@@ -19,7 +20,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("http://localhost:8080/lugus/api/auth/me", {
         credentials: "include",
       })
-      setIsAuthenticated(res.ok)
+      if (res.status === 200) {
+        setIsAuthenticated(true)
+      } else {
+        setIsAuthenticated(false)
+      }
     } catch {
       setIsAuthenticated(false)
     }

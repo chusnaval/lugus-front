@@ -1,88 +1,73 @@
 export interface Pelicula {
   id: number
-  titulo: string
-  tituloGest: string
-  formato: Formato
-  anyo: number
-  generoCode: string | ''
-  genero: Genero
-  codigo: string
-  notas?: string | null
-  
+  title: string
+  titleMgmt: string
+  format: Format
+  year: number
+  genreCode: string
+  genreDesc: string
+  mgmtCode: string
+  notes?: string | ''
+
   pack: boolean
   steelbook: boolean
-  funda: boolean
-  comprado: boolean
-  visto : boolean
-  
+  slipcover: boolean
+  owned: boolean
+  watched: boolean
+
   imdbId?: string | null
   rating?: number | null
   votes?: number | null
 
-  situacion?: string | null
+  situation?: string | null
 
   // Relaciones que NO están @JsonIgnore
-  estado?: Estado | null
-  padre?: Pelicula | null
+  condition?: Condition | null
+  father?: Pelicula | null
 
   directores?: Director[] | null
-  actores?: Inteprete[] | null
+  cast?: Cast[] | null
 
 
-  cover?: string | null
-  sinopsis?: string | null
+  coverSrc?: string | null
+  synopsis?: string | null
   imdbUrl?: string | undefined
   faUrl?: string | undefined
-  ultimaRevision?: string | null
+  lastSeen?: string | null
   location?: string | null
-  group?: string | null
-  pais: string | ''
+  group?: Group | null
+  country: string | ''
 }
 
-// Si tus enums vienen como string desde el backend:
-export type Formato = 
+
+export type Format =
   | "VHS"
   | "DVD"
   | "BLURAY"
   | "ULTRAHD"
   | "DIGITAL"
 
-export type Genero =
-  | "ANIMACION"
-  | "ANIME"
-  | "INFANTIL"
-  | "MUSICAL"
-  | "NAVIDENA"
-  | "DRAMA"
-  | "ROMANTICA"
-  | "COMEDIA"
-  | "CIENCIA_FICCION"
-  | "ACCION"
-  | "AVENTURA"
-  | "FANTASIA"
-  | "THRILLER"
-  | "MISTERIO"
-  | "CRIMEN"
-  | "TERROR"
-  | "BELICO"
-  | "WESTERN"
-  | "DOCUMENTAL"
-  | "DEPORTES"
+
+export interface Group {
+  id: number
+  name: string
+  faId?: number | null
+}
 
 export interface Director {
   id: number
-  nombre: string
+  name: string
 }
 
-export interface Inteprete {
+export interface Cast {
   id: number
-  nombre: string
-  personaje: string
+  name: string
+  character: string
 }
 
 
 // Si Estado tiene más campos, los añadimos
-export interface Estado {
+export interface Condition {
   id: number
-  nombre: string
+  desc: string
 }

@@ -14,9 +14,12 @@ interface PrivateRouteProps {
 }
 
 export function PrivateRoute({ children }: PrivateRouteProps) {
-  const { isAuthenticated } = useAuth()
-
-  if (isAuthenticated === null) {
+   const { isAuthenticated, refreshSession } = useAuth()
+  const [checking, setChecking] = useState(true)
+useEffect(() => {
+    refreshSession().finally(() => setChecking(false))
+  }, [])
+   if (checking || isAuthenticated === null) {
     return <div>Cargando...</div> // evita parpadeos
   }
 

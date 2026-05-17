@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useFiltersContext } from "../../context/FiltersContext"
-import { peliculas } from "../../data/peliculasMock" // tu mock real
 import ActiveFiltersChips from "../../components/filters/ActiveFiltersChips"
 import { Link } from "react-router-dom"
 import SkeletonCard from "../../components/SkeletonCard"
@@ -8,22 +7,31 @@ import Card from "../../components/ui/Card"
 import Chip from "../../components/ui/Chip"
 import { getUltimasPeliculas } from "../../api/peliculas"
 import type { Pelicula } from "../../types/Pelicula"
+import { getStats } from "../../api/stats"
+import type { FilmStats } from "../../types/FilmStats"
 
 export default function DashboardVisual() {
   const { filters } = useFiltersContext()
   const [ultimas, setUltimas] = useState<Pelicula[]>([])
+  const [stats, setStats] = useState<FilmStats>({
+    totalFilms: 0,
+    recentFilms: 0,
+    completeGroups: 0,
+    incompleteGroups: 0
+  })
 
 
   // Simulación de carga (cuando conectemos backend, esto vendrá del fetch)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-     getUltimasPeliculas().then(setUltimas).catch(console.error)
+    getUltimasPeliculas().then(setUltimas).catch(console.error)
+    getStats().then(setStats).catch(console.error)
     const timer = setTimeout(() => setIsLoading(false), 600)
     return () => clearTimeout(timer)
   }, [])
 
-  
+
   // SKELETONS mientras carga
   if (isLoading) {
     return (
@@ -35,14 +43,6 @@ export default function DashboardVisual() {
     )
   }
 
-  // Datos mock por ahora
-  const stats = {
-    total: 1240,
-    nuevasSemana: 12,
-    sagasCompletas: 34,
-    sagasIncompletas: 9,
-    duplicados: 7,
-  }
 
   // GRID REAL
   return (
@@ -54,12 +54,12 @@ export default function DashboardVisual() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <h3 className="text-lg font-semibold">Total películas</h3>
-            <p className="text-3xl font-bold mt-2">{stats.total}</p>
+            <p className="text-3xl font-bold mt-2">{stats.totalFilms}</p>
           </Card>
 
           <Card>
             <h3 className="text-lg font-semibold">Últimas añadidas</h3>
-            <p className="text-3xl font-bold mt-2">{stats.nuevasSemana}</p>
+            <p className="text-3xl font-bold mt-2">{stats.recentFilms}</p>
           </Card>
 
           <Card>
@@ -80,15 +80,15 @@ export default function DashboardVisual() {
             {ultimas.map((p) => (
               <Link key={p.id} to={`/movie/${p.id}`}>
                 <div className="relative bg-lugus-bgAlt rounded-lg overflow-hidden shadow-md hover:scale-[1.02] transition-transform group">
-                  {p.cover ? (
+                  {p.coverSrc ? (
                     <img
-                      src={p.cover}
-                      alt={p.titulo}
+                      src={p.coverSrc}
+                      alt={p.title}
                       className="h-48 w-full object-cover"
                     />
                   ) : (
                     <div className="h-48 bg-gray-700 flex items-center justify-center text-white">
-                      {p.titulo}
+                      {p.title}
                     </div>
                   )}
 
@@ -100,13 +100,13 @@ export default function DashboardVisual() {
                         group-hover:opacity-100 
                         transition-opacity 
                         flex flex-col justify-end p-3">
-                    <p className="text-white font-semibold text-sm">{p.titulo}</p>
-                    <p className="text-gray-300 text-xs">{p.anyo} · {p.formato}</p>
-                    <p className="text-gray-400 text-xs">{p.genero}</p>
+                    <p className="text-white font-semibold text-sm">{p.title}</p>
+                    <p className="text-gray-300 text-xs">{p.year} · {p.format}</p>
+                    <p className="text-gray-400 text-xs">{p.genreDesc}</p>
                   </div>
 
                   {/* TÍTULO DEBAJO */}
-                  <p className="p-2 text-center text-sm">{p.titulo}</p>
+                  <p className="p-2 text-center text-sm">{p.title}</p>
                 </div>
 
               </Link>

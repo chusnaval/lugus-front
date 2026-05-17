@@ -13,7 +13,7 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
       const res = await fetch("http://localhost:8080/lugus/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // IMPORTANTE para recibir JSESSIONID
+        credentials: "include", 
         body: JSON.stringify({ username, password }),
       })
 
