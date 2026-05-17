@@ -25,8 +25,8 @@ export interface Pelicula {
   condition?: Condition | null
   father?: Pelicula | null
 
-  director?: Director[] | null
-  casting?: Cast[] | null
+  director: Director[] | []
+  casting: Cast[] |  []
 
 
   coverSrc?: string | null

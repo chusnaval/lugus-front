@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import { getFilmById } from "../../api/filmService"
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
@@ -23,7 +23,7 @@ export default function MovieDetail() {
             .catch(() => navigate("/"))
             .finally(() => setLoading(false))
     }, [id, navigate])
-    
+
     if (loading) return <div>Cargando...</div>
     if (!movie) {
         return (
@@ -86,7 +86,17 @@ export default function MovieDetail() {
 
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-1 text-sm mt-2 mb-2">
-                                <p><strong>Director:</strong> {movie.director?.map(d => d.name).join(", ")}</p>
+                                <p><strong>Director:</strong>  {movie.director?.map((d, i) => (
+                                    <span key={d.id}>
+                                        <Link
+                                            to={`/filmography/${d.id}`}
+                                            className="text-[#d4af37] hover:underline"
+                                        >
+                                            {d.name}
+                                        </Link>
+                                        {i < movie.director.length - 1 && ", "}
+                                    </span>
+                                ))}</p>
                             </div>
 
                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
@@ -97,7 +107,12 @@ export default function MovieDetail() {
                                     <ul className="space-y-1 text-sm">
                                         {movie.casting.map((a, i) => (
                                             <li key={i}>
-                                                <strong>{a.name}</strong> – {a.character}
+                                                <Link
+                                                    to={`/filmography/${a.id}`}
+                                                    className="text-[#d4af37] hover:underline"
+                                                >
+                                                    <strong>{a.name}</strong>    </Link> – {a.character}
+                                            
                                             </li>
                                         ))}
                                     </ul>
@@ -141,7 +156,7 @@ export default function MovieDetail() {
                                 <li><strong>Código:</strong> {movie.mgmtCode}</li>
                                 <li><strong>Comprado:</strong> {movie.owned ? "Sí" : "No"}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
-                                <li><strong>Grupo:</strong> {movie.group? movie.group.name : '-'}</li>
+                                <li><strong>Grupo:</strong> {movie.group ? movie.group.name : '-'}</li>
                                 <li><strong>Estado:</strong> {movie.condition?.desc}</li>
                                 <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
@@ -152,7 +167,7 @@ export default function MovieDetail() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] 
                                      border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                    <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb"  className="w-6 h-6 inline-block" /></span> Ver en IMDb
+                                    <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb" className="w-6 h-6 inline-block" /></span> Ver en IMDb
                                 </a>
                                 </li>
                                 <li>
@@ -162,7 +177,7 @@ export default function MovieDetail() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-3 py-2 rounded bg-[#1f1f1f] 
                                          border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                        <img src="/icons/filmaff.png" alt="Ver en Filmaffinity"  className="w-6 h-6 inline-block" /> Ver en Filmaffinity
+                                        <img src="/icons/filmaff.png" alt="Ver en Filmaffinity" className="w-6 h-6 inline-block" /> Ver en Filmaffinity
                                     </a>
 
                                 </li>
