@@ -52,7 +52,7 @@ export async function getFilmById(id: number): Promise<Pelicula> {
 }
 
 export async function createMovie(movie: any) {
-  const res = await fetch("http://localhost:8080/lugus/v1/api/films", {
+  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/new", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",

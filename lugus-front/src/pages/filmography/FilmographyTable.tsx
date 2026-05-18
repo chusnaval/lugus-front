@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 
 export interface FilmographyItem {
   id: number
+  imdbId: string
   title: string
   year: number
   role: string
@@ -22,8 +23,8 @@ export default function FilmographyTable({ items }: { items: FilmographyItem[] }
     if (item.owned || item.registered) {
       navigate(`/films/${item.id}`)
     } else {
-      navigate(`/films/petition`, {
-        state: { title: item.title, year: item.year }
+      navigate(`/petition/`, {
+        state: { peliculaId: item.imdbId }
       })
     }
   }

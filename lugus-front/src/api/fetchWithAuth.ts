@@ -1,9 +1,13 @@
 import { useAuth } from "../context/AuthContext"
 
-export async function fetchWithAuth(input: RequestInfo, init?: RequestInit) {
+export async function fetchWithAuth(input: RequestInfo, options: RequestInit = {}) {
+  const token = localStorage.getItem("token")
   const res = await fetch(input, {
-    ...init,
-    credentials: "include",
+    ...options,
+    headers: {
+      ...options.headers,
+      Authorization: `Bearer ${token}`
+    }
   })
 
   if (res.status === 401) {

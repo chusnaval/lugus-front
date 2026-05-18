@@ -14,6 +14,7 @@ import SeriesDashboardVisual from "./pages/dashboard/SeriesDashboardVisual"
 import SerieDetail from "./pages/series/SerieDetail"
 import AddMoviePage from "./pages/movie/AddMoviePage"
 import FilmographyPage from "./pages/filmography/FilmographyPage"
+import PetitionFilmPage from "./pages/movie/PetitionFilmPage"
 
 
 interface PrivateRouteProps {
@@ -39,15 +40,15 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />}/>
+        <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/" element={  <PrivateRoute><HomeDashboardVisual /></PrivateRoute>} />
         <Route path="/films" element={  <PrivateRoute><FilmDashboardVisual /></PrivateRoute>} />
         <Route path="/series" element={  <PrivateRoute><SeriesDashboardVisual /></PrivateRoute>} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/films/:id" element={  <PrivateRoute><MovieDetail /></PrivateRoute>} />
         <Route path="/series/:id" element={  <PrivateRoute><SerieDetail /></PrivateRoute>} />
         <Route path="/films/new" element={<PrivateRoute><AddMoviePage /></PrivateRoute>} />
         <Route path="/filmography/:id" element={<PrivateRoute><FilmographyPage /></PrivateRoute>} />
+        <Route path="/petition" element={<PrivateRoute><PetitionFilmPage /></PrivateRoute>} />
 
         
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { createMovie } from "../../api/filmService"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Location } from "../../types/Location"
@@ -7,12 +7,14 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 
 
-export default  function AddMoviePage() {
+export default function PetitionFilmPage() {
     const [locations, setLocations] = useState<Location[]>([])
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
 
     const navigate = useNavigate()
+    const location = useLocation()
+    const peliculaId = location.state?.peliculaId
 
     const [form, setForm] = useState({
         title: "",
@@ -33,6 +35,7 @@ export default  function AddMoviePage() {
     })
 
     useEffect(() => {
+        if (!peliculaId) return
 
         const load = async () => {
             const [locRes, fmtRes, genRes] = await Promise.all([
@@ -43,11 +46,30 @@ export default  function AddMoviePage() {
             setLocations(await locRes.json())
             setFormats(await fmtRes.json())
             setGenres(await genRes.json())
-
+            const res = await fetchWithAuth(`http://localhost:8080/lugus/v1/api/imdb/${peliculaId}`)
+            const data = await res.json()
+            setForm({
+                title: data.title,
+                titleMgmt: data.titleMgmt,
+                year: data.year,
+                format: data.format,
+                genreCode: data.genreCode,
+                coverSrc: data.coverSrc,
+                imdbId: peliculaId,
+                faId: "",
+                pack: false,
+                steelbook: false,
+                slipcover: false,
+                owned: false,
+                location: "",
+                mngtCode: data.mgmtCode,
+                notes: data.notes
+            })
         }
 
         load()
-    }, [])
+    }, [peliculaId])
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {

@@ -43,6 +43,7 @@ export default function FilmographyPage() {
     <FilmographyTable
       items={items.map(item => ({
         id: item.peliculaId,
+        imdbId: item.tconst,
         title: item.title,
         year: item.startyear,
         role: item.category,
