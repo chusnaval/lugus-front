@@ -12,6 +12,8 @@ import type { Serie } from "../../types/Serie"
 import type { SeriesStats } from "../../types/SeriesStats"
 import { getUltimasSeries } from "../../api/seriesService"
 import Chip from "../../components/ui/Chip"
+import Tab from "../../components/ui/Tab"
+import { Stars } from "lucide-react"
 
 export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()
@@ -52,7 +54,13 @@ export default function FilmDashboardVisual() {
     <>
       <ActiveFiltersChips />
       <div className="space-y-8">
-
+        <div className="flex gap-6 border-b border-[#333] mb-6">
+          <Tab to="/series">Resumen</Tab>
+          <Tab to="/series/all">Todas</Tab>
+          <Tab to="/series/bought">Completas</Tab>
+          <Tab to="/series/pending">Incompletas</Tab>
+          <Tab to="/series/sagas" icon={<Stars />}>Sagas</Tab>
+        </div>
         {/* Estadísticas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>

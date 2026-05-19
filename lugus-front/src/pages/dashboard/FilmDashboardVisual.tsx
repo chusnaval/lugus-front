@@ -10,7 +10,8 @@ import type { Pelicula } from "../../types/Pelicula"
 import { getStats } from "../../api/statsService"
 import type { FilmStats } from "../../types/FilmStats"
 import { useAuth } from "../../context/AuthContext"
-import { LucideUser } from "lucide-react"
+import { LucideUser, Stars } from "lucide-react"
+import Tab from "../../components/ui/Tab"
 
 export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()
@@ -53,6 +54,13 @@ export default function FilmDashboardVisual() {
     <>
       <ActiveFiltersChips />
       <div className="space-y-8">
+        <div className="flex gap-6 border-b border-[#333] mb-6">
+          <Tab to="/films">Resumen</Tab>
+          <Tab to="/films/all">Todas</Tab>
+          <Tab to="/films/bought">Compradas</Tab>
+          <Tab to="/films/pending">Pendientes</Tab>
+          <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
+        </div>
 
         {/* Estadísticas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -118,19 +126,18 @@ export default function FilmDashboardVisual() {
           </div>
         </Card>
 
-         <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
 
-        {isAdmin && (
-          <Link
-            to="/films/new"
-            className="px-3 py-1 border border-[#d4af37] text-[#d4af37] rounded hover:bg-[#d4af37] hover:text-black transition-colors"
-          >
-            + Añadir
-          </Link>
-        )}
+          {isAdmin && (
+            <Link
+              to="/films/new"
+              className="px-3 py-1 border border-[#d4af37] text-[#d4af37] rounded hover:bg-[#d4af37] hover:text-black transition-colors">
+              + Añadir
+            </Link>
+          )}
 
-      
-      </div>
+
+        </div>
       </div>
 
 

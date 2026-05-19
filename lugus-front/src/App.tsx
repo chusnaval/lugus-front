@@ -17,6 +17,8 @@ import PetitionFilmPage from "./pages/movie/PetitionFilmPage"
 import AdminConfigPage from "./pages/config/AdminConfigPage"
 import LocationsPage from "./pages/config/LocationsPage"
 import TypeLocationsPage from "./pages/config/TypeLocationsPage"
+import SagasTab from "./pages/dashboard/SagasTab"
+import SagaDetailPage from "./pages/dashboard/SagaDetailPage"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -53,7 +55,10 @@ export default function App() {
         <Route path="/admin" element={<PrivateRoute><AdminConfigPage /></PrivateRoute>}/>
         <Route path="/admin/locations" element={<PrivateRoute><LocationsPage /></PrivateRoute>}/>
         <Route path="/admin/location-types" element={<PrivateRoute><TypeLocationsPage /></PrivateRoute>}/>
-
+        <Route path="/films/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>}/>
+        <Route path="/films/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>}/>
+        <Route path="/series/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>}/>
+        <Route path="/series/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>}/>
 
 
       </Route>
