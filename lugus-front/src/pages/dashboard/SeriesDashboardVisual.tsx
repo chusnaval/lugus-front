@@ -10,7 +10,8 @@ import { getSeriesStats, getStats } from "../../api/statsService"
 
 import type { Serie } from "../../types/Serie"
 import type { SeriesStats } from "../../types/SeriesStats"
-import { getUltimasSeries} from "../../api/seriesService"
+import { getUltimasSeries } from "../../api/seriesService"
+import Chip from "../../components/ui/Chip"
 
 export default function FilmDashboardVisual() {
   const { filters } = useFiltersContext()
@@ -63,7 +64,14 @@ export default function FilmDashboardVisual() {
             <h3 className="text-lg font-semibold">Nuevas último mes</h3>
             <p className="text-3xl font-bold mt-2">{stats.recent}</p>
           </Card>
-        
+          <Card>
+            <h3 className="text-lg font-semibold">Series</h3>
+            <p className="mt-2">
+              <Chip icon="" label={`${stats.completeGroups} completas`} color="blue" />
+              <Chip icon="" label={`${stats.incompleteGroups} incompletas`} color="gold" className="ml-2" />
+
+            </p>
+          </Card>
         </div>
 
         {/* Últimas añadidas */}

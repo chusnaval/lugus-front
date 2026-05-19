@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom"
-import { LucideSearch, LucideUser } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
+import { LucideSearch, LucideUser, Settings } from "lucide-react"
+import { useAuth } from "../context/AuthContext"
 
 
 export default function Header({ onOpenFilters }: { onOpenFilters: () => void }) {
+  const user = useAuth()
+  const navigate = useNavigate()
 
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN")
 
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-[#0b0b0b] border-b border-[#2a2a2a]">
       {/* Logo */}
-      <h1 className="text-grey font-bold text-xl tracking-wide select-none">
+      <Link to="/"> <img src={"/icons/logo.png"} className="w-24" /></Link>
+      <h1 className="text-grey font-bold text-xl tracking-wide select-none items-left">
         LUGUS
       </h1>
 
@@ -35,16 +40,19 @@ export default function Header({ onOpenFilters }: { onOpenFilters: () => void })
       <div className="flex items-center space-x-4">
         <button
           className="text-gray-400 hover:text-[#d4af37] transition-colors"
-          aria-label="Buscar"
-        >
+          aria-label="Buscar">
           <LucideSearch size={18} />
         </button>
         <button
           className="text-gray-400 hover:text-[#d4af37] transition-colors"
-          aria-label="Perfil"
-        >
+          aria-label="Perfil">
           <LucideUser size={18} />
         </button>
+         {isAdmin && (<button onClick={() => navigate("/admin")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Settings">
+          <Settings size={18} />
+        </button>)}
       </div>
     </header>
   )
