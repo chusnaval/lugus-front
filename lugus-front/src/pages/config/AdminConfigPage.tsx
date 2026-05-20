@@ -6,7 +6,8 @@ export default function AdminConfigPage() {
   const items = [
     { label: "Ubicaciones", path: "/admin/locations" },
     { label: "Tipos de ubicación", path: "/admin/location-types" },
-    { label: "Sagas", path: "/admin/sagas" } 
+    { label: "Sagas", path: "/admin/sagas" }
+
   ]
 
   return (

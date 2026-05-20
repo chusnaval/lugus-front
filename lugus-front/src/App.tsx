@@ -20,6 +20,7 @@ import TypeLocationsPage from "./pages/config/TypeLocationsPage"
 import SagasTab from "./pages/dashboard/SagasTab"
 import SagaDetailPage from "./pages/dashboard/SagaDetailPage"
 import AdminSagasPage from "./pages/config/AdminSagasPage"
+import AdminSagaTitlesPage from "./pages/config/AdminSagaTitlesPage"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -54,14 +55,15 @@ export default function App() {
         <Route path="/filmography/:id" element={<PrivateRoute><FilmographyPage /></PrivateRoute>} />
         <Route path="/petition" element={<PrivateRoute><PetitionFilmPage /></PrivateRoute>} />
         <Route path="/petition/:id" element={<PrivateRoute><PetitionFilmPage /></PrivateRoute>} />
-        <Route path="/admin" element={<PrivateRoute><AdminConfigPage /></PrivateRoute>}/>
-        <Route path="/admin/locations" element={<PrivateRoute><LocationsPage /></PrivateRoute>}/>
-        <Route path="/admin/location-types" element={<PrivateRoute><TypeLocationsPage /></PrivateRoute>}/>
-        <Route path="/films/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>}/>
-        <Route path="/films/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>}/>
-        <Route path="/series/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>}/>
-        <Route path="/series/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>}/>
-        <Route path="/admin/sagas" element={ <PrivateRoute>   <AdminSagasPage /></PrivateRoute>}/>
+        <Route path="/admin" element={<PrivateRoute><AdminConfigPage /></PrivateRoute>} />
+        <Route path="/admin/locations" element={<PrivateRoute><LocationsPage /></PrivateRoute>} />
+        <Route path="/admin/location-types" element={<PrivateRoute><TypeLocationsPage /></PrivateRoute>} />
+        <Route path="/films/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>} />
+        <Route path="/films/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>} />
+        <Route path="/series/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>} />
+        <Route path="/series/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>} />
+        <Route path="/admin/sagas" element={<PrivateRoute>   <AdminSagasPage /></PrivateRoute>} />
+        <Route path="/admin/sagas/:id/titles" element={<PrivateRoute><AdminSagaTitlesPage/></PrivateRoute>} />
 
 
       </Route>

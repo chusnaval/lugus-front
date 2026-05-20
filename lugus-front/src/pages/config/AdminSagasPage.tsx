@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
+import { useNavigate } from "react-router-dom"
 
 interface Saga {
   id: number
@@ -15,6 +16,8 @@ export default function AdminSagasPage() {
   const [loading, setLoading] = useState(true)
 
   const [editing, setEditing] = useState<Saga | null>(null)
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     id: "",
     name: "",
@@ -200,15 +203,18 @@ export default function AdminSagasPage() {
                 <td className="py-2 flex gap-2">
                   <button
                     onClick={() => startEdit(s)}
-                    className="px-2 py-1 bg-blue-600 rounded hover:bg-blue-500"
-                  >
+                    className="px-2 py-1 bg-blue-600 rounded hover:bg-blue-500">
                     Editar
                   </button>
                   <button
                     onClick={() => handleDelete(s.id)}
-                    className="px-2 py-1 bg-red-600 rounded hover:bg-red-500"
-                  >
+                    className="px-2 py-1 bg-red-600 rounded hover:bg-red-500">
                     Borrar
+                  </button>
+                  <button
+                    onClick={() => navigate(`/admin/sagas/${s.id}/titles`)}
+                    className="px-2 py-1 bg-purple-600 rounded hover:bg-purple-500">
+                    Títulos
                   </button>
                 </td>
               </tr>
