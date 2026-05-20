@@ -25,6 +25,17 @@ interface GroupDetail {
   titles: GroupTitle[]
 }
 
+interface SearchTitleResultDto {
+  titleId?: number
+  source: "INTERNAL" | "MOVIE" | "SERIES" | "IMDB"
+  title: string
+  year: number | null
+  type: "MOVIE" | "SERIES" | "EXTERNAL"
+  posterUrl: string | null
+  imdbId: string | null
+}
+
+
 export default function AdminSagaTitlesPage() {
   const { id } = useParams()
    const navigate = useNavigate()
@@ -33,7 +44,7 @@ export default function AdminSagaTitlesPage() {
   const [loading, setLoading] = useState(true)
 
   const [search, setSearch] = useState("")
-  const [results, setResults] = useState<Title[]>([])
+  const [results, setResults] = useState<SearchTitleResultDto[]>([])
 
   useEffect(() => {
     loadGroup()
@@ -57,13 +68,13 @@ export default function AdminSagaTitlesPage() {
     setResults(data)
   }
 
-  const addTitle = async (titleId: number) => {
+  const addTitle = async (item: SearchTitleResultDto) => {
     await fetchWithAuth(
       `http://localhost:8080/lugus/v1/api/groupsTitles/${id}/titles`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titleId })
+        body: JSON.stringify( item )
       }
     )
     loadGroup()
@@ -95,8 +106,7 @@ export default function AdminSagaTitlesPage() {
     <div className="p-8 text-gray-200">
       <button
         onClick={() => navigate("/admin/sagas")}
-        className="mb-4 px-3 py-1 bg-gray-700 rounded hover:bg-gray-600"
-      >
+        className="mb-4 px-3 py-1 bg-gray-700 rounded hover:bg-gray-600">
         ← Volver a sagas
       </button>
 
@@ -130,11 +140,11 @@ export default function AdminSagaTitlesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {results.map((t) => (
                 <div
-                  key={t.id}
+                  key={t.imdbId}
                   className="flex items-center gap-3 bg-[#0d0d0d] p-3 rounded border border-[#222]"
                 >
                   <img
-                    src={t.posterUrl || "/no-poster.png"}
+                    src={t.posterUrl || "./covers/placeholder.png"}
                     className="w-12 h-16 object-cover rounded"
                   />
                   <div className="flex-1">
@@ -144,7 +154,7 @@ export default function AdminSagaTitlesPage() {
                     </div>
                   </div>
                   <button
-                    onClick={() => addTitle(t.id)}
+                    onClick={() => addTitle(t)}
                     className="px-3 py-1 bg-green-600 rounded hover:bg-green-500"
                   >
                     Añadir
