@@ -1,3 +1,5 @@
+import type { Format } from "./Format"
+
 export interface Serie {
   id: number
   title: string
@@ -14,14 +16,6 @@ export interface Serie {
   completed: boolean
   coverSrc?: string | null
 }
-
-
-export type Format =
-  | "VHS"
-  | "DVD"
-  | "BLURAY"
-  | "ULTRAHD"
-  | "DIGITAL"
 
 
 export interface Group {

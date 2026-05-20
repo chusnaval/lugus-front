@@ -61,3 +61,14 @@ export async function createMovie(movie: any) {
 
   if (!res.ok) throw new Error("Error al crear la película")
 }
+
+export async function update(movie: Pelicula) {
+  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + movie.id, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(movie)
+  })
+
+  if (!res.ok) throw new Error("Error al actualizar la película")
+}

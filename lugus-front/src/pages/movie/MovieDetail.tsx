@@ -152,7 +152,7 @@ export default function MovieDetail() {
                             <div className="w-full h-px bg-lugus-gray mb-4"></div>
 
                             <ul className="text-sm space-y-2">
-                                <li> <Chip icon={formatIconsFormat[movie.format] ?? "💿"} label={movie.format} color="blue" /></li>
+                                <li> <Chip icon={formatIconsFormat[movie.format.descripcion] ?? "💿"} label={movie.format.descripcion} color="blue" /></li>
                                 <li><strong>Código:</strong> {movie.mgmtCode}</li>
                                 <li><strong>Comprado:</strong> {movie.owned ? "Sí" : "No"}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
@@ -190,7 +190,8 @@ export default function MovieDetail() {
 
             </div>
             <div className="flex gap-4 mt-2">
-                <button className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
+                <button  onClick={() => navigate(`/films/edit/${id}`)}
+                className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
                 <button
                     onClick={() => navigate(-1)}
                     className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">

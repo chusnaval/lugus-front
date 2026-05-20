@@ -21,6 +21,7 @@ import SagasTab from "./pages/dashboard/SagasTab"
 import SagaDetailPage from "./pages/dashboard/SagaDetailPage"
 import AdminSagasPage from "./pages/config/AdminSagasPage"
 import AdminSagaTitlesPage from "./pages/config/AdminSagaTitlesPage"
+import AdminPeliculaEditPage from "./pages/config/AdminPeliculaEditPage"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -64,7 +65,7 @@ export default function App() {
         <Route path="/series/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>} />
         <Route path="/admin/sagas" element={<PrivateRoute>   <AdminSagasPage /></PrivateRoute>} />
         <Route path="/admin/sagas/:id/titles" element={<PrivateRoute><AdminSagaTitlesPage/></PrivateRoute>} />
-
+        <Route path="/films/edit/:id" element={<PrivateRoute><AdminPeliculaEditPage/></PrivateRoute>} />
 
       </Route>
     </Routes>

@@ -1,3 +1,6 @@
+import type { Condition } from "./Condition"
+import type { Format } from "./Format"
+
 export interface Pelicula {
   id: number
   title: string
@@ -29,23 +32,15 @@ export interface Pelicula {
   casting: Cast[] |  []
 
 
-  coverSrc?: string | null
+  coverSrc?: string | ''
   synopsis?: string | null
   imdbUrl?: string | undefined
   faUrl?: string | undefined
   lastSeen?: string | null
-  location?: string | null
+  location?: string | ''
   group?: Group | null
   country: string | ''
 }
-
-
-export type Format =
-  | "VHS"
-  | "DVD"
-  | "BLURAY"
-  | "ULTRAHD"
-  | "DIGITAL"
 
 
 export interface Group {
@@ -66,8 +61,4 @@ export interface Cast {
 }
 
 
-// Si Estado tiene más campos, los añadimos
-export interface Condition {
-  id: number
-  desc: string
-}
+
