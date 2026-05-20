@@ -8,6 +8,7 @@ interface SagaMovie {
   year: number
   cover: string
   film: number
+  imdbId: string
   status: "OWNED" | "WISHLIST" | "NONE"
 }
 
@@ -61,9 +62,12 @@ export default function SagaDetailPage() {
         {saga.movies.map((movie, index) => (
           <div
             key={movie.id}
-            onClick={() => movie.film !== -1 && navigate(`/films/${movie.film}`)}
-              className={`cursor-pointer bg-[#111] border border-[#333] rounded-lg overflow-hidden transition
-    ${saga.id === -1 ? "opacity-40 cursor-not-allowed" : "hover:bg-[#1a1a1a]"}`}
+            onClick={() =>
+                movie.film === -1 
+                ? navigate(`/petition/${movie.imdbId}`)
+                : navigate(`/films/${movie.film}`)}
+                className={`cursor-pointer bg-[#111] border border-[#333] rounded-lg overflow-hidden transition
+                ${saga.id === -1 ? "opacity-60 cursor-not-allowed" : "hover:bg-[#1a1a1a]"}`}
           >
             <img
               src={movie.cover}

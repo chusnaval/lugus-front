@@ -5,7 +5,8 @@ export default function AdminConfigPage() {
 
   const items = [
     { label: "Ubicaciones", path: "/admin/locations" },
-    { label: "Tipos de ubicación", path: "/admin/location-types" }
+    { label: "Tipos de ubicación", path: "/admin/location-types" },
+    { label: "Sagas", path: "/admin/sagas" } 
   ]
 
   return (
@@ -17,8 +18,7 @@ export default function AdminConfigPage() {
           <button
             key={item.path}
             onClick={() => navigate(item.path)}
-            className="bg-[#111] border border-[#333] p-6 rounded-lg hover:bg-[#1a1a1a] transition text-left"
-          >
+            className="bg-[#111] border border-[#333] p-6 rounded-lg hover:bg-[#1a1a1a] transition text-left">
             <h2 className="text-xl font-semibold text-[#d4af37] mb-2">{item.label}</h2>
             <p className="text-gray-400 text-sm">
               Gestionar {item.label.toLowerCase()}
