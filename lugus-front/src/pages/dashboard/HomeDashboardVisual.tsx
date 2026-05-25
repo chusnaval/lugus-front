@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useFiltersContext } from "../../context/FiltersContext"
+
 
 import SkeletonCard from "../../components/SkeletonCard"
 
@@ -12,7 +12,6 @@ import MediaSection, { type MediaItem } from "../../components/MediaSection"
 import { getUltimasSeriesForHome } from "../../api/seriesService"
 
 export default function HomeDashboardVisual() {
-    const { filters } = useFiltersContext()
     const [lastFilms, setLastFilms] = useState<MediaItem[]>([])
     const [lastSeries, setLastSeries] = useState<MediaItem[]>([])
     const [stats, setStats] = useState<FilmStats>({

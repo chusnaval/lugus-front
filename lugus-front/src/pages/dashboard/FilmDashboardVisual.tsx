@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useFiltersContext } from "../../context/FiltersContext"
-import ActiveFiltersChips from "../../components/filters/ActiveFiltersChips"
+
+
 import { Link } from "react-router-dom"
 import SkeletonCard from "../../components/SkeletonCard"
 import Card from "../../components/ui/Card"
@@ -10,11 +10,11 @@ import type { Pelicula } from "../../types/Pelicula"
 import { getStats } from "../../api/statsService"
 import type { FilmStats } from "../../types/FilmStats"
 import { useAuth } from "../../context/AuthContext"
-import { LucideUser, Stars } from "lucide-react"
+import {   Stars } from "lucide-react"
 import Tab from "../../components/ui/Tab"
 
 export default function FilmDashboardVisual() {
-  const { filters } = useFiltersContext()
+
   const [ultimas, setUltimas] = useState<Pelicula[]>([])
   const [stats, setStats] = useState<FilmStats>({
     totalFilms: 0,
@@ -52,7 +52,7 @@ export default function FilmDashboardVisual() {
   // GRID REAL
   return (
     <>
-      <ActiveFiltersChips />
+  
       <div className="space-y-8">
         <div className="flex gap-6 border-b border-[#333] mb-6">
           <Tab to="/films">Resumen</Tab>
@@ -60,6 +60,7 @@ export default function FilmDashboardVisual() {
           <Tab to="/films/bought">Compradas</Tab>
           <Tab to="/films/pending">Pendientes</Tab>
           <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
+
         </div>
 
         {/* Estadísticas */}
@@ -113,7 +114,7 @@ export default function FilmDashboardVisual() {
                         transition-opacity 
                         flex flex-col justify-end p-3">
                     <p className="text-white font-semibold text-sm">{p.title}</p>
-                    <p className="text-gray-300 text-xs">{p.year} · {p.format}</p>
+                    <p className="text-gray-300 text-xs">{p.year} · {p.format.descripcion}</p>
                     <p className="text-gray-400 text-xs">{p.genreDesc}</p>
                   </div>
 

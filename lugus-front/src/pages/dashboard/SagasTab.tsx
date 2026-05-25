@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import Tab from "../../components/ui/Tab"
-import { Stars } from "lucide-react"
+import { LucideSearch, Stars } from "lucide-react"
 
 interface Saga {
   id: number
@@ -13,7 +13,7 @@ interface Saga {
 
 interface SagaPage {
   content: Saga[]
-  page: number
+  pageNumber: number
   size: number
   totalPages: number
   totalElements: number
@@ -24,7 +24,7 @@ export default function SagasTab() {
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const pageSize = 24 
+  const pageSize = 24
 
   useEffect(() => {
     loadSagas(page)
@@ -55,19 +55,24 @@ export default function SagasTab() {
   }
 
   return (
-         
+
     <div className="p-4">
-           <div className="flex gap-6 border-b border-[#333] mb-6">
-          <Tab to="/films">Resumen</Tab>
-          <Tab to="/films/all">Todas</Tab>
-          <Tab to="/films/bought">Compradas</Tab>
-          <Tab to="/films/pending">Pendientes</Tab>
-          <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
-        </div>
+      <div className="flex gap-6 border-b border-[#333] mb-6">
+        <Tab to="/films">Resumen</Tab>
+        <Tab to="/films/all">Todas</Tab>
+        <Tab to="/films/bought">Compradas</Tab>
+        <Tab to="/films/pending">Pendientes</Tab>
+        <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
+        <button
+          className="ml-auto text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Buscar">
+          <LucideSearch size={18} />
+        </button>
+      </div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold text-[#d4af37]">Sagas</h2>
         <div className="text-sm text-gray-400">
-          Página {data.page + 1} de {data.totalPages} · {data.totalElements} sagas
+          Página {data.pageNumber + 1} de {data.totalPages} · {data.totalElements} sagas
         </div>
       </div>
 
@@ -102,27 +107,25 @@ export default function SagasTab() {
         <button
           onClick={handlePrev}
           disabled={page === 0}
-          className={`px-3 py-1 rounded ${
-            page === 0
+          className={`px-3 py-1 rounded ${page === 0
               ? "bg-gray-700 text-gray-400 cursor-not-allowed"
               : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
-          }`}
+            }`}
         >
           ← Anterior
         </button>
 
         <span className="text-gray-300 text-sm">
-          Página {data.page + 1} de {data.totalPages}
+          Página {data.pageNumber + 1} de {data.totalPages}
         </span>
 
         <button
           onClick={handleNext}
           disabled={page >= data.totalPages - 1}
-          className={`px-3 py-1 rounded ${
-            page >= data.totalPages - 1
+          className={`px-3 py-1 rounded ${page >= data.totalPages - 1
               ? "bg-gray-700 text-gray-400 cursor-not-allowed"
               : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
-          }`}
+            }`}
         >
           Siguiente →
         </button>

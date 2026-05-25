@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { useFiltersContext } from "../../context/FiltersContext"
-import ActiveFiltersChips from "../../components/filters/ActiveFiltersChips"
+
+
 import { Link } from "react-router-dom"
 import SkeletonCard from "../../components/SkeletonCard"
 import Card from "../../components/ui/Card"
 
 
-import { getSeriesStats, getStats } from "../../api/statsService"
+import { getSeriesStats } from "../../api/statsService"
 
 import type { Serie } from "../../types/Serie"
 import type { SeriesStats } from "../../types/SeriesStats"
@@ -16,7 +16,7 @@ import Tab from "../../components/ui/Tab"
 import { Stars } from "lucide-react"
 
 export default function FilmDashboardVisual() {
-  const { filters } = useFiltersContext()
+
   const [last, setLast] = useState<Serie[]>([])
   const [stats, setStats] = useState<SeriesStats>({
     total: 0,
@@ -52,7 +52,7 @@ export default function FilmDashboardVisual() {
   // GRID REAL
   return (
     <>
-      <ActiveFiltersChips />
+ 
       <div className="space-y-8">
         <div className="flex gap-6 border-b border-[#333] mb-6">
           <Tab to="/series">Resumen</Tab>

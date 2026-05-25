@@ -22,6 +22,10 @@ import SagaDetailPage from "./pages/dashboard/SagaDetailPage"
 import AdminSagasPage from "./pages/config/AdminSagasPage"
 import AdminSagaTitlesPage from "./pages/config/AdminSagaTitlesPage"
 import AdminPeliculaEditPage from "./pages/config/AdminPeliculaEditPage"
+import AllFilmsTab from "./pages/dashboard/AllFilmsTab"
+import OwnedFilmsTab from "./pages/dashboard/OwnedFilmsTab"
+import PendingFilmsTab from "./pages/dashboard/PendingFilmsTab"
+
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -52,6 +56,9 @@ export default function App() {
         <Route path="/series" element={<PrivateRoute><SeriesDashboardVisual /></PrivateRoute>} />
         <Route path="/films/:id" element={<PrivateRoute><MovieDetail /></PrivateRoute>} />
         <Route path="/series/:id" element={<PrivateRoute><SerieDetail /></PrivateRoute>} />
+        <Route path="/films/all" element={<PrivateRoute><AllFilmsTab /></PrivateRoute>} />
+        <Route path="/films/bought" element={<PrivateRoute><OwnedFilmsTab /></PrivateRoute>} />
+        <Route path="/films/pending" element={<PrivateRoute><PendingFilmsTab /></PrivateRoute>} />
         <Route path="/films/new" element={<PrivateRoute><AddMoviePage /></PrivateRoute>} />
         <Route path="/filmography/:id" element={<PrivateRoute><FilmographyPage /></PrivateRoute>} />
         <Route path="/petition" element={<PrivateRoute><PetitionFilmPage /></PrivateRoute>} />

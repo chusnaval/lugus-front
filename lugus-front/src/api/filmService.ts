@@ -20,6 +20,41 @@ export async function getUltimasPeliculas(): Promise<Pelicula[]> {
   return res.json();
 }
 
+export async function getPeliculasPage(
+  page: number,
+  size: number,
+  filters: Record<string, any> = {}
+) {
+  const params = new URLSearchParams()
+
+  params.set("page", page.toString())
+  params.set("size", size.toString())
+
+  // Añadir solo filtros que tengan valor
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== "") {
+      params.set(key, value.toString())
+    }
+  })
+
+  const res = await fetch(
+    `http://localhost:8080/lugus/v1/api/films/page?${params.toString()}`,
+    {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
+
+  if (!res.ok) {
+    throw new Error("Error al cargar películas")
+  }
+
+  return res.json()
+}
+
+
 export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
   const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/ultimas", {
     credentials: "include",
