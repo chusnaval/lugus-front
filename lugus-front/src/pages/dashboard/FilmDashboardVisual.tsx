@@ -51,8 +51,6 @@ export default function FilmDashboardVisual() {
 
   // GRID REAL
   return (
-    <>
-  
       <div className="space-y-8">
         <div className="flex gap-6 border-b border-[#333] mb-6">
           <Tab to="/films">Resumen</Tab>
@@ -140,8 +138,5 @@ export default function FilmDashboardVisual() {
 
         </div>
       </div>
-
-
-    </>
   )
 }

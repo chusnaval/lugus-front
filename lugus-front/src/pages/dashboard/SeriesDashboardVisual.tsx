@@ -12,7 +12,7 @@ import type { Serie } from "../../types/Serie"
 import type { SeriesStats } from "../../types/SeriesStats"
 import { getUltimasSeries } from "../../api/seriesService"
 import Chip from "../../components/ui/Chip"
-import Tab from "../../components/ui/Tab"
+import Tab from "../../components/ui/Tab" 
 import { Stars } from "lucide-react"
 
 export default function FilmDashboardVisual() {
@@ -51,8 +51,6 @@ export default function FilmDashboardVisual() {
 
   // GRID REAL
   return (
-    <>
- 
       <div className="space-y-8">
         <div className="flex gap-6 border-b border-[#333] mb-6">
           <Tab to="/series">Resumen</Tab>
@@ -111,7 +109,7 @@ export default function FilmDashboardVisual() {
                         transition-opacity 
                         flex flex-col justify-end p-3">
                     <p className="text-white font-semibold text-sm">{p.title}</p>
-                    <p className="text-gray-300 text-xs">{p.startYear} · {p.format}</p>
+                    <p className="text-gray-300 text-xs">{p.startYear} · {p.format.codigo}</p>
                     <p className="text-gray-400 text-xs">{p.genreDesc}</p>
                   </div>
 
@@ -125,7 +123,5 @@ export default function FilmDashboardVisual() {
         </Card>
       </div>
 
-
-    </>
   )
 }

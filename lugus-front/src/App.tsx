@@ -25,6 +25,9 @@ import AdminPeliculaEditPage from "./pages/config/AdminPeliculaEditPage"
 import AllFilmsTab from "./pages/dashboard/AllFilmsTab"
 import OwnedFilmsTab from "./pages/dashboard/OwnedFilmsTab"
 import PendingFilmsTab from "./pages/dashboard/PendingFilmsTab"
+import AllSeriesTab from "./pages/dashboard/AllSeriesTab"
+import PendingSeriesTab from "./pages/dashboard/PendingSeriesTab"
+import OwnedSeriesTab from "./pages/dashboard/OwnedSeriesTab"
 
 
 interface PrivateRouteProps {
@@ -56,9 +59,12 @@ export default function App() {
         <Route path="/series" element={<PrivateRoute><SeriesDashboardVisual /></PrivateRoute>} />
         <Route path="/films/:id" element={<PrivateRoute><MovieDetail /></PrivateRoute>} />
         <Route path="/series/:id" element={<PrivateRoute><SerieDetail /></PrivateRoute>} />
+        <Route path="/series/all" element={<PrivateRoute><AllSeriesTab /></PrivateRoute>} />
         <Route path="/films/all" element={<PrivateRoute><AllFilmsTab /></PrivateRoute>} />
         <Route path="/films/bought" element={<PrivateRoute><OwnedFilmsTab /></PrivateRoute>} />
         <Route path="/films/pending" element={<PrivateRoute><PendingFilmsTab /></PrivateRoute>} />
+        <Route path="/series/bought" element={<PrivateRoute><OwnedSeriesTab /></PrivateRoute>} />
+        <Route path="/series/pending" element={<PrivateRoute><PendingSeriesTab /></PrivateRoute>} />
         <Route path="/films/new" element={<PrivateRoute><AddMoviePage /></PrivateRoute>} />
         <Route path="/filmography/:id" element={<PrivateRoute><FilmographyPage /></PrivateRoute>} />
         <Route path="/petition" element={<PrivateRoute><PetitionFilmPage /></PrivateRoute>} />

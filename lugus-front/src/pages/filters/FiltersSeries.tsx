@@ -34,16 +34,24 @@ export default function FiltersSeries({ filters, setFilters, formats, genres }: 
 
       <Input
         label="Personal"
-        value={filters.titleMgmt ?? ""}
-        onChange={(v) => update("titleMgmt", v)}
+        value={filters.casting ?? ""}
+        onChange={(v) => update("casting", v)}
       />
 
       <Input
-        label="Año de estreno"
+        label="Año de estreno (desde)"
         type="number"
-        value={filters.year ?? ""}
-        onChange={(v) => update("year", Number(v))}
+        value={filters.fromYear ?? ""}
+        onChange={(v) => update("fromYear", Number(v))}
       />
+
+      <Input
+        label="Año de estreno (hasta)"
+        type="number"
+        value={filters.toYear ?? ""}
+        onChange={(v) => update("toYear", Number(v))}
+      />
+
 
       <Select
         label="Formato"
@@ -63,8 +71,8 @@ export default function FiltersSeries({ filters, setFilters, formats, genres }: 
         label="Completa"
         value={filters.complete ?? ""}
         options={[
-          { label: "Sí", value: "yes" },
-          { label: "No", value: "no" }
+          { label: "Sí", value: "true" },
+          { label: "No", value: "false" }
         ]}
         onChange={(v) => update("complete", v)}
       />
@@ -76,9 +84,20 @@ export default function FiltersSeries({ filters, setFilters, formats, genres }: 
           { label: "Título", value: "title" },
           { label: "Año", value: "year" },
           { label: "Formato", value: "format" },
-          { label: "Género", value: "genre" }
+          { label: "Género", value: "genre" },
+          { label: "Novedades", value: "new" }
         ]}
         onChange={(v) => update("sort", v)}
+      />
+
+      <Select
+        label="Sentido del orden"
+        value={filters.sortDirection ?? ""}
+        options={[
+          { label: "Ascendente", value: "asc" },
+          { label: "Descendente", value: "desc" }
+        ]}
+        onChange={(v) => update("sortDirection", v)}
       />
 
     </div>
