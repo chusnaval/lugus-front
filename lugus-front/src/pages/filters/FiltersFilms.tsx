@@ -83,11 +83,21 @@ export default function FiltersFilms({ filters, setFilters, formats, genres }: F
           { label: "Título", value: "title" },
           { label: "Año", value: "year" },
           { label: "Formato", value: "format" },
-          { label: "Género", value: "genre" }
+          { label: "Género", value: "genre" },
+          { label: "Novedades", value: "new" }
         ]}
         onChange={(v) => update("sort", v)}
       />
 
+      <Select
+        label="Sentido del orden"
+        value={filters.sortDirection ?? ""}
+        options={[
+          { label: "Ascendente", value: "asc" },
+          { label: "Descendente", value: "desc" }
+        ]}
+        onChange={(v) => update("sortDirection", v)}
+      />
     </div>
   )
 }

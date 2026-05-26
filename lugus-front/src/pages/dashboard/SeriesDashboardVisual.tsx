@@ -14,9 +14,12 @@ import { getUltimasSeries } from "../../api/seriesService"
 import Chip from "../../components/ui/Chip"
 import Tab from "../../components/ui/Tab" 
 import { Stars } from "lucide-react"
+import { useAuth } from "../../context/AuthContext"
 
 export default function FilmDashboardVisual() {
+  const user = useAuth()
 
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN")
   const [last, setLast] = useState<Serie[]>([])
   const [stats, setStats] = useState<SeriesStats>({
     total: 0,
@@ -121,6 +124,19 @@ export default function FilmDashboardVisual() {
             ))}
           </div>
         </Card>
+
+        <div className="flex items-center space-x-4">
+
+          {isAdmin && (
+            <Link
+              to="/series/new"
+              className="px-3 py-1 border border-[#d4af37] text-[#d4af37] rounded hover:bg-[#d4af37] hover:text-black transition-colors">
+              + Añadir
+            </Link>
+          )}
+
+
+        </div>
       </div>
 
   )

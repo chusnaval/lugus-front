@@ -2,8 +2,8 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
-import { PencilLine, Undo2, Bot } from "lucide-react"
-import { countries } from "../../utils/countries"
+import { PencilLine, Undo2 } from "lucide-react"
+
 import { useEffect, useState } from "react"
 
 import type { Serie } from "../../types/Serie"
@@ -108,7 +108,7 @@ SERIE
                             <div className="w-full h-px bg-lugus-gray mb-4"></div>
 
                             <ul className="text-sm space-y-2">
-                                <li> <Chip icon={formatIconsFormat[serie.format] ?? "💿"} label={serie.format} color="blue" /></li>
+                                <li> <Chip icon={formatIconsFormat[serie.format.codigo] ?? "💿"} label={serie.format.codigo} color="blue" /></li>
                                 <li><strong>Código:</strong> {serie.mgmtCode}</li>
                                 <li><strong>Estantería:</strong> {serie.location ?? "–"}</li>
                                 
@@ -121,7 +121,9 @@ SERIE
 
             </div>
             <div className="flex gap-4 mt-2">
-                <button className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
+                <button  onClick={() => navigate(`/series/edit/${id}`)}
+                className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
+                
                 <button
                     onClick={() => navigate(-1)}
                     className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">
