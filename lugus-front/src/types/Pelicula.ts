@@ -30,7 +30,7 @@ export interface Pelicula {
 
   director: Director[] | []
   casting: Cast[] |  []
-
+  trailerUrl?: string | null
 
   coverSrc?: string | ''
   synopsis?: string | null

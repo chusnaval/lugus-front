@@ -57,13 +57,17 @@ export default function MovieDetail() {
                         </div>
                     )}
 
-                    {/* TRAILER PLACEHOLDER */}
-                    <div className="flex items-center justify-center mt-8 mb-8">
-                        <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-red rounded-lg 
-                    flex items-center justify-center text-lugus-gray text-sm">
-                            Tráiler próximamente
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
+                        {/* Notas */}
+                        {movie.notes && (
+                            <div className="mb-8">
+                                <h2 className="text-2xl font-semibold mb-3">Notas:</h2>
+                                <p className="text-sm leading-relaxed">{movie.notes}</p>
+                            </div>
+                        )}
+
                     </div>
+
                 </div>
 
                 <div className="flex-1">
@@ -112,7 +116,7 @@ export default function MovieDetail() {
                                                     className="text-[#d4af37] hover:underline"
                                                 >
                                                     <strong>{a.name}</strong>    </Link> – {a.character}
-                                            
+
                                             </li>
                                         ))}
                                     </ul>
@@ -131,19 +135,20 @@ export default function MovieDetail() {
                                 )}
 
                             </div>
-
-
                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
-                            <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
-                                {/* Notas */}
-                                {movie.notes && (
-                                    <div className="mb-8">
-                                        <h2 className="text-2xl font-semibold mb-3">Notas:</h2>
-                                        <p className="text-sm leading-relaxed">{movie.notes}</p>
-                                    </div>
-                                )}
+                            {movie.trailerUrl && (
+                                <div className="mt-6">
+                                    <iframe
+                                        className="w-full h-64 rounded-lg"
+                                        src={movie.trailerUrl.replace("watch?v=", "embed/")}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </div>
+                            )}
 
-                            </div>
+
+
                         </div>
                         {/* TARJETA DE INFORMACIÓN ADICIONAL */}
                         <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 h-fit">
@@ -190,8 +195,8 @@ export default function MovieDetail() {
 
             </div>
             <div className="flex gap-4 mt-2">
-                <button  onClick={() => navigate(`/films/edit/${id}`)}
-                className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
+                <button onClick={() => navigate(`/films/edit/${id}`)}
+                    className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
                 <button
                     onClick={() => navigate(-1)}
                     className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">

@@ -6,6 +6,7 @@ import type { Location } from "../../types/Location"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Pelicula } from "../../types/Pelicula"
+import Input from "../../components/ui/Input"
 
 
 export default function AdminPeliculaEditPage() {
@@ -31,7 +32,8 @@ export default function AdminPeliculaEditPage() {
         owned: false,
         location: "",
         mngtCode: "",
-        notes: ""
+        notes: "",
+        trailerUrl: ""
     })
 
 
@@ -58,6 +60,7 @@ export default function AdminPeliculaEditPage() {
         form.location = data.location ?? ""
         form.mngtCode = data.mgmtCode
         form.notes = data.notes ?? ""
+        form.trailerUrl = data.trailerUrl
     }
 
     useEffect(() => {
@@ -128,6 +131,7 @@ export default function AdminPeliculaEditPage() {
             imdbUrl: undefined,
             lastSeen: null,
             group: null,
+            trailerUrl: form.trailerUrl,
             country: '',
             id: Number(id)
         }
@@ -293,6 +297,19 @@ export default function AdminPeliculaEditPage() {
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
                     />
                 </div>
+
+                <div>
+                    <label className="block mb-1">Trailer oficial (YouTube)</label>
+                    <input
+                        name="trailerUrl"
+                        value={form.trailerUrl}
+                        onChange={handleChange}
+                        className="w-full bg-[#111] border border-[#333] p-2 rounded"
+                    />
+                </div>
+
+
+
 
                 {/* Notas */}
                 <div>
