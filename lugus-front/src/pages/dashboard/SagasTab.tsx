@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import Tab from "../../components/ui/Tab"
-import { LucideSearch, Stars } from "lucide-react"
+import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
 
 interface Saga {
   id: number
@@ -40,6 +40,26 @@ export default function SagasTab() {
     setLoading(false)
   }
 
+  const exportFile = async (type: "ods" | "md" | "pdf") => {
+    const params = new URLSearchParams()
+
+    
+
+    const res = await fetchWithAuth(
+      `http://localhost:8080/lugus/v1/api/sagas/export/${type}?page=0&size=-1&${params.toString()}`
+    )
+
+    const blob = await res.blob()
+    const url = window.URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `peliculas.${type}`
+    a.click()
+
+    window.URL.revokeObjectURL(url)
+  }
+
   const handlePrev = () => {
     if (!data) return
     if (page > 0) setPage(page - 1)
@@ -63,6 +83,34 @@ export default function SagasTab() {
         <Tab to="/films/bought">Compradas</Tab>
         <Tab to="/films/pending">Pendientes</Tab>
         <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
+
+        {/* Export ODS */}
+        <button
+          onClick={() => exportFile("ods")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar ODS"
+        >
+          <FileSpreadsheet size={18} />
+        </button>
+
+        {/* Export Markdown */}
+        <button
+          onClick={() => exportFile("md")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar Markdown"
+        >
+          <FileText size={18} />
+        </button>
+
+        {/* Export PDF */}
+        <button
+          onClick={() => exportFile("pdf")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar PDF"
+        >
+          <FileType size={18} />
+        </button>
+
         <button
           className="ml-auto text-gray-400 hover:text-[#d4af37] transition-colors"
           aria-label="Buscar">
@@ -108,8 +156,8 @@ export default function SagasTab() {
           onClick={handlePrev}
           disabled={page === 0}
           className={`px-3 py-1 rounded ${page === 0
-              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-              : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
+            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+            : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
             }`}
         >
           ← Anterior
@@ -123,8 +171,8 @@ export default function SagasTab() {
           onClick={handleNext}
           disabled={page >= data.totalPages - 1}
           className={`px-3 py-1 rounded ${page >= data.totalPages - 1
-              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-              : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
+            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+            : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
             }`}
         >
           Siguiente →

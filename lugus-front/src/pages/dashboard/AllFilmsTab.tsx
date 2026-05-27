@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 import Tab from "../../components/ui/Tab"
-import { LucideSearch, Stars } from "lucide-react"
+import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
 import type { Pelicula } from "../../types/Pelicula"
 
 import FiltersFilms from "../filters/FiltersFilms"
@@ -49,6 +49,31 @@ export default function AllFilmsTab() {
   }, [page, appliedFilters])
 
 
+  const exportFile = async (type: "ods" | "md" | "pdf") => {
+    const params = new URLSearchParams()
+
+    Object.entries(appliedFilters).forEach(([k, v]) => {
+      if (v !== "" && v !== null && v !== undefined) {
+        params.set(k, v.toString())
+      }
+    })
+
+    const res = await fetchWithAuth(
+      `http://localhost:8080/lugus/v1/api/films/export/${type}?page=0&size=-1&${params.toString()}`
+    )
+
+    const blob = await res.blob()
+    const url = window.URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `peliculas.${type}`
+    a.click()
+
+    window.URL.revokeObjectURL(url)
+  }
+
+
   const handlePrev = () => {
     if (!data) return
     if (page > 0) setPage(page - 1)
@@ -72,6 +97,33 @@ export default function AllFilmsTab() {
         <Tab to="/films/bought">Compradas</Tab>
         <Tab to="/films/pending">Pendientes</Tab>
         <Tab to="/films/sagas" icon={<Stars />}>Sagas</Tab>
+
+        {/* Export ODS */}
+        <button
+          onClick={() => exportFile("ods")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar ODS"
+        >
+          <FileSpreadsheet size={18} />
+        </button>
+
+        {/* Export Markdown */}
+        <button
+          onClick={() => exportFile("md")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar Markdown"
+        >
+          <FileText size={18} />
+        </button>
+
+        {/* Export PDF */}
+        <button
+          onClick={() => exportFile("pdf")}
+          className="text-gray-400 hover:text-[#d4af37] transition-colors"
+          aria-label="Exportar PDF"
+        >
+          <FileType size={18} />
+        </button>
         <button onClick={() => setFiltersOpen(true)}
           className="ml-auto text-gray-400 hover:text-[#d4af37] transition-colors"
           aria-label="Buscar">

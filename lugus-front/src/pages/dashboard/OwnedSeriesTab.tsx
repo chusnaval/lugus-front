@@ -2,9 +2,8 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 import Tab from "../../components/ui/Tab"
-import { LucideSearch, Stars } from "lucide-react"
+import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
 
-import FiltersFilms from "../filters/FiltersFilms"
 import { FilterDrawer } from "../../components/filters/FilterDrawer"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
@@ -33,7 +32,7 @@ export default function AllSeriesTab() {
     const [genres, setGenres] = useState<Genre[]>([])
     const pageSize = 24
     const effectiveFilters = {
-       owned: "true",
+        owned: "true",
         ...filters
     }
 
@@ -50,6 +49,29 @@ export default function AllSeriesTab() {
 
     }, [page, appliedFilters])
 
+    const exportFile = async (type: "ods" | "md" | "pdf") => {
+        const params = new URLSearchParams()
+
+        Object.entries(appliedFilters).forEach(([k, v]) => {
+            if (v !== "" && v !== null && v !== undefined) {
+                params.set(k, v.toString())
+            }
+        })
+
+        const res = await fetchWithAuth(
+            `http://localhost:8080/lugus/v1/api/series/export/${type}?page=0&size=-1&${params.toString()}`
+        )
+
+        const blob = await res.blob()
+        const url = window.URL.createObjectURL(blob)
+
+        const a = document.createElement("a")
+        a.href = url
+        a.download = `peliculas.${type}`
+        a.click()
+
+        window.URL.revokeObjectURL(url)
+    }
 
     const handlePrev = () => {
         if (!data) return
@@ -74,6 +96,34 @@ export default function AllSeriesTab() {
                 <Tab to="/series/bought">Compradas</Tab>
                 <Tab to="/series/pending">Pendientes</Tab>
                 <Tab to="/series/sagas" icon={<Stars />}>Sagas</Tab>
+
+                {/* Export ODS */}
+                <button
+                    onClick={() => exportFile("ods")}
+                    className="text-gray-400 hover:text-[#d4af37] transition-colors"
+                    aria-label="Exportar ODS"
+                >
+                    <FileSpreadsheet size={18} />
+                </button>
+
+                {/* Export Markdown */}
+                <button
+                    onClick={() => exportFile("md")}
+                    className="text-gray-400 hover:text-[#d4af37] transition-colors"
+                    aria-label="Exportar Markdown"
+                >
+                    <FileText size={18} />
+                </button>
+
+                {/* Export PDF */}
+                <button
+                    onClick={() => exportFile("pdf")}
+                    className="text-gray-400 hover:text-[#d4af37] transition-colors"
+                    aria-label="Exportar PDF"
+                >
+                    <FileType size={18} />
+                </button>
+
                 <button onClick={() => setFiltersOpen(true)}
                     className="ml-auto text-gray-400 hover:text-[#d4af37] transition-colors"
                     aria-label="Buscar">
