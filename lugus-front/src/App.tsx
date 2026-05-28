@@ -32,6 +32,7 @@ import CoversPage from "./pages/config/CoversPage"
 import SeriesCreatePage from "./pages/series/SeriesCreatePage"
 import SeriesEditPage from "./pages/series/SeriesEditPage"
 import AdminPeliculaEditPage from "./pages/movie/AdminPeliculaEditPage"
+import AdminTitlesPage from "./pages/config/AdminTitlesPage"
 
 
 interface PrivateRouteProps {
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="/admin/locations" element={<PrivateRoute><LocationsPage /></PrivateRoute>} />
         <Route path="/admin/sagas" element={<PrivateRoute>   <AdminSagasPage /></PrivateRoute>} />
         <Route path="/admin/sagas/:id/titles" element={<PrivateRoute><AdminSagaTitlesPage/></PrivateRoute>} />
+        <Route path="/admin/titles/" element={<PrivateRoute><AdminTitlesPage/></PrivateRoute>} />
         <Route path="/filmography/:id" element={<PrivateRoute><FilmographyPage /></PrivateRoute>} />
         <Route path="/films" element={<PrivateRoute><FilmDashboardVisual /></PrivateRoute>} />
         <Route path="/films/:id" element={<PrivateRoute><MovieDetail /></PrivateRoute>} />

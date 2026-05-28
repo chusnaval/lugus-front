@@ -10,6 +10,8 @@ import Input from "../../components/ui/Input"
 
 import type { Pelicula } from "../../types/Pelicula"
 import { getCoversPage } from "../../api/covers"
+import { fetchWithAuth } from "../../api/fetchWithAuth"
+import type { Source } from "../../types/Source"
 
 interface FilmPage {
   content: Pelicula[]
@@ -23,7 +25,7 @@ export default function CoversPage() {
   const [data, setData] = useState<FilmPage | null>(null)
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
-
+  const [sources, setSources] = useState<Source[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [filters, setFilters] = useState({
     missing: "yes", // por defecto: sin carátula
@@ -38,9 +40,17 @@ export default function CoversPage() {
     ...filters
   }
 
+
+  const loadTypes = async () => {
+    const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/sources")
+    const data = await res.json()
+    setSources(data)
+    setLoading(false)
+  }
+
   useEffect(() => {
     setLoading(true)
-
+    loadTypes()
     getCoversPage(page, pageSize, {
       ...effectiveFilters,
       ...appliedFilters
@@ -172,11 +182,11 @@ export default function CoversPage() {
             label="Source"
             value={filters.source}
             onChange={(v) => setFilters(f => ({ ...f, source: v }))}
-            options={[
-              { label: "FA", value: "FA" },
-              { label: "IMDB", value: "IMDB" },
-              { label: "MANUAL", value: "MANUAL" }
-            ]}
+            options={sources.map(f => ({
+              label: f.description,
+              value: '' + f.id
+            }))}
+
           />
 
           <Input

@@ -60,7 +60,7 @@ export default function AdminPeliculaEditPage() {
         form.location = data.location ?? ""
         form.mngtCode = data.mgmtCode
         form.notes = data.notes ?? ""
-        form.trailerUrl = data.trailerUrl
+        form.trailerUrl = data.trailerUrl?? ""
     }
 
     useEffect(() => {

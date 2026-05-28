@@ -7,8 +7,8 @@ export default function AdminConfigPage() {
     { label: "Ubicaciones", path: "/admin/locations" },
     { label: "Tipos de ubicación", path: "/admin/location-types" },
     { label: "Sagas", path: "/admin/sagas" },
-    { label: "Carátulas", path: "/admin/covers" }
-
+    { label: "Carátulas", path: "/admin/covers" },
+    { label: "Externos", path: "/admin/titles" }
   ]
 
   return (

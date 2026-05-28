@@ -7,7 +7,7 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 
 
-export default  function AddMoviePage() {
+export default function AddMoviePage() {
     const [locations, setLocations] = useState<Location[]>([])
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
@@ -18,7 +18,7 @@ export default  function AddMoviePage() {
         title: "",
         titleMgmt: "",
         year: "",
-        format: "",
+        format: null as Format | null,
         genreCode: "",
         coverSrc: "",
         imdbId: "",
@@ -115,8 +115,11 @@ export default  function AddMoviePage() {
                     <label className="block mb-1">Formato</label>
                     <select
                         name="format"
-                        value={form.format}
-                        onChange={handleChange}
+                        value={form.format?.codigo ?? ""}
+                        onChange={(e) => {
+                            const fmt = formats.find(f => f.codigo === e.target.value)
+                            setForm({ ...form, format: fmt || null })
+                        }}
                         className="bg-[#111] border border-[#333] p-2 rounded w-full"
                     >
                         <option value="">Selecciona formato</option>
@@ -222,7 +225,7 @@ export default  function AddMoviePage() {
                         name="mngtCode"
                         value={form.mngtCode}
                         onChange={handleChange}
-                        placeholder="LUG-00123"
+                        placeholder="GEN-TIT-YYY-1"
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
                     />
                 </div>
