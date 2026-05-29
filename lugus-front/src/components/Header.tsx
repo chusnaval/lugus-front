@@ -19,9 +19,7 @@ export default function Header() {
 
       {/* Navegación */}
       <nav className="hidden md:flex space-x-6 text-sm text-gray-300">
-        <Link to="/" className="hover:text-[#d4af37] transition-colors">
-          Inicio
-        </Link>
+       
         <Link to="/films" className="hover:text-[#d4af37] transition-colors">
           Películas
         </Link>

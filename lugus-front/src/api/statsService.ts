@@ -38,3 +38,4 @@ export async function getSeriesStats(): Promise<SeriesStats> {
 
   return res.json();
 }
+
