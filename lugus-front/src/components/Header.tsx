@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { LucideUser, Settings } from "lucide-react"
+import {  LogOut, LucideUser, Settings } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import { useLogout } from "../hooks/useLogout"
 
@@ -47,7 +47,7 @@ export default function Header() {
           <button
             onClick={logout}
             className="px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-black transition">
-            Cerrar sesión
+            <LogOut size={18} className="inline-block mr-1" />
           </button>
         }
         {isAdmin && (<button onClick={() => navigate("/admin")}
