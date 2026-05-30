@@ -29,18 +29,22 @@ export default function GenresBarChart({ stats }: { stats: FilmStats }) {
           indexBy="categoria"
           margin={{ top: 20, right: 20, bottom: 60, left: 50 }}
           padding={0.3}
-          colors={(bar) => bar.data.color}   // ✔ colores correctos
+          colors={(bar) => bar.data.color}  
           borderColor="#111"
+          labelTextColor={"#ffffff"}
           axisBottom={{
             tickRotation: -30,
             tickPadding: 5,
+            legendOffset: 40,
+            legendPosition: "middle"
           }}
           axisLeft={{
             legendOffset: -40,
             legendPosition: "middle",
+            legend: "Número de películas",
+            
           }}
           legends={[]}   // ✔ sin leyenda interna
-          labelSkipWidth={1000} // ✔ sin números encima
         />
       </div>
 

@@ -19,7 +19,23 @@ export async function getUltimasPeliculas(): Promise<Pelicula[]> {
 
   return res.json();
 }
+export async function getUltimasPeliculasPorGenero(genero: string): Promise<Pelicula[]> {
+  const res = await fetchWithAuth(`http://localhost:8080/lugus/v1/api/films/ultimas/${genero}`, {
+    credentials: "include", // MUY IMPORTANTE
+  });
 
+  console.log("RAW RESPONSE:", res)
+
+  // Para ver el cuerpo en texto antes de parsearlo
+  const text = await res.clone().text()
+  console.log("BODY AS TEXT:", text)
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar las últimas películas");
+  }
+
+  return res.json();
+}
 export async function getPeliculasPage(
   page: number,
   size: number,

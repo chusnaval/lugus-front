@@ -33,6 +33,7 @@ import SeriesCreatePage from "./pages/series/SeriesCreatePage"
 import SeriesEditPage from "./pages/series/SeriesEditPage"
 import AdminPeliculaEditPage from "./pages/movie/AdminPeliculaEditPage"
 import AdminTitlesPage from "./pages/config/AdminTitlesPage"
+import PreferencesPage from "./pages/config/PreferencesPage"
 
 
 interface PrivateRouteProps {
@@ -58,6 +59,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/preferences" element={<PrivateRoute><PreferencesPage /></PrivateRoute>} />
         <Route path="/" element={<PrivateRoute><HomeDashboardVisual /></PrivateRoute>} />
         <Route path="/admin" element={<PrivateRoute><AdminConfigPage /></PrivateRoute>} />
         <Route path="/admin/covers" element={<PrivateRoute><CoversPage /></PrivateRoute>} />
