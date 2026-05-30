@@ -17,6 +17,8 @@ export interface Pelicula {
   slipcover: boolean
   owned: boolean
   watched: boolean
+  mine: boolean
+  favorite: boolean
 
   imdbId?: string | null
   rating?: number | null

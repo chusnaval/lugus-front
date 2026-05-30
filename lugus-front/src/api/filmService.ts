@@ -92,7 +92,7 @@ export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
  
 export async function getFilmById(id: number): Promise<Pelicula> {
   const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + id, {
-    credentials: "include", // MUY IMPORTANTE
+    credentials: "include", 
   });
 
   if (!res.ok) {

@@ -210,8 +210,7 @@ export default function AllFilmsTab() {
           filters={filters}
           setFilters={setFilters}
           formats={formats.map(f => ({ label: f.descripcion, value: f.codigo }))}
-          genres={genres.map(f => ({ label: f.descripcion, value: f.codigo }))}
-        />
+          genres={genres.map(f => ({ label: f.descripcion, value: f.codigo }))} />
 
         <button
           className="w-full mt-6 px-4 py-2 bg-[#d4af37] text-black rounded hover:bg-[#b8962f]"

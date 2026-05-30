@@ -7,10 +7,12 @@ import { countries } from "../../utils/countries"
 import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import Rating from "../../components/ui/Rating"
+import { useToggleOwned } from "../../hooks/useToggleOwned"
 
 export default function MovieDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
+    const { toggleOwned } = useToggleOwned()
 
     const [movie, setMovie] = useState<Pelicula | null>(null)
     const [loading, setLoading] = useState(true)
@@ -38,6 +40,7 @@ export default function MovieDetail() {
         )
     }
 
+    
     return (
         <div className="max-w-[1600px] mx-auto px-8">
 
@@ -167,6 +170,14 @@ export default function MovieDetail() {
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
+                                <li>
+                                    <button
+                                        onClick={() => toggleOwned(movie.id)}
+                                        className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
+                                        {movie.mine ? "✔" : "+"}
+                                    </button>
+
+                                </li>
                                 <li><a href={movie.imdbUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
