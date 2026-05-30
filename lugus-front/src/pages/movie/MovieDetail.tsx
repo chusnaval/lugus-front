@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import Rating from "../../components/ui/Rating"
 import { useToggleOwned } from "../../hooks/useToggleOwned"
+import { OwnedButton } from "../../components/OwnedButton"
 
 export default function MovieDetail() {
     const { id } = useParams()
@@ -171,11 +172,7 @@ export default function MovieDetail() {
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
                                 <li>
-                                    <button
-                                        onClick={() => toggleOwned(movie.id)}
-                                        className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                        {movie.mine ? "✔" : "+"}
-                                    </button>
+                                   <OwnedButton film={movie} />
 
                                 </li>
                                 <li><a href={movie.imdbUrl}
