@@ -7,13 +7,11 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Location } from "../../types/Location"
-import { getSerieById } from "../../api/seriesService"
 import type { Serie } from "../../types/Serie"
 
 export default function SeriesEditPage() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const [serie, setSerie] = useState<Serie | null>(null)
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
     const [locations, setLocations] = useState<Location[]>([])
@@ -75,13 +73,6 @@ export default function SeriesEditPage() {
             .catch(console.error)
     }, [])
 
-    useEffect(() => {
-        if (!id) return
-
-        getSerieById(Number(id))
-            .then((data) => setSerie(data))
-            .catch(() => navigate("/"))
-    }, [id, navigate])
 
     const handleSave = async () => {
         setSaving(true)

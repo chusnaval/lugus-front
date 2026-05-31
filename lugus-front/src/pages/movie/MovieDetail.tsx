@@ -2,18 +2,16 @@ import { useParams, useNavigate, Link } from "react-router-dom"
 import { getFilmById } from "../../api/filmService"
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
-import { PencilLine, Undo2, Bot } from "lucide-react"
+import { PencilLine, Undo2 } from "lucide-react"
 import { countries } from "../../utils/countries"
 import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import Rating from "../../components/ui/Rating"
-import { useToggleOwned } from "../../hooks/useToggleOwned"
 import { OwnedButton } from "../../components/OwnedButton"
 
 export default function MovieDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const { toggleOwned } = useToggleOwned()
 
     const [movie, setMovie] = useState<Pelicula | null>(null)
     const [loading, setLoading] = useState(true)

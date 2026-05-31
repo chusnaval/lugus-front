@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
-import { useNavigate } from "react-router-dom"
 
 interface Title {
     id: number
@@ -18,8 +17,7 @@ export default function AdminTitlesPage() {
     const [loading, setLoading] = useState(true)
 
     const [editing, setEditing] = useState<Title | null>(null)
-    const navigate = useNavigate();
-
+  
     const [form, setForm] = useState({
         id: "",
         title: "",

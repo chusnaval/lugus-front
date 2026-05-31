@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import Tab from "../../components/ui/Tab"
 import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
 
-import FiltersFilms from "../filters/FiltersFilms"
 import { FilterDrawer } from "../../components/filters/FilterDrawer"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"

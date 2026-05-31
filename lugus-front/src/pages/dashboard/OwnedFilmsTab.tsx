@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import Tab from "../../components/ui/Tab"
 import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"

@@ -6,7 +6,7 @@ import type { Location } from "../../types/Location"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Pelicula } from "../../types/Pelicula"
-import Input from "../../components/ui/Input"
+
 
 
 export default function AdminPeliculaEditPage() {
