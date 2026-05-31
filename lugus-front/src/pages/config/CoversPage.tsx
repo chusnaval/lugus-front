@@ -41,8 +41,7 @@ export default function CoversPage() {
   }
 
 
-  const loadTypes = async () => {
-     const API_URL = import.meta.env.VITE_API_URL;  
+  const loadTypes = async () => { 
     const res = await fetchWithAuth("${API_URL}/v1/api/sources")
     const data = await res.json()
     setSources(data)

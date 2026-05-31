@@ -23,7 +23,7 @@ export default function ChangePasswordForm() {
             setError("La nueva contraseña debe tener al menos 6 caracteres")
             return
         }
-        const API_URL = import.meta.env.VITE_API_URL;  
+   
         const res = await fetch("${API_URL}/api/auth/change-password", {
             method: "POST",
             credentials: "include",
