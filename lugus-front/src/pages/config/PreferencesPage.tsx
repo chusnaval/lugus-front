@@ -10,7 +10,7 @@ import ChangePasswordForm from "./ChangePasswordForm"
 
 export default function PreferencesPage() {
     const { favoritos, save } = useUserPreferences()
-    const [selected, setSelected] = useState<string[]>(favoritos)
+    const [selected, setSelected] = useState<Genre[]>(favoritos)
     const [genres, setGenres] = useState<Genre[]>([])
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function PreferencesPage() {
         load()
     }, [])
 
-    const toggle = (g: string) => {
+    const toggle = (g: Genre) => {
         if (selected.includes(g)) {
             setSelected(selected.filter(x => x !== g))
         } else {
@@ -53,9 +53,9 @@ export default function PreferencesPage() {
                 {Object.values(genres).map((g) => (
                     <button
                         key={g.codigo}
-                        onClick={() => toggle(g.codigo)}
+                        onClick={() => toggle(g)}
                         className={`px-3 py-2 rounded border transition 
-              ${selected.includes(g.codigo)
+              ${selected.includes(g)
                                 ? "bg-lugus-gold text-black border-lugus-gold"
                                 : "bg-lugus-bgAlt text-gray-300 border-gray-700 hover:border-lugus-gold"
                             }`}

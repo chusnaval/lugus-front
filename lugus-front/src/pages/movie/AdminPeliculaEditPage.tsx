@@ -133,6 +133,8 @@ export default function AdminPeliculaEditPage() {
             group: null,
             trailerUrl: form.trailerUrl,
             country: '',
+            mine: false,
+            favorite: false,
             id: Number(id)
         }
 
