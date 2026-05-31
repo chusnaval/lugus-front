@@ -3,7 +3,8 @@ import type { Pelicula } from "../types/Pelicula"
 import { fetchWithAuth } from "./fetchWithAuth"
 
 export async function getUltimasPeliculas(): Promise<Pelicula[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/ultimas", {
+ const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/ultimas`, {
     credentials: "include", // MUY IMPORTANTE
   });
 
@@ -20,7 +21,8 @@ export async function getUltimasPeliculas(): Promise<Pelicula[]> {
   return res.json();
 }
 export async function getUltimasPeliculasPorGenero(genero: string): Promise<Pelicula[]> {
-  const res = await fetchWithAuth(`http://localhost:8080/lugus/v1/api/films/ultimas/${genero}`, {
+   const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/ultimas/${genero}`, {
     credentials: "include", // MUY IMPORTANTE
   });
 
@@ -42,7 +44,7 @@ export async function getPeliculasPage(
   filters: Record<string, any> = {}
 ) {
   const params = new URLSearchParams()
-
+ const API_URL = import.meta.env.VITE_API_URL;
   params.set("page", page.toString())
   params.set("size", size.toString())
 
@@ -54,7 +56,7 @@ export async function getPeliculasPage(
   })
 
   const res = await fetch(
-    `http://localhost:8080/lugus/v1/api/films/page?${params.toString()}`,
+    `${API_URL}/v1/api/films/page?${params.toString()}`,
     {
       credentials: "include",
       headers: {
@@ -72,7 +74,8 @@ export async function getPeliculasPage(
 
 
 export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/ultimas", {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/ultimas`, {
     credentials: "include",
   });
 
@@ -91,7 +94,8 @@ export async function getUltimasPeliculasForHome(): Promise<MediaItem[]> {
 }
  
 export async function getFilmById(id: number): Promise<Pelicula> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + id, {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/${id}`, {
     credentials: "include", 
   });
 
@@ -103,7 +107,8 @@ export async function getFilmById(id: number): Promise<Pelicula> {
 }
 
 export async function createMovie(movie: any) {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/new", {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/new`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -114,7 +119,8 @@ export async function createMovie(movie: any) {
 }
 
 export async function update(movie: Pelicula) {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/" + movie.id, {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/${movie.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     credentials: "include",

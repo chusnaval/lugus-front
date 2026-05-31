@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import Tab from "../../components/ui/Tab"
 import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 interface Saga {
   id: number
   name: string
@@ -33,7 +33,7 @@ export default function SagasTab() {
   const loadSagas = async (page: number) => {
     setLoading(true)
     const res = await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groups/page?page=${page}&size=${pageSize}`
+      `${API_URL}/v1/api/groups/page?page=${page}&size=${pageSize}`
     )
     const json = await res.json()
     setData(json)
@@ -46,7 +46,7 @@ export default function SagasTab() {
     
 
     const res = await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/sagas/export/${type}?page=0&size=-1&${params.toString()}`
+      `${API_URL}/v1/api/sagas/export/${type}?page=0&size=-1&${params.toString()}`
     )
 
     const blob = await res.blob()
@@ -54,7 +54,7 @@ export default function SagasTab() {
 
     const a = document.createElement("a")
     a.href = url
-    a.download = `peliculas.${type}`
+    a.download = `sagas.${type}`
     a.click()
 
     window.URL.revokeObjectURL(url)

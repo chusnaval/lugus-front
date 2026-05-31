@@ -19,10 +19,10 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [roles, setRoles] = useState<string[]>([])
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const refreshSession = async () => {
     try {
-      const res = await fetch("http://localhost:8080/lugus/api/auth/me", {
+      const res = await fetch(`${API_URL}/api/auth/me`, {
         credentials: "include",
       })
 

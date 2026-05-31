@@ -1,6 +1,6 @@
 export async function getCoversPage(page: number, size: number, filters: any) {
   const params = new URLSearchParams()
-
+  const API_URL = import.meta.env.VITE_API_URL
   params.set("page", page.toString())
   params.set("size", size.toString())
 
@@ -11,7 +11,7 @@ export async function getCoversPage(page: number, size: number, filters: any) {
   })
 
   const res = await fetch(
-    `http://localhost:8080/lugus/v1/api/covers/page?${params.toString()}`,
+    `${API_URL}/v1/api/covers/page?${params.toString()}`,
     { credentials: "include" }
   )
 

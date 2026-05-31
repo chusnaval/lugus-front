@@ -7,7 +7,8 @@ export function useToggleOwned() {
     setLoading(true)
 
     try {
-      const res = await fetch(`http://localhost:8080/lugus/v1/api/films/${filmId}/toggle`, {
+       const API_URL = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${API_URL}/v1/api/films/${filmId}/toggle`, {
         method: "POST",
         credentials: "include"
       })

@@ -16,7 +16,7 @@ export default function PreferencesPage() {
     useEffect(() => {
         const load = async () => {
             const genRes = await
-                fetchWithAuth("http://localhost:8080/lugus/v1/api/genres")
+                fetchWithAuth("${API_URL}/v1/api/genres")
 
             setGenres(await genRes.json())
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 interface Title {
   id: number
   title: string
@@ -45,7 +45,7 @@ export default function SagaDetailPage() {
 
   const loadGroup = async () => {
     const res = await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groups/${id}`
+      `${API_URL}/v1/api/groups/${id}`
     )
     const data = await res.json()
     setGroup(data)

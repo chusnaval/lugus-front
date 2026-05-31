@@ -4,7 +4,8 @@ import type { SeriesStats } from "../types/SeriesStats";
 import { fetchWithAuth } from "./fetchWithAuth"
 
 export async function getStats(): Promise<FilmStats> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/films/stats", {
+   const API_URL = import.meta.env.VITE_API_URL;  
+  const res = await fetchWithAuth(`${API_URL}/v1/api/films/stats`, {
     credentials: "include", 
   });
 
@@ -22,7 +23,8 @@ export async function getStats(): Promise<FilmStats> {
 }
 
 export async function getSeriesStats(): Promise<SeriesStats> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/stats", {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/series/stats`, {
     credentials: "include", 
   });
 

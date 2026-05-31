@@ -6,7 +6,7 @@ export default function LocationsPage() {
   const [locations, setLocations] = useState<Location[]>([])
   const [locationTypes, setLocationTypes] = useState<LocationType[]>([])
   const [loading, setLoading] = useState(true)
-
+ const API_URL = import.meta.env.VITE_API_URL;  
   const [editing, setEditing] = useState<Location | null>(null)
   const [form, setForm] = useState({
     codigo: "",
@@ -21,8 +21,8 @@ export default function LocationsPage() {
 
   const loadAll = async () => {
     const [locRes, typeRes] = await Promise.all([
-      fetchWithAuth("http://localhost:8080/lugus/v1/api/locations"),
-      fetchWithAuth("http://localhost:8080/lugus/v1/api/locationTypes")
+      fetchWithAuth("${API_URL}/v1/api/locations"),
+      fetchWithAuth("${API_URL}/v1/api/locationTypes")
     ])
 
     setLocations(await locRes.json())
@@ -47,7 +47,7 @@ export default function LocationsPage() {
 
     if (editing) {
       await fetchWithAuth(
-        `http://localhost:8080/lugus/v1/api/locations/${editing.codigo}`,
+        `${API_URL}/v1/api/locations/${editing.codigo}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -55,7 +55,7 @@ export default function LocationsPage() {
         }
       )
     } else {
-      await fetchWithAuth("http://localhost:8080/lugus/v1/api/locations", {
+      await fetchWithAuth("${API_URL}/v1/api/locations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -76,7 +76,7 @@ export default function LocationsPage() {
     if (!confirm("¿Eliminar ubicación?")) return
 
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/locations/${codigo}`,
+      `${API_URL}/v1/api/locations/${codigo}`,
       { method: "DELETE" }
     )
 

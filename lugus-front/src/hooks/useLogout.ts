@@ -5,7 +5,8 @@ export function useLogout() {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:8080/lugus/api/auth/logout", {
+       const API_URL = import.meta.env.VITE_API_URL;    
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include"
       })

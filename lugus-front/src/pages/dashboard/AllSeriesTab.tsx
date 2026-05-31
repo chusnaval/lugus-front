@@ -11,7 +11,7 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import { getSeriesPage } from "../../api/seriesService"
 import type { Serie } from "../../types/Serie"
 import FiltersSeries from "../filters/FiltersSeries"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 
 interface SeriesPage {
     content: Serie[]
@@ -37,8 +37,8 @@ export default function AllSeriesTab() {
 
     useEffect(() => {
         setLoading(true)
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
+        fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
+        fetchWithAuth("${API_URL}/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
         getSeriesPage(page, pageSize, {
             ...effectiveFilters,
             ...appliedFilters
@@ -58,7 +58,7 @@ export default function AllSeriesTab() {
         })
 
         const res = await fetchWithAuth(
-            `http://localhost:8080/lugus/v1/api/series/export/${type}?page=0&size=-1&${params.toString()}`
+            `${API_URL}/v1/api/series/export/${type}?page=0&size=-1&${params.toString()}`
         )
 
         const blob = await res.blob()
@@ -66,7 +66,7 @@ export default function AllSeriesTab() {
 
         const a = document.createElement("a")
         a.href = url
-        a.download = `peliculas.${type}`
+        a.download = `series.${type}`
         a.click()
 
         window.URL.revokeObjectURL(url)
@@ -83,7 +83,7 @@ export default function AllSeriesTab() {
     }
 
     if (loading || !data) {
-        return <div className="text-gray-400">Cargando peliculas</div>
+        return <div className="text-gray-400">Cargando series</div>
     }
 
     return (

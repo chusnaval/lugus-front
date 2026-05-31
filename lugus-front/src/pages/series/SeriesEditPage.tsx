@@ -8,6 +8,7 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Location } from "../../types/Location"
 import type { Serie } from "../../types/Serie"
+ const API_URL = import.meta.env.VITE_API_URL;  
 
 export default function SeriesEditPage() {
     const { id } = useParams()
@@ -41,7 +42,7 @@ export default function SeriesEditPage() {
     }, [id])
     const loadSerie = async () => {
         const res = await fetchWithAuth(
-            `http://localhost:8080/lugus/v1/api/series/${id}`
+            `${API_URL}/v1/api/series/${id}`
         )
         const data: Serie = await res.json()
         form.title = data.title
@@ -57,17 +58,17 @@ export default function SeriesEditPage() {
         form.notes = data.notes ?? ""
     }
     useEffect(() => {
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/formats")
+        fetchWithAuth(`${API_URL}/v1/api/formats`)
             .then(res => res.json())
             .then(setFormats)
             .catch(console.error)
 
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/genres")
+        fetchWithAuth(`${API_URL}/v1/api/genres`)
             .then(res => res.json())
             .then(setGenres)
             .catch(console.error)
 
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/locations")
+        fetchWithAuth(`${API_URL}/v1/api/locations`)
             .then(res => res.json())
             .then(setLocations)
             .catch(console.error)
@@ -85,7 +86,7 @@ export default function SeriesEditPage() {
 
         try {
             const res = await fetchWithAuth(
-                `http://localhost:8080/lugus/v1/api/series/${id}`,
+                `${API_URL}/v1/api/series/${id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -109,7 +110,7 @@ export default function SeriesEditPage() {
         <div className="p-6 space-y-8">
 
             <h1 className="text-2xl font-semibold text-[#d4af37]">
-                Nueva Serie
+                Editar Serie
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

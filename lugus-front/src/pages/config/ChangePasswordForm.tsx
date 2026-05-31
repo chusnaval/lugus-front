@@ -23,8 +23,8 @@ export default function ChangePasswordForm() {
             setError("La nueva contraseña debe tener al menos 6 caracteres")
             return
         }
-
-        const res = await fetch("http://localhost:8080/lugus/api/auth/change-password", {
+        const API_URL = import.meta.env.VITE_API_URL;  
+        const res = await fetch("${API_URL}/api/auth/change-password", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

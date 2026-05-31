@@ -5,9 +5,10 @@ import type { Genre } from "../types/Genre"
 export function useUserPreferences() {
   // lista de generos favoritos del usuario
   const [favoritos, setFavoritos] = useState<Genre[]>([])
+ const API_URL = import.meta.env.VITE_API_URL;  
 
   useEffect(() => {
-    fetch("http://localhost:8080/lugus/api/user/preferences", {
+    fetch(`${API_URL}/api/user/preferences`, {
       credentials: "include"
     })
       .then(res => res.json())
@@ -15,7 +16,7 @@ export function useUserPreferences() {
   }, [])
 
   const save = async (newFavs : Genre[]) => {
-    await fetch("http://localhost:8080/lugus/api/user/preferences", {
+    await fetch(`${API_URL}/api/user/preferences`, {
       method: "POST",
       credentials: "include",
       headers: {

@@ -5,7 +5,7 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Location } from "../../types/Location"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 
 export default function AddMoviePage() {
     const [locations, setLocations] = useState<Location[]>([])
@@ -36,9 +36,9 @@ export default function AddMoviePage() {
 
         const load = async () => {
             const [locRes, fmtRes, genRes] = await Promise.all([
-                fetchWithAuth("http://localhost:8080/lugus/v1/api/locations"),
-                fetchWithAuth("http://localhost:8080/lugus/v1/api/formats"),
-                fetchWithAuth("http://localhost:8080/lugus/v1/api/genres")
+                fetchWithAuth(`${API_URL}/v1/api/locations`),
+                fetchWithAuth(`${API_URL}/v1/api/formats`),
+                fetchWithAuth(`${API_URL}/v1/api/genres`)
             ])
             setLocations(await locRes.json())
             setFormats(await fmtRes.json())

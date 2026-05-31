@@ -34,7 +34,7 @@ export default function AdminTitlesPage() {
     }, [])
 
     const loadTitles = async () => {
-        const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/titles")
+        const res = await fetchWithAuth("${import.meta.env.VITE_API_URL}/v1/api/titles")
         const data = await res.json()
         setTitles(data)
         setLoading(false)
@@ -61,7 +61,7 @@ export default function AdminTitlesPage() {
 
         if (editing) {
             await fetchWithAuth(
-                `http://localhost:8080/lugus/v1/api/titles/${editing.id}`,
+                `${import.meta.env.VITE_API_URL}/v1/api/titles/${editing.id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ export default function AdminTitlesPage() {
                 }
             )
         } else {
-            await fetchWithAuth("http://localhost:8080/lugus/v1/api/titles", {
+            await fetchWithAuth("${import.meta.env.VITE_API_URL}/v1/api/titles", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -89,7 +89,7 @@ export default function AdminTitlesPage() {
         if (!confirm("¿Eliminar título?")) return
 
         await fetchWithAuth(
-            `http://localhost:8080/lugus/v1/api/titles/${id}`,
+            `${import.meta.env.VITE_API_URL}/v1/api/titles/${id}`,
             { method: "DELETE" }
         )
 

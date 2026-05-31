@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import FilmographyTable from "./FilmographyTable"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 
 interface FilmographyApiItem {
   id: number
@@ -26,7 +26,7 @@ export default function FilmographyPage() {
   useEffect(() => {
     const load = async () => {
 
-      const res = await fetchWithAuth(`http://localhost:8080/lugus/v1/api/filmography/` + id, {
+      const res = await fetchWithAuth(`${API_URL}/v1/api/filmography/` + id, {
         credentials: "include",
       });
       const data = await res.json()

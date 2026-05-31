@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { LocationType } from "../../types/Location"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 export default function LocationTypesPage() {
   const [types, setTypes] = useState<LocationType[]>([])
   const [loading, setLoading] = useState(true)
@@ -18,7 +18,7 @@ export default function LocationTypesPage() {
   }, [])
 
   const loadTypes = async () => {
-    const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/locationTypes")
+    const res = await fetchWithAuth("${API_URL}/v1/api/locationTypes")
     const data = await res.json()
     setTypes(data)
     setLoading(false)
@@ -40,7 +40,7 @@ export default function LocationTypesPage() {
 
     if (editing) {
       await fetchWithAuth(
-        `http://localhost:8080/lugus/v1/api/locationTypes/${editing.id}`,
+        `${API_URL}/v1/api/locationTypes/${editing.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -48,7 +48,7 @@ export default function LocationTypesPage() {
         }
       )
     } else {
-      await fetchWithAuth("http://localhost:8080/lugus/v1/api/locationTypes", {
+      await fetchWithAuth("${API_URL}/v1/api/locationTypes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -69,7 +69,7 @@ export default function LocationTypesPage() {
     if (!confirm("¿Eliminar tipo de ubicación?")) return
 
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/locationTypes/${id}`,
+      `${API_URL}/v1/api/locationTypes/${id}`,
       { method: "DELETE" }
     )
 

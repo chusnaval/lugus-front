@@ -31,7 +31,8 @@ export default function AdminSagasPage() {
   }, [])
 
   const loadSagas = async () => {
-    const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/groups")
+    const API_URL = import.meta.env.VITE_API_URL;
+    const res = await fetchWithAuth(`${API_URL}/v1/api/groups`)
     const data = await res.json()
     setSagas(data)
     setLoading(false)
@@ -43,7 +44,7 @@ export default function AdminSagasPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+    const API_URL = import.meta.env.VITE_API_URL;
     const payload = {
       id: Number(form.id),
       name: form.name,
@@ -54,7 +55,7 @@ export default function AdminSagasPage() {
 
     if (editing) {
       await fetchWithAuth(
-        `http://localhost:8080/lugus/v1/api/groups/${editing.id}`,
+        `${API_URL}/v1/api/groups/${editing.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -62,7 +63,7 @@ export default function AdminSagasPage() {
         }
       )
     } else {
-      await fetchWithAuth("http://localhost:8080/lugus/v1/api/groups", {
+      await fetchWithAuth(`${API_URL}/v1/api/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -80,9 +81,9 @@ export default function AdminSagasPage() {
 
   const handleDelete = async (id: number) => {
     if (!confirm("¿Eliminar saga?")) return
-
+    const API_URL = import.meta.env.VITE_API_URL;
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groups/${id}`,
+      `${API_URL}/v1/api/groups/${id}`,
       { method: "DELETE" }
     )
 

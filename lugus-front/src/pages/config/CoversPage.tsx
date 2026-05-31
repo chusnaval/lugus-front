@@ -42,7 +42,8 @@ export default function CoversPage() {
 
 
   const loadTypes = async () => {
-    const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/sources")
+     const API_URL = import.meta.env.VITE_API_URL;  
+    const res = await fetchWithAuth("${API_URL}/v1/api/sources")
     const data = await res.json()
     setSources(data)
     setLoading(false)

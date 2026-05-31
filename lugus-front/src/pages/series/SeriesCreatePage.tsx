@@ -7,7 +7,7 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Location } from "../../types/Location"
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 export default function SeriesCreatePage() {
     const navigate = useNavigate()
 
@@ -36,17 +36,17 @@ export default function SeriesCreatePage() {
     }
 
     useEffect(() => {
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/formats")
+        fetchWithAuth(`${API_URL}/v1/api/formats`)
             .then(res => res.json())
             .then(setFormats)
             .catch(console.error)
 
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/genres")
+        fetchWithAuth(`${API_URL}/v1/api/genres`)
             .then(res => res.json())
             .then(setGenres)
             .catch(console.error)
 
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/locations")
+        fetchWithAuth(`${API_URL}/v1/api/locations`)
             .then(res => res.json())
             .then(setLocations)
             .catch(console.error)
@@ -63,7 +63,7 @@ export default function SeriesCreatePage() {
 
         try {
             const res = await fetchWithAuth(
-                "http://localhost:8080/lugus/v1/api/series/new",
+                `${API_URL}/v1/api/series/new`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

@@ -4,7 +4,8 @@ import type { Serie } from "../types/Serie";
 import { fetchWithAuth } from "./fetchWithAuth"
 
 export async function getUltimasSeries(): Promise<Serie[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/ultimas", {
+   const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/series/ultimas`, {
     credentials: "include", // MUY IMPORTANTE
   });
 
@@ -15,7 +16,7 @@ export async function getUltimasSeries(): Promise<Serie[]> {
   console.log("BODY AS TEXT:", text)
 
   if (!res.ok) {
-    throw new Error("No se pudieron cargar las últimas películas");
+    throw new Error("No se pudieron cargar las últimas series");
   }
 
   return res.json();
@@ -27,7 +28,7 @@ export async function getSeriesPage(
   filters: Record<string, any> = {}
 ) {
   const params = new URLSearchParams()
-
+ const API_URL = import.meta.env.VITE_API_URL;
   params.set("page", page.toString())
   params.set("size", size.toString())
 
@@ -39,7 +40,7 @@ export async function getSeriesPage(
   })
 
   const res = await fetch(
-    `http://localhost:8080/lugus/v1/api/series/page?${params.toString()}`,
+    `${API_URL}/v1/api/series/page?${params.toString()}`,
     {
       credentials: "include",
       headers: {
@@ -57,17 +58,18 @@ export async function getSeriesPage(
 
 
 export async function getUltimasSeriesForHome(): Promise<MediaItem[]> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/ultimas", {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/series/ultimas`, {
     credentials: "include",
   });
 
   if (!res.ok) {
-    throw new Error("No se pudieron cargar las últimas películas");
+    throw new Error("No se pudieron cargar las últimas series ");
   }
 
   const data: Serie[] = await res.json();
 
-  // Transformación Pelicula → MediaItem
+  // Transformación Serie → MediaItem
   return data.map((p) => ({
     id: p.id,
     title: p.title ?? p.title,   // según tu DTO
@@ -76,12 +78,13 @@ export async function getUltimasSeriesForHome(): Promise<MediaItem[]> {
 }
 
 export async function getSerieById(id: number): Promise<Serie> {
-  const res = await fetchWithAuth("http://localhost:8080/lugus/v1/api/series/" + id, {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetchWithAuth(`${API_URL}/v1/api/series/${id}`, {
     credentials: "include", // MUY IMPORTANTE
   });
 
   if (!res.ok) {
-    throw new Error("No se pudo cargar la pelicula");
+    throw new Error("No se pudo cargar la serie");
   }
 
   return res.json();

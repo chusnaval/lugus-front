@@ -10,7 +10,7 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import { getPeliculasPage } from "../../api/filmService"
 
-
+ const API_URL = import.meta.env.VITE_API_URL;  
 interface FilmPage {
     content: Pelicula[]
     number: number
@@ -35,8 +35,8 @@ export default function PendingFilmsTab() {
     }
     useEffect(() => {
         setLoading(true)
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
-        fetchWithAuth("http://localhost:8080/lugus/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
+        fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
+        fetchWithAuth("${API_URL}/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
         getPeliculasPage(page, pageSize, {
             ...effectiveFilters,
             ...appliedFilters
@@ -61,7 +61,7 @@ export default function PendingFilmsTab() {
         })
 
         const res = await fetchWithAuth(
-            `http://localhost:8080/lugus/v1/api/films/export/${type}?page=0&size=-1&${params.toString()}`
+            `${API_URL}/v1/api/films/export/${type}?page=0&size=-1&${params.toString()}`
         )
 
         const blob = await res.blob()

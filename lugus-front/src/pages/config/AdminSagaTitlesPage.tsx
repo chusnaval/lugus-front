@@ -51,8 +51,9 @@ export default function AdminSagaTitlesPage() {
   }, [id])
 
   const loadGroup = async () => {
+     const API_URL = import.meta.env.VITE_API_URL;  
     const res = await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groups/${id}`
+      `${API_URL}/v1/api/groups/${id}`
     )
     const data = await res.json()
     setGroup(data)
@@ -60,17 +61,19 @@ export default function AdminSagaTitlesPage() {
   }
 
   const searchTitles = async () => {
+    const API_URL = import.meta.env.VITE_API_URL;
     if (search.trim().length < 2) return
     const res = await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/titles/search?query=${search}`
+      `${API_URL}/v1/api/titles/search?query=${search}`
     )
     const data = await res.json()
     setResults(data)
   }
 
   const addTitle = async (item: SearchTitleResultDto) => {
+    const API_URL = import.meta.env.VITE_API_URL;
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groupsTitles/${id}/titles`,
+      `${API_URL}/v1/api/groupsTitles/${id}/titles`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -83,16 +86,18 @@ export default function AdminSagaTitlesPage() {
   const removeTitle = async (groupTitleId: number) => {
     if (!confirm("¿Eliminar este título de la saga?")) return
 
+    const API_URL = import.meta.env.VITE_API_URL;
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groupsTitles/${id}/titles/${groupTitleId}`,
+      `${API_URL}/v1/api/groupsTitles/${id}/titles/${groupTitleId}`,
       { method: "DELETE" }
     )
     loadGroup()
   }
 
   const move = async (groupTitleId: number, direction: "up" | "down") => {
+    const API_URL = import.meta.env.VITE_API_URL;
     await fetchWithAuth(
-      `http://localhost:8080/lugus/v1/api/groupsTitles/${id}/titles/${groupTitleId}/move?dir=${direction}`,
+      `${API_URL}/v1/api/groupsTitles/${id}/titles/${groupTitleId}/move?dir=${direction}`,
       { method: "PUT" }
     )
     loadGroup()
