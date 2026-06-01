@@ -8,13 +8,29 @@ import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import Rating from "../../components/ui/Rating"
 import { OwnedButton } from "../../components/OwnedButton"
+import Modal from "../../components/ui/Modal"
+import { useAuth } from "../../context/AuthContext"
+
+export async function getOmdbInfo(imdbId: string) {
+    const API_URL = import.meta.env.VITE_API_URL;
+    const res = await fetch(`${API_URL}/api/omdb/${imdbId}`, {
+        credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("No se pudo cargar OMDb");
+
+    return res.json();
+}
 
 export default function MovieDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
-
+    const isAdmin = useAuth().isAdmin; 
     const [movie, setMovie] = useState<Pelicula | null>(null)
     const [loading, setLoading] = useState(true)
+    const [omdbOpen, setOmdbOpen] = useState(false);
+    const [omdbData, setOmdbData] = useState<any>(null);
+    const [omdbLoading, setOmdbLoading] = useState(false);
 
     useEffect(() => {
         if (!id) return
@@ -24,6 +40,16 @@ export default function MovieDetail() {
             .catch(() => navigate("/"))
             .finally(() => setLoading(false))
     }, [id, navigate])
+
+    const openOmdbModal = async () => {
+        if (!movie?.imdbId) return;
+
+        setOmdbLoading(true);
+        const data = await getOmdbInfo(movie.imdbId);
+        setOmdbData(data);
+        setOmdbLoading(false);
+        setOmdbOpen(true);
+    };
 
     if (loading) return <div>Cargando...</div>
     if (!movie) {
@@ -39,7 +65,7 @@ export default function MovieDetail() {
         )
     }
 
-    
+
     return (
         <div className="max-w-[1600px] mx-auto px-8">
 
@@ -170,7 +196,7 @@ export default function MovieDetail() {
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
                                 <li>
-                                   <OwnedButton film={movie} />
+                                    <OwnedButton film={movie} />
 
                                 </li>
                                 <li><a href={movie.imdbUrl}
@@ -190,8 +216,16 @@ export default function MovieDetail() {
                                          border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
                                         <img src="/icons/filmaff.png" alt="Ver en Filmaffinity" className="w-6 h-6 inline-block" /> Ver en Filmaffinity
                                     </a>
-
                                 </li>
+                                {/* Abrimos un modal con la informacion recuperada de OMDb */}
+                                {isAdmin && movie.imdbId &&
+                                    (<li>
+                                        <button
+                                            onClick={openOmdbModal}
+                                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded">
+                                            Ver info OMDb
+                                        </button>
+                                    </li>)}
                             </ul>
 
                         </div>
@@ -209,6 +243,34 @@ export default function MovieDetail() {
                     <Undo2 className="w-4 h-4 text-lugus-gray" />Volver
                 </button>
             </div>
+
+       <Modal open={omdbOpen} onClose={() => setOmdbOpen(false)}>
+        {omdbLoading && <div>Cargando datos de OMDb…</div>}
+
+        {omdbData && (
+          <div>
+            <h2 className="text-2xl mb-2">{omdbData.Title}</h2>
+            <p className="text-sm text-neutral-400 mb-4">
+              {omdbData.Year} • {omdbData.Genre}
+            </p>
+
+            <img
+              src={omdbData.Poster}
+              alt="Poster"
+              className="w-40 mb-4 rounded shadow"
+            />
+
+            <p className="mb-4">{omdbData.Plot}</p>
+
+            <div className="text-sm text-neutral-300">
+              <p><strong>Director:</strong> {omdbData.Director}</p>
+              <p><strong>Actores:</strong> {omdbData.Actors}</p>
+              <p><strong>Duración:</strong> {omdbData.Runtime}</p>
+              <p><strong>IMDb:</strong> {omdbData.imdbRating}</p>
+            </div>
+          </div>
+        )}
+      </Modal>
         </div>
     )
 }
