@@ -9,11 +9,12 @@ interface Saga {
   name: string
   cover: string
   movieCount: number
+  percentageOwned?: number
 }
 
 interface SagaPage {
   content: Saga[]
-  pageNumber: number
+  number: number
   size: number
   totalPages: number
   totalElements: number
@@ -88,8 +89,7 @@ export default function SagasTab() {
         <button
           onClick={() => exportFile("ods")}
           className="text-gray-400 hover:text-[#d4af37] transition-colors"
-          aria-label="Exportar ODS"
-        >
+          aria-label="Exportar ODS">
           <FileSpreadsheet size={18} />
         </button>
 
@@ -97,8 +97,7 @@ export default function SagasTab() {
         <button
           onClick={() => exportFile("md")}
           className="text-gray-400 hover:text-[#d4af37] transition-colors"
-          aria-label="Exportar Markdown"
-        >
+          aria-label="Exportar Markdown">
           <FileText size={18} />
         </button>
 
@@ -106,8 +105,7 @@ export default function SagasTab() {
         <button
           onClick={() => exportFile("pdf")}
           className="text-gray-400 hover:text-[#d4af37] transition-colors"
-          aria-label="Exportar PDF"
-        >
+          aria-label="Exportar PDF">
           <FileType size={18} />
         </button>
 
@@ -120,7 +118,7 @@ export default function SagasTab() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold text-[#d4af37]">Sagas</h2>
         <div className="text-sm text-gray-400">
-          Página {data.pageNumber + 1} de {data.totalPages} · {data.totalElements} sagas
+          Página {data.number + 1} de {data.totalPages} · {data.totalElements} sagas
         </div>
       </div>
 
@@ -143,7 +141,7 @@ export default function SagasTab() {
               </h3>
 
               <p className="text-gray-400 text-sm mt-1">
-                {saga.movieCount} elemento{saga.movieCount !== 1 && "s"}
+                {saga.movieCount} elemento{saga.movieCount !== 1 && "s"} de los que tenemos el {saga.movieCount > 0 && saga.percentageOwned !== undefined ? `${saga.percentageOwned.toFixed(2)}%` : ""}
               </p>
             </div>
           </div>
@@ -158,13 +156,12 @@ export default function SagasTab() {
           className={`px-3 py-1 rounded ${page === 0
             ? "bg-gray-700 text-gray-400 cursor-not-allowed"
             : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
-            }`}
-        >
+            }`}>
           ← Anterior
         </button>
 
         <span className="text-gray-300 text-sm">
-          Página {data.pageNumber + 1} de {data.totalPages}
+          Página {data.number + 1} de {data.totalPages}
         </span>
 
         <button
@@ -173,8 +170,7 @@ export default function SagasTab() {
           className={`px-3 py-1 rounded ${page >= data.totalPages - 1
             ? "bg-gray-700 text-gray-400 cursor-not-allowed"
             : "bg-[#111] border border-[#333] hover:bg-[#1a1a1a]"
-            }`}
-        >
+            }`}>
           Siguiente →
         </button>
       </div>
