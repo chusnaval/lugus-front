@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
- const API_URL = import.meta.env.VITE_API_URL;  
+const API_URL = import.meta.env.VITE_API_URL;
 interface Title {
   id: number
   title: string
@@ -80,6 +80,16 @@ export default function SagaDetailPage() {
         ← Volver a sagas
       </button>
 
+      {group.filmaffinityId && (
+        <a
+          href={`https://www.filmaffinity.com/es/movie-group.php?group-id=${group.filmaffinityId}&orderby=pos&chv=list`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3 py-2 rounded bg-[#1f1f1f] 
+                                         border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
+          <img src="/icons/filmaff.png" alt="Ver en Filmaffinity" className="w-6 h-6 inline-block" /> Ver en Filmaffinity
+        </a>)}
+
       <h1 className="text-3xl font-bold text-[#d4af37] mb-2">
         {group.name}
       </h1>
@@ -94,6 +104,7 @@ export default function SagaDetailPage() {
           />
         </div>
       )}
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {group.titles
