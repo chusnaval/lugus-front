@@ -14,7 +14,7 @@ export default function AdminPeliculaEditPage() {
     const [locations, setLocations] = useState<Location[]>([])
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
-
+    
     const navigate = useNavigate()
 
     const [form, setForm] = useState({
@@ -42,8 +42,14 @@ export default function AdminPeliculaEditPage() {
     }, [id])
 
     const loadFilm = async () => {
-        const res = await fetchWithAuth(
-            `${API_URL}/v1/api/films/${id}`
+        const res = await fetch(
+            `${API_URL}/v1/api/films/${id}`,
+              {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
         )
         const data: Pelicula = await res.json()
         form.title = data.title

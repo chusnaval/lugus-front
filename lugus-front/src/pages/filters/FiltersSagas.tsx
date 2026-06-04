@@ -26,8 +26,8 @@ export default function FiltersSagas({ filters, setFilters, formats }: FiltersSa
 
       <Input
         label="Nombre de la saga"
-        value={filters.name ?? ""}
-        onChange={(v) => update("name", v)}
+        value={filters.title ?? ""}
+        onChange={(v) => update("title", v)}
       />
 
       <Input

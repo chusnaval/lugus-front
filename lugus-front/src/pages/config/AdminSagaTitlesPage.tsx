@@ -11,6 +11,7 @@ interface Title {
   peliculaId?: number | null
   serieId?: number | null
   imdbId?: number | null
+  owned: boolean
 }
 
 interface GroupTitle {
@@ -193,7 +194,7 @@ export default function AdminSagaTitlesPage() {
                   {gt.orden}. {gt.title.title}
                 </div>
                 <div className="text-gray-400 text-sm">
-                  {gt.title.year} · {gt.title.type}
+                  {gt.title.year} · {gt.title.type}   {gt.title.type != "EXTERNAL" ? gt.title.owned ? " - Comprada" : " - No comprada": ""}
                 </div>
               </div>
 

@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import Tab from "../../components/ui/Tab"
 import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
- const API_URL = import.meta.env.VITE_API_URL;  
+import { FilterDrawer } from "../../components/filters/FilterDrawer"
+import FiltersSagas from "../filters/FiltersSagas"
+import type { Format } from "../../types/Format"
+const API_URL = import.meta.env.VITE_API_URL;
 interface Saga {
   id: number
   name: string
@@ -20,31 +23,70 @@ interface SagaPage {
   totalElements: number
 }
 
+export async function getSagasPage(
+  page: number,
+  size: number,
+  filters: Record<string, any> = {}
+) {
+  const params = new URLSearchParams()
+  const API_URL = import.meta.env.VITE_API_URL;
+  params.set("page", page.toString())
+  params.set("size", size.toString())
+
+  // Añadir solo filtros que tengan valor
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== "") {
+      params.set(key, value.toString())
+    }
+  })
+
+  const res = await fetch(
+    `${API_URL}/v1/api/groups/page?${params.toString()}`,
+    {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
+
+  if (!res.ok) {
+    throw new Error("Error al cargar sagas")
+  }
+
+  return res.json()
+}
+
+
 export default function SagasTab() {
   const [data, setData] = useState<SagaPage | null>(null)
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [formats, setFormats] = useState<Format[]>([])
+  const [filtersOpen, setFiltersOpen] = useState(false)
+  const [appliedFilters, setAppliedFilters] = useState({})
+  const [filters, setFilters] = useState({})
   const navigate = useNavigate()
   const pageSize = 24
-
-  useEffect(() => {
-    loadSagas(page)
-  }, [page])
-
-  const loadSagas = async (page: number) => {
-    setLoading(true)
-    const res = await fetchWithAuth(
-      `${API_URL}/v1/api/groups/page?page=${page}&size=${pageSize}`
-    )
-    const json = await res.json()
-    setData(json)
-    setLoading(false)
+  const effectiveFilters = {
+    ...filters
   }
+  useEffect(() => {
+    setLoading(true)
+
+    getSagasPage(page, pageSize, {
+      ...effectiveFilters,
+      ...appliedFilters
+    })
+      .then((res) => setData(res))
+      .finally(() => setLoading(false))
+  }, [page, appliedFilters])
+
+
+
 
   const exportFile = async (type: "ods" | "md" | "pdf") => {
     const params = new URLSearchParams()
-
-    
 
     const res = await fetchWithAuth(
       `${API_URL}/v1/api/sagas/export/${type}?page=0&size=-1&${params.toString()}`
@@ -109,7 +151,7 @@ export default function SagasTab() {
           <FileType size={18} />
         </button>
 
-        <button
+        <button onClick={() => setFiltersOpen(true)}
           className="ml-auto text-gray-400 hover:text-[#d4af37] transition-colors"
           aria-label="Buscar">
           <LucideSearch size={18} />
@@ -174,6 +216,27 @@ export default function SagasTab() {
           Siguiente →
         </button>
       </div>
+
+      <FilterDrawer open={filtersOpen} onClose={() => setFiltersOpen(false)}>
+        <h2 className="text-xl font-semibold text-[#d4af37] mb-6">Filtros</h2>
+
+        <FiltersSagas
+          filters={filters}
+          setFilters={setFilters}
+          formats={formats.map(f => ({ label: f.descripcion, value: f.codigo }))}
+        />
+
+        <button
+          className="w-full mt-6 px-4 py-2 bg-[#d4af37] text-black rounded hover:bg-[#b8962f]"
+          onClick={() => {
+            setAppliedFilters(filters)
+            setFiltersOpen(false)
+          }}
+        >
+          Aplicar filtros
+        </button>
+      </FilterDrawer>
+
     </div>
   )
 }
