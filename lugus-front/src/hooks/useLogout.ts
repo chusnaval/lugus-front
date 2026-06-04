@@ -17,7 +17,7 @@ export function useLogout() {
     user.refreshSession() // actualizar estado de autenticación
 
     // redirigir
-    window.location.href = "/login"
+    window.location.href = "./login"
   }
 
   return logout
