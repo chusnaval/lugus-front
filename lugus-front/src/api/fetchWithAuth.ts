@@ -1,17 +1,17 @@
 import { useAuth } from "../context/AuthContext"
 
 export async function fetchWithAuth(input: RequestInfo, options: RequestInit = {}) {
-  const token = localStorage.getItem("token")
   const res = await fetch(input, {
     ...options,
+    credentials: "include", // IMPORTANTE
     headers: {
+      "Content-Type": "application/json",
       ...options.headers,
-      Authorization: `Bearer ${token}`
-    }
+    },
   })
 
   if (res.status === 401) {
-    // sesión caducada → limpiar estado
+    // sesión caducada → refrescar estado global
     const { refreshSession } = useAuth()
     refreshSession()
   }
