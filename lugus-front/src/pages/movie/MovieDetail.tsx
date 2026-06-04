@@ -25,7 +25,7 @@ export async function getOmdbInfo(imdbId: string) {
 export default function MovieDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const isAdmin = useAuth().isAdmin; 
+    const isAdmin = useAuth().isAdmin;
     const [movie, setMovie] = useState<Pelicula | null>(null)
     const [loading, setLoading] = useState(true)
     const [omdbOpen, setOmdbOpen] = useState(false);
@@ -96,6 +96,19 @@ export default function MovieDetail() {
 
                     </div>
 
+                    <div className="w-full h-[2px] bg-[#2e303a]"></div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
+                        {/* Sinopsis */}
+                        {movie.synopsis && (
+                            <div className="mb-8">
+                                <h2 className="text-2xl font-semibold mb-3">Sinopsis:</h2>
+                                <p className="text-sm leading-relaxed">{movie.synopsis}</p>
+                            </div>
+                        )}
+
+                    </div>
+
                 </div>
 
                 <div className="flex-1">
@@ -151,18 +164,7 @@ export default function MovieDetail() {
                                 </div>
                             )}
 
-                            <div className="w-full h-[2px] bg-[#2e303a]"></div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-1 gap-10 mb-10">
-                                {/* Sinopsis */}
-                                {movie.synopsis && (
-                                    <div className="mb-8">
-                                        <h2 className="text-2xl font-semibold mb-3">Sinopsis:</h2>
-                                        <p className="text-sm leading-relaxed">{movie.synopsis}</p>
-                                    </div>
-                                )}
-
-                            </div>
                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
                             {movie.trailerUrl && (
                                 <div className="mt-6">
@@ -244,33 +246,33 @@ export default function MovieDetail() {
                 </button>
             </div>
 
-       <Modal open={omdbOpen} onClose={() => setOmdbOpen(false)}>
-        {omdbLoading && <div>Cargando datos de OMDb…</div>}
+            <Modal open={omdbOpen} onClose={() => setOmdbOpen(false)}>
+                {omdbLoading && <div>Cargando datos de OMDb…</div>}
 
-        {omdbData && (
-          <div>
-            <h2 className="text-2xl mb-2">{omdbData.Title}</h2>
-            <p className="text-sm text-neutral-400 mb-4">
-              {omdbData.Year} • {omdbData.Genre}
-            </p>
+                {omdbData && (
+                    <div>
+                        <h2 className="text-2xl mb-2">{omdbData.Title}</h2>
+                        <p className="text-sm text-neutral-400 mb-4">
+                            {omdbData.Year} • {omdbData.Genre}
+                        </p>
 
-            <img
-              src={omdbData.Poster}
-              alt="Poster"
-              className="w-40 mb-4 rounded shadow"
-            />
+                        <img
+                            src={omdbData.Poster}
+                            alt="Poster"
+                            className="w-40 mb-4 rounded shadow"
+                        />
 
-            <p className="mb-4">{omdbData.Plot}</p>
+                        <p className="mb-4">{omdbData.Plot}</p>
 
-            <div className="text-sm text-neutral-300">
-              <p><strong>Director:</strong> {omdbData.Director}</p>
-              <p><strong>Actores:</strong> {omdbData.Actors}</p>
-              <p><strong>Duración:</strong> {omdbData.Runtime}</p>
-              <p><strong>IMDb:</strong> {omdbData.imdbRating}</p>
-            </div>
-          </div>
-        )}
-      </Modal>
+                        <div className="text-sm text-neutral-300">
+                            <p><strong>Director:</strong> {omdbData.Director}</p>
+                            <p><strong>Actores:</strong> {omdbData.Actors}</p>
+                            <p><strong>Duración:</strong> {omdbData.Runtime}</p>
+                            <p><strong>IMDb:</strong> {omdbData.imdbRating}</p>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
     )
 }

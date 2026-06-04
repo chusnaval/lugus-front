@@ -63,7 +63,7 @@ export default function SagaDetailPage() {
     }
     if (t.type === "EXTERNAL" && t.imdbId) {
       navigate(`/external/${t.imdbId}`)
-      return
+  
     }
   }
 
