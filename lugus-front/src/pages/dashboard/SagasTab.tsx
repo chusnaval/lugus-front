@@ -62,7 +62,7 @@ export default function SagasTab() {
   const [data, setData] = useState<SagaPage | null>(null)
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
-  const [formats, setFormats] = useState<Format[]>([])
+  const [formats] = useState<Format[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [appliedFilters, setAppliedFilters] = useState({})
   const [filters, setFilters] = useState({})
