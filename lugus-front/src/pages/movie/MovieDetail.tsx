@@ -3,7 +3,7 @@ import { getFilmById } from "../../api/filmService"
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
 import { PencilLine, Undo2 } from "lucide-react"
-import { countries } from "../../utils/countries"
+import { countries, normalizeCountry } from "../../utils/countries"
 import { useEffect, useState } from "react"
 import type { Pelicula } from "../../types/Pelicula"
 import Rating from "../../components/ui/Rating"
@@ -121,7 +121,14 @@ export default function MovieDetail() {
 
                     {/* Rating + Género + Estado */}
                     <div className="flex text-lugus-gray text-sm mt-2 mb-2">
-                        <Rating value={movie.rating} /><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País: {countries[movie.country]?.flag}  {countries[movie.country]?.name}</span>
+                        <Rating value={movie.rating} /><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País:   {movie.country!=null?movie.country
+                            .split(",")
+                            .map(code => (
+                                <span key={code} className="flex items-center gap-1">
+                                    {countries[normalizeCountry(code)]?.flag}
+                                    {countries[code]?.name}
+                                </span>
+                            )):""}</span>
                     </div>
 
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
