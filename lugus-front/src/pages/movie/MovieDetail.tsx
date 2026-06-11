@@ -216,16 +216,6 @@ export default function MovieDetail() {
                                     <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb" className="w-6 h-6 inline-block" /></span> Ver en IMDb
                                 </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href={movie.faUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 px-3 py-2 rounded bg-[#1f1f1f] 
-                                         border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                        <img src="/icons/filmaff.png" alt="Ver en Filmaffinity" className="w-6 h-6 inline-block" /> Ver en Filmaffinity
-                                    </a>
-                                </li>
                                 {/* Abrimos un modal con la informacion recuperada de OMDb */}
                                 {isAdmin && movie.imdbId &&
                                     (<li>

@@ -37,7 +37,6 @@ export interface Pelicula {
   coverSrc?: string | ''
   synopsis?: string | null
   imdbUrl?: string | undefined
-  faUrl?: string | undefined
   lastSeen?: string | null
   location?: string | ''
   group?: Group | null

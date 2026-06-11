@@ -7,8 +7,9 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Location } from "../../types/Location"
-import type { Serie } from "../../types/Serie"
- const API_URL = import.meta.env.VITE_API_URL;  
+import type { Serie, Season } from "../../types/Serie"
+import SeasonsEditor from "./SeasonsEditor"
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function SeriesEditPage() {
     const { id } = useParams()
@@ -19,7 +20,20 @@ export default function SeriesEditPage() {
 
     const [saving, setSaving] = useState(false)
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<{
+        title: string
+        titleMgmt: string
+        format: string
+        location: string
+        startYear: string
+        finishYear: string
+        genreCode: string
+        mgmtCode: string
+        notes: string
+        owned: boolean
+        completed: boolean
+        seasons: Season[]
+    }>({
         title: "",
         titleMgmt: "",
         format: "",
@@ -31,6 +45,7 @@ export default function SeriesEditPage() {
         notes: "",
         owned: false,
         completed: false,
+        seasons: []
     })
 
     const update = (key: string, value: any) => {
@@ -45,17 +60,21 @@ export default function SeriesEditPage() {
             `${API_URL}/v1/api/series/${id}`
         )
         const data: Serie = await res.json()
-        form.title = data.title
-        form.titleMgmt = data.titleMgmt
-        form.startYear = '' + data.startYear
-        form.finishYear = '' + data.finishYear
-        form.format = data.format.codigo
-        form.genreCode = data.genreCode
-        form.owned = data.owned
-        form.completed = data.completed
-        form.location = data.location ?? ""
-        form.mgmtCode = data.mgmtCode
-        form.notes = data.notes ?? ""
+        setForm({
+            title: data.title,
+            titleMgmt: data.titleMgmt,
+            startYear: '' + data.startYear,
+            finishYear: data.finishYear ? '' + data.finishYear : "",
+            format: data.format.codigo,
+            genreCode: data.genreCode,
+            owned: data.owned,
+            completed: data.completed,
+            location: data.location ?? "",
+            mgmtCode: data.mgmtCode,
+            notes: data.notes ?? "",
+            seasons: data.seasons ?? []   // ← AQUÍ VIENE LA MAGIA
+        })
+
     }
     useEffect(() => {
         fetchWithAuth(`${API_URL}/v1/api/formats`)
@@ -177,6 +196,10 @@ export default function SeriesEditPage() {
                     onChange={v => update("mgmtCode", v)}
                 />
 
+                <SeasonsEditor
+                    seasons={form.seasons ?? []}
+                    onChange={v => update("seasons", v)}
+                />
 
 
                 <div className="flex items-center gap-3">

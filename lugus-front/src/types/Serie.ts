@@ -16,11 +16,11 @@ export interface Serie {
   completed: boolean
   coverSrc?: string | null
   casting: Cast[] |  []
-  seasons: Season[] | []
+  seasons: Season[]
 }
 
 export interface Season {
-  desc : string | ''
+  desc? : string | ''
   ordinal: number
   purchased: boolean
   wanted: boolean
