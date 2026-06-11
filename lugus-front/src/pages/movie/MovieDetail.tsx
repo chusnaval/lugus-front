@@ -10,6 +10,7 @@ import Rating from "../../components/ui/Rating"
 import { OwnedButton } from "../../components/OwnedButton"
 import Modal from "../../components/ui/Modal"
 import { useAuth } from "../../context/AuthContext"
+import { FavouritedButton } from "../../components/FavouritedButton"
 
 export async function getOmdbInfo(imdbId: string) {
     const API_URL = import.meta.env.VITE_API_URL;
@@ -206,7 +207,7 @@ export default function MovieDetail() {
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
                                 <li>
                                     <OwnedButton film={movie} />
-
+                                    <FavouritedButton film={movie} />
                                 </li>
                                 <li><a href={movie.imdbUrl}
                                     target="_blank"
