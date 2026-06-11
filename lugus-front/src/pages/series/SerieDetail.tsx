@@ -24,7 +24,7 @@ export default function MovieDetail() {
             .catch(() => navigate("/"))
             .finally(() => setLoading(false))
     }, [id, navigate])
-    
+
     if (loading) return <div>Cargando...</div>
     if (!serie) {
         return (
@@ -41,7 +41,7 @@ export default function MovieDetail() {
 
     return (
         <div className="max-w-[1600px] mx-auto px-8">
-SERIE
+            SERIE
             <div className="flex flex-col md:flex-row gap-10">
 
                 {/* Portada */}
@@ -58,13 +58,7 @@ SERIE
                         </div>
                     )}
 
-                    {/* TRAILER PLACEHOLDER */}
-                    <div className="flex items-center justify-center mt-8 mb-8">
-                        <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-red rounded-lg 
-                    flex items-center justify-center text-lugus-gray text-sm">
-                            Tráiler próximamente
-                        </div>
-                    </div>
+
                 </div>
 
                 <div className="flex-1">
@@ -86,7 +80,7 @@ SERIE
 
 
 
-            
+
 
                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
 
@@ -101,7 +95,7 @@ SERIE
 
                             </div>
 
-                                         <div className="w-full h-[2px] bg-[#2e303a]"></div>
+                            <div className="w-full h-[2px] bg-[#2e303a]"></div>
 
                             {/* Reparto */}
                             {serie.casting && serie.casting.length > 0 && (
@@ -120,6 +114,13 @@ SERIE
                                     </ul>
                                 </div>
                             )}
+                            {/* TRAILER PLACEHOLDER */}
+                            <div className="flex items-center justify-center mt-8 mb-8">
+                                <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-red rounded-lg 
+                    flex items-center justify-center text-lugus-gray text-sm">
+                                    Tráiler próximamente
+                                </div>
+                            </div>
 
                         </div>
                         {/* TARJETA DE INFORMACIÓN ADICIONAL */}
@@ -132,7 +133,7 @@ SERIE
                                 <li> <Chip icon={formatIconsFormat[serie.format.codigo] ?? "💿"} label={serie.format.codigo} color="blue" /></li>
                                 <li><strong>Código:</strong> {serie.mgmtCode}</li>
                                 <li><strong>Estantería:</strong> {serie.location ?? "–"}</li>
-                                
+
                             </ul>
 
                         </div>
@@ -142,9 +143,9 @@ SERIE
 
             </div>
             <div className="flex gap-4 mt-2">
-                <button  onClick={() => navigate(`/series/edit/${id}`)}
-                className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
-                
+                <button onClick={() => navigate(`/series/edit/${id}`)}
+                    className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Editar</button>
+
                 <button
                     onClick={() => navigate(-1)}
                     className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">
