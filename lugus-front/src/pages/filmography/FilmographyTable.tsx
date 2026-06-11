@@ -8,6 +8,7 @@ export interface FilmographyItem {
   role: string
   owned: boolean
   registered: boolean
+  type: string
 }
 
 export default function FilmographyTable({ items }: { items: FilmographyItem[] }) {
@@ -37,6 +38,7 @@ export default function FilmographyTable({ items }: { items: FilmographyItem[] }
         <thead className="border-b border-[#333] text-gray-400">
           <tr>
             <th className="py-2 w-10"></th>
+            <th className="py-2">Tipo</th>
             <th className="py-2">Título</th>
             <th className="py-2">Año</th>
             <th className="py-2">Rol</th>
@@ -56,6 +58,7 @@ export default function FilmographyTable({ items }: { items: FilmographyItem[] }
                 ></span>
               </td>
 
+              <td className="py-2 text-gray-300">{item.type}</td>
               <td className="py-2 font-medium">{item.title}</td>
               <td className="py-2 text-gray-400">{item.year}</td>
               <td className="py-2 text-gray-300">{item.role}</td>

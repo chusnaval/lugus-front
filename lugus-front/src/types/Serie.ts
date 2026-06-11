@@ -15,6 +15,7 @@ export interface Serie {
   owned: boolean
   completed: boolean
   coverSrc?: string | null
+  casting: Cast[] |  []
 }
 
 

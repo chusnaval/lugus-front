@@ -16,6 +16,7 @@ interface FilmographyApiItem {
   fcharacters: string
   comprado: boolean
   buscado: boolean
+  type: string
 }
 
 export default function FilmographyPage() {
@@ -44,6 +45,7 @@ export default function FilmographyPage() {
       items={items.map(item => ({
         id: item.peliculaId,
         imdbId: item.tconst,
+        type: item.type,
         title: item.title,
         year: item.startyear,
         role: item.category,

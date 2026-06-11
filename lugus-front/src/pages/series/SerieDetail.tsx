@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 
 import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
 import Chip from "../../components/ui/Chip"
@@ -100,6 +100,27 @@ SERIE
                                 )}
 
                             </div>
+
+                                         <div className="w-full h-[2px] bg-[#2e303a]"></div>
+
+                            {/* Reparto */}
+                            {serie.casting && serie.casting.length > 0 && (
+                                <div className="mb-8 mt-2">
+                                    <ul className="space-y-1 text-sm">
+                                        {serie.casting.map((a, i) => (
+                                            <li key={i}>
+                                                <Link
+                                                    to={`/filmography/${a.id}`}
+                                                    className="text-[#d4af37] hover:underline"
+                                                >
+                                                    <strong>{a.name}</strong>    </Link> – {a.character}
+
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
                         </div>
                         {/* TARJETA DE INFORMACIÓN ADICIONAL */}
                         <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 h-fit">
