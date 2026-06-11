@@ -72,7 +72,7 @@ export default function GenresBarChart({ stats }: { stats: FilmStats }) {
             legendPosition: "middle"
 
           }}
-          tooltip={({ id, value, color }) => (
+          tooltip={({ value, color }) => (
             <div
               style={{
                 padding: '6px 10px',
