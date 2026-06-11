@@ -16,6 +16,14 @@ export interface Serie {
   completed: boolean
   coverSrc?: string | null
   casting: Cast[] |  []
+  seasons: Season[] | []
+}
+
+export interface Season {
+  desc : string | ''
+  ordinal: number
+  purchased: boolean
+  wanted: boolean
 }
 
 

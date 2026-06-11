@@ -114,6 +114,7 @@ export default function MovieDetail() {
                                     </ul>
                                 </div>
                             )}
+
                             {/* TRAILER PLACEHOLDER */}
                             <div className="flex items-center justify-center mt-8 mb-8">
                                 <div className="w-full aspect-video bg-[#1f1f1f] border border-lugus-red rounded-lg 
@@ -136,6 +137,21 @@ export default function MovieDetail() {
 
                             </ul>
 
+                             <div className="w-full h-[2px] bg-[#2e303a]"></div>
+                             <br/>
+                            <strong>Temporadas:</strong>
+                            {/* Temporadas */}
+                            {serie.seasons && serie.seasons.length > 0 && (
+                                <div className="mb-8 mt-2">
+                                    <ul className="space-y-1 text-sm">
+                                        {serie.seasons.map((a, i) => (
+                                            <li key={i}>
+                                                <strong>{a.ordinal} {a.desc ? ':' + a.desc : ''} </strong> – {a.purchased ? 'Comprado' : a.wanted ? 'No Comprado' : 'Ignorable'}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
