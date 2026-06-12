@@ -40,6 +40,7 @@ export interface Director {
 
 export interface Cast {
   id: number
+  order: number
   name: string
   character: string
 }

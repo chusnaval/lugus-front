@@ -41,6 +41,7 @@ export interface Pelicula {
   location?: string | ''
   group?: Group | null
   country: string | ''
+  duration: number
 }
 
 
@@ -57,6 +58,7 @@ export interface Director {
 
 export interface Cast {
   id: number
+  order: number
   name: string
   character: string
 }

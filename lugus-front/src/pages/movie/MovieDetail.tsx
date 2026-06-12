@@ -158,7 +158,7 @@ export default function MovieDetail() {
                             {movie.casting && movie.casting.length > 0 && (
                                 <div className="mb-8 mt-2">
                                     <ul className="space-y-1 text-sm">
-                                        {movie.casting.map((a, i) => (
+                                        {movie.casting.sort((a, b) => a.order - b.order).map((a, i) => (
                                             <li key={i}>
                                                 <Link
                                                     to={`/filmography/${a.id}`}
@@ -204,6 +204,7 @@ export default function MovieDetail() {
                                 <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
+                                <li><strong>Duración:</strong> {movie.duration ? movie.duration + " min." : "-"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
                                 <li>
                                     <OwnedButton film={movie} />

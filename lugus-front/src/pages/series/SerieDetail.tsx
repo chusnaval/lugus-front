@@ -101,7 +101,7 @@ export default function MovieDetail() {
                             {serie.casting && serie.casting.length > 0 && (
                                 <div className="mb-8 mt-2">
                                     <ul className="space-y-1 text-sm">
-                                        {serie.casting.map((a, i) => (
+                                        {serie.casting.sort((a, b) => a.order - b.order).map((a, i) => (
                                             <li key={i}>
                                                 <Link
                                                     to={`/filmography/${a.id}`}

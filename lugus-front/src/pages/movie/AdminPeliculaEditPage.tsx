@@ -7,14 +7,14 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import type { Pelicula } from "../../types/Pelicula"
 
- const API_URL = import.meta.env.VITE_API_URL;  
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AdminPeliculaEditPage() {
     const { id } = useParams()
     const [locations, setLocations] = useState<Location[]>([])
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
-    
+
     const navigate = useNavigate()
 
     const [form, setForm] = useState({
@@ -33,7 +33,8 @@ export default function AdminPeliculaEditPage() {
         location: "",
         mngtCode: "",
         notes: "",
-        trailerUrl: ""
+        trailerUrl: "",
+        duration: 0
     })
 
 
@@ -44,12 +45,12 @@ export default function AdminPeliculaEditPage() {
     const loadFilm = async () => {
         const res = await fetch(
             `${API_URL}/v1/api/films/${id}`,
-              {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
+            {
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
         )
         const data: Pelicula = await res.json()
         form.title = data.title
@@ -66,7 +67,8 @@ export default function AdminPeliculaEditPage() {
         form.location = data.location ?? ""
         form.mngtCode = data.mgmtCode
         form.notes = data.notes ?? ""
-        form.trailerUrl = data.trailerUrl?? ""
+        form.trailerUrl = data.trailerUrl ?? ""
+        form.duration = data.duration ?? 0
     }
 
     useEffect(() => {
@@ -140,6 +142,7 @@ export default function AdminPeliculaEditPage() {
             country: '',
             mine: false,
             favorite: false,
+            duration: form.duration,
             id: Number(id)
         }
 
@@ -183,6 +186,15 @@ export default function AdminPeliculaEditPage() {
                     <input
                         name="year"
                         value={form.year}
+                        onChange={handleChange}
+                        className="w-full bg-[#111] border border-[#333] p-2 rounded"
+                    />
+                </div>
+                <div>
+                    <label className="block mb-1">Duración</label>
+                    <input
+                        name="duration"
+                        value={form.duration}
                         onChange={handleChange}
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
                     />
