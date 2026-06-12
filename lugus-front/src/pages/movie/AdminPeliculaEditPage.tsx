@@ -123,7 +123,6 @@ export default function AdminPeliculaEditPage() {
             watched: false,
             imdbId: form.imdbId,
             coverSrc: form.coverSrc,
-            faUrl: undefined,
             location: form.location,
             genreDesc: '',
             rating: null,
