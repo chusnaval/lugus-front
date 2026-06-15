@@ -12,7 +12,7 @@ export interface Pelicula {
   mgmtCode: string
   notes?: string | ''
 
-  pack: boolean
+  pack?: Pack | null
   steelbook: boolean
   slipcover: boolean
   owned: boolean
@@ -44,6 +44,10 @@ export interface Pelicula {
   duration: number
 }
 
+export interface Pack {
+  id: number
+  title: string
+}
 
 export interface Group {
   id: number

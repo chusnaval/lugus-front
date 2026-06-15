@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom"
 import Layout from "./components/Layout"
-import Settings from "./pages/Settings"
 import MovieDetail from "./pages/movie/MovieDetail"
 
 
@@ -91,7 +90,7 @@ export default function App() {
         <Route path="/series/pending" element={<PrivateRoute><PendingSeriesTab /></PrivateRoute>} />
         <Route path="/series/sagas" element={<PrivateRoute><SagasTab /></PrivateRoute>} />
         <Route path="/series/sagas/:id" element={<PrivateRoute><SagaDetailPage /></PrivateRoute>} />
-		    <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+		    
 
       </Route>
     </Routes>

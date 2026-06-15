@@ -26,7 +26,6 @@ export default function AdminPeliculaEditPage() {
         coverSrc: "",
         imdbId: "",
         faId: "",
-        pack: false,
         steelbook: false,
         slipcover: false,
         owned: false,
@@ -60,7 +59,6 @@ export default function AdminPeliculaEditPage() {
         form.genreCode = data.genreCode
         form.coverSrc = data.coverSrc ?? ""
         form.imdbId = data.imdbId ?? ""
-        form.pack = data.pack
         form.steelbook = data.steelbook
         form.slipcover = data.slipcover
         form.owned = data.owned
@@ -118,7 +116,6 @@ export default function AdminPeliculaEditPage() {
             genreCode: form.genreCode,
             mgmtCode: form.mngtCode,
             notes: form.notes,
-            pack: form.pack,
             steelbook: form.steelbook,
             slipcover: form.slipcover,
             owned: form.owned,
@@ -269,11 +266,7 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Flags */}
                 <div className="grid grid-cols-2 gap-4">
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="pack" checked={form.pack} onChange={handleChange} />
-                        <span>Pack</span>
-                    </label>
-
+                    
                     <label className="flex items-center space-x-2">
                         <input type="checkbox" name="steelbook" checked={form.steelbook} onChange={handleChange} />
                         <span>Steelbook</span>

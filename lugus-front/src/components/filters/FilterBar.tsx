@@ -82,17 +82,6 @@ export default function FilterBar({ filters, onChange, onReset }: FilterBarProps
       />
 
       <Select
-        label="Pack"
-        value={filters.pack}
-        onChange={(v) => onChange("pack", v)}
-        options={[
-          { label: "Todos", value: "" },
-          { label: "Sí", value: "yes" },
-          { label: "No", value: "no" },
-        ]}
-      />
-
-      <Select
         label="Completa (series)"
         value={filters.complete}
         onChange={(v) => onChange("complete", v)}

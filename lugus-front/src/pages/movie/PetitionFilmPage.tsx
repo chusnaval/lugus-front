@@ -25,7 +25,6 @@ export default function PetitionFilmPage() {
         coverSrc: "",
         imdbId: "",
         faId: "",
-        pack: false,
         steelbook: false,
         slipcover: false,
         owned: false,
@@ -57,7 +56,6 @@ export default function PetitionFilmPage() {
                 coverSrc: data.coverSrc,
                 imdbId: peliculaId,
                 faId: "",
-                pack: false,
                 steelbook: false,
                 slipcover: false,
                 owned: false,
@@ -201,10 +199,6 @@ export default function PetitionFilmPage() {
 
                 {/* Flags */}
                 <div className="grid grid-cols-2 gap-4">
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="pack" checked={form.pack} onChange={handleChange} />
-                        <span>Pack</span>
-                    </label>
 
                     <label className="flex items-center space-x-2">
                         <input type="checkbox" name="steelbook" checked={form.steelbook} onChange={handleChange} />

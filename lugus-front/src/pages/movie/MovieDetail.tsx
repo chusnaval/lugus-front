@@ -199,7 +199,7 @@ export default function MovieDetail() {
                                 <li><strong>Código:</strong> {movie.mgmtCode}</li>
                                 <li><strong>Comprado:</strong> {movie.owned ? "Sí" : "No"}</li>
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
-                                <li><strong>Grupo:</strong> {movie.group ? movie.group.name : '-'}</li>
+                                <li><strong>Pack:</strong> {movie.pack ? movie.pack.title : '-'}</li>
                                 <li><strong>Estado:</strong> {movie.condition?.desc}</li>
                                 <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>

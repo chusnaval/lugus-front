@@ -6,7 +6,6 @@ export interface Filters {
   format: string
   genre: string
   bought: string
-  pack: string
   complete: string
   sort: string
 }
@@ -25,7 +24,6 @@ export function useFilters(): FiltersState {
     format: "",
     genre: "",
     bought: "",
-    pack: "",
     complete: "",
     sort: "",
   })
@@ -40,7 +38,6 @@ export function useFilters(): FiltersState {
       format: "",
       genre: "",
       bought: "",
-      pack: "",
       complete: "",
       sort: "",
     })

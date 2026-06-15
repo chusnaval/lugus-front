@@ -67,16 +67,6 @@ export default function FiltersFilms({ filters, setFilters, formats, genres }: F
       />
 
       <Select
-        label="Pack"
-        value={filters.pack ?? ""}
-        options={[
-          { label: "Sí", value: "true" },
-          { label: "No", value: "false" }
-        ]}
-        onChange={(v) => update("pack", v)}
-      />
-
-      <Select
         label="Ordenar por"
         value={filters.sort ?? ""}
         options={[

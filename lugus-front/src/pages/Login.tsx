@@ -33,8 +33,7 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     <div className="min-h-screen flex items-center justify-center bg-lugus-bg">
       <form
         onSubmit={handleSubmit}
-        className="bg-lugus-bgAlt p-6 rounded-lg shadow-lg w-full max-w-sm"
-      >
+        className="bg-lugus-bgAlt p-6 rounded-lg shadow-lg w-full max-w-sm">
         <h1 className="text-xl font-semibold text-center mb-4">Iniciar sesión</h1>
 
         <label className="block text-sm mb-1">Usuario</label>
@@ -42,16 +41,14 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 rounded bg-gray-800 text-white mb-3 border border-gray-700 focus:border-gray-500"
-        />
+          className="w-full p-2 rounded bg-gray-800 text-white mb-3 border border-gray-700 focus:border-gray-500"/>
 
         <label className="block text-sm mb-1">Contraseña</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 rounded bg-gray-800 text-white mb-3 border border-gray-700 focus:border-gray-500"
-        />
+          className="w-full p-2 rounded bg-gray-800 text-white mb-3 border border-gray-700 focus:border-gray-500"/>
 
         {error && (
           <p className="text-red-400 text-sm mb-3">{error}</p>
@@ -59,8 +56,7 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-500 transition-colors p-2 rounded text-white font-semibold"
-        >
+          className="w-full bg-blue-600 hover:bg-blue-500 transition-colors p-2 rounded text-white font-semibold">
           Entrar
         </button>
       </form>
