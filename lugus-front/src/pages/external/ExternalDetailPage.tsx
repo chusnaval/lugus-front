@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchWithAuth } from "../../api/fetchWithAuth";
+import { PencilLine, Undo2 } from "lucide-react";
  const API_URL = import.meta.env.VITE_API_URL;  
 type ExternalData = {
   title: string;
@@ -18,6 +19,7 @@ type ExternalData = {
 
 export default function ExternalDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [data, setData] = useState<ExternalData | null>(null);
 
   useEffect(() => {
@@ -72,7 +74,15 @@ export default function ExternalDetailPage() {
           <p className="leading-relaxed">{data.plot}</p>
         </div>
       )}
-
+            <div className="flex gap-4 mt-2">
+                 <button onClick={() =>navigate(`/petition/`, {state: { peliculaId: id } })}
+                    className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded"> <PencilLine className="w-4 h-4 text-lugus-gray" /> Incorporar</button>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="flex gap-2 px-4 py-2 bg-lugus-bgAlt border border-lugus-gray text-lugus-gray rounded">
+                    <Undo2 className="w-4 h-4 text-lugus-gray" />Volver
+                </button>
+            </div>
     </div>
   );
 }
