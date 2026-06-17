@@ -16,32 +16,34 @@ export interface Pelicula {
   steelbook: boolean
   slipcover: boolean
   owned: boolean
-  watched: boolean
   mine: boolean
   favorite: boolean
-
+  
   imdbId?: string | null
   rating?: number | null
   votes?: number | null
-
+  
   situation?: string | null
-
-  // Relaciones que NO están @JsonIgnore
+  
   condition?: Condition | null
   father?: Pelicula | null
-
+  
   director: Director[] | []
   casting: Cast[] |  []
   trailerUrl?: string | null
-
+  
   coverSrc?: string | ''
   synopsis?: string | null
   imdbUrl?: string | undefined
+  duration: number
+  
   lastSeen?: string | null
+  watched: boolean
+  lbRating?: number | ''
+
   location?: string | ''
   group?: Group | null
   country: string | ''
-  duration: number
 }
 
 export interface Pack {

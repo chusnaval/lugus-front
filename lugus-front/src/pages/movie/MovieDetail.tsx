@@ -122,14 +122,14 @@ export default function MovieDetail() {
 
                     {/* Rating + Género + Estado */}
                     <div className="flex text-lugus-gray text-sm mt-2 mb-2">
-                        <Rating value={movie.rating} /><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País:   {movie.country!=null?movie.country
+                        <Rating value={movie.rating} /><div className="w-px text-lugus-muted/50">|</div><span className="text-lg ml-3 mr-3">{formatIconsGenero[movie.genreCode] ?? "💿"}</span> <span className="mr-2">{movie.genreDesc}</span><div className="w-px text-lugus-muted/50">|</div><span className="ml-3">País:   {movie.country != null ? movie.country
                             .split(",")
                             .map(code => (
                                 <span key={code} className="flex items-center gap-1">
                                     {countries[normalizeCountry(code)]?.flag}
                                     {countries[code]?.name}
                                 </span>
-                            )):""}</span>
+                            )) : ""}</span>
                     </div>
 
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
@@ -201,11 +201,17 @@ export default function MovieDetail() {
                                 <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
                                 <li><strong>Pack:</strong> {movie.pack ? movie.pack.title : '-'}</li>
                                 <li><strong>Estado:</strong> {movie.condition?.desc}</li>
-                                <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
                                 <li><strong>Duración:</strong> {movie.duration ? movie.duration + " min." : "-"}</li>
+                                <li><br /></li>
+                                <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
+                                <li>
+                                    <strong>Puntuación personal:</strong>{" "}
+                                    {movie.lbRating != null ? `${movie.lbRating}/5` : "-"}
+                                </li>
+
                                 <li>
                                     <OwnedButton film={movie} />
                                     <FavouritedButton film={movie} />
