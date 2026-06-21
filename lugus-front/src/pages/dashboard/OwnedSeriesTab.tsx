@@ -33,7 +33,7 @@ export default function AllSeriesTab() {
     const API_URL = import.meta.env.VITE_API_URL;          
     const pageSize = 24
     const effectiveFilters = {
-        owned: "true",
+        complete: "true",
         ...filters
     }
     useEffect(() => {

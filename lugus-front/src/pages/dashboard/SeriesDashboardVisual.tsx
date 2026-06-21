@@ -76,8 +76,8 @@ export default function FilmDashboardVisual() {
           <Card>
             <h3 className="text-lg font-semibold">Series</h3>
             <p className="mt-2">
-              <Chip icon="" label={`${stats.completeGroups} completas`} color="blue" />
-              <Chip icon="" label={`${stats.incompleteGroups} incompletas`} color="gold" className="ml-2" />
+              <Chip icon="" label={`${stats.completeGroups} compradas`} color="blue" />
+              <Chip icon="" label={`${stats.incompleteGroups} no compradas`} color="gold" className="ml-2" />
 
             </p>
           </Card>
