@@ -93,8 +93,8 @@ export default function AllSeriesTab() {
             <div className="flex gap-6 border-b border-[#333] mb-6">
                 <Tab to="/series">Resumen</Tab>
                 <Tab to="/series/all">Todas</Tab>
-                <Tab to="/series/bought">Compradas</Tab>
-                <Tab to="/series/pending">Pendientes</Tab>
+                <Tab to="/series/bought">Completas</Tab>
+                <Tab to="/series/pending">Incompletas</Tab>
                 <Tab to="/series/sagas" icon={<Stars />}>Sagas</Tab>
 
                 {/* Export ODS */}
