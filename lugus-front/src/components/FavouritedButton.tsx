@@ -17,7 +17,7 @@ export function FavouritedButton({ film }: { film: Pelicula }) {
     return (
         <button
             onClick={handleClick}
-            className="transition hover:scale-110"
+            className="inline-flex items-center gap-2 px-3 py-2 mt-4 transition hover:scale-110"
         >
             <Star
                 className="w-6 h-6"

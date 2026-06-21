@@ -10,7 +10,7 @@ import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
 import { getPeliculasPage } from "../../api/filmService"
 
- const API_URL = import.meta.env.VITE_API_URL;  
+
 interface FilmPage {
     content: Pelicula[]
     number: number
@@ -29,11 +29,13 @@ export default function PendingFilmsTab() {
     const [appliedFilters, setAppliedFilters] = useState({})
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
+    const API_URL = import.meta.env.VITE_API_URL;  
     const effectiveFilters = {
         owned: "false",
         ...filters
     }
     useEffect(() => {
+        
         setLoading(true)
         fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
         fetchWithAuth("${API_URL}/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)

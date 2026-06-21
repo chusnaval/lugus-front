@@ -9,7 +9,6 @@ import FiltersFilms from "../filters/FiltersFilms"
 import type { Genre } from "../../types/Genre"
 import type { Format } from "../../types/Format"
 import { getPeliculasPage } from "../../api/filmService"
- const API_URL = import.meta.env.VITE_API_URL;  
 
 interface FilmPage {
   content: Pelicula[]
@@ -33,6 +32,8 @@ export default function OwnedFilmsTab() {
     owned: "true",
     ...filters
   }
+   const API_URL = import.meta.env.VITE_API_URL;  
+
   useEffect(() => {
     setLoading(true)
     fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)

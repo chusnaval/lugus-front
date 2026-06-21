@@ -129,9 +129,10 @@ export default function MovieDetail() {
                                     {countries[normalizeCountry(code)]?.flag}
                                     {countries[code]?.name}
                                 </span>
-                            )) : ""}</span>
+                            )) : ""}</span><div className="w-px text-lugus-muted/50">|</div> <span className="ml-3 mr-3">{movie.duration ? movie.duration + " min." : "-"}</span>
+                            
                     </div>
-
+                            
                     <div className="w-full h-[2px] bg-[#2e303a]"></div>
                     <div className="flex flex-col md:flex-row gap-10">
                         <div className="flex-1">
@@ -203,7 +204,6 @@ export default function MovieDetail() {
                                 <li><strong>Estado:</strong> {movie.condition?.desc}</li>
                                 <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
                                 <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
-                                <li><strong>Duración:</strong> {movie.duration ? movie.duration + " min." : "-"}</li>
                                 <li><br /></li>
                                 <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
                                 <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
