@@ -34,7 +34,7 @@ export default function AdminTitlesPage() {
     }, [])
 
     const loadTitles = async () => {
-        const res = await fetchWithAuth("${import.meta.env.VITE_API_URL}/v1/api/titles")
+        const res = await fetchWithAuth(`${import.meta.env.VITE_API_URL}/v1/api/titles`)
         const data = await res.json()
         setTitles(data)
         setLoading(false)
@@ -69,7 +69,7 @@ export default function AdminTitlesPage() {
                 }
             )
         } else {
-            await fetchWithAuth("${import.meta.env.VITE_API_URL}/v1/api/titles", {
+            await fetchWithAuth(`${import.meta.env.VITE_API_URL}/v1/api/titles`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)

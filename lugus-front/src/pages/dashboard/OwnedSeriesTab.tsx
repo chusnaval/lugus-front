@@ -30,16 +30,16 @@ export default function AllSeriesTab() {
     const [appliedFilters, setAppliedFilters] = useState({})
     const [formats, setFormats] = useState<Format[]>([])
     const [genres, setGenres] = useState<Genre[]>([])
+    const API_URL = import.meta.env.VITE_API_URL;          
     const pageSize = 24
     const effectiveFilters = {
         owned: "true",
         ...filters
     }
- const API_URL = import.meta.env.VITE_API_URL;          
     useEffect(() => {
         setLoading(true)
-        fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
-        fetchWithAuth("${API_URL}/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
+        fetchWithAuth(`${API_URL}/v1/api/locations`).then(res => res.json()).then(setFormats).catch(console.error)
+        fetchWithAuth(`${API_URL}/v1/api/genres`).then(res => res.json()).then(setGenres).catch(console.error)
         getSeriesPage(page, pageSize, {
             ...effectiveFilters,
             ...appliedFilters

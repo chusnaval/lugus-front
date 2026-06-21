@@ -38,8 +38,8 @@ export default function AllFilmsTab() {
   useEffect(() => {
 
     setLoading(true)
-    fetchWithAuth("${API_URL}/v1/api/locations").then(res => res.json()).then(setFormats).catch(console.error)
-    fetchWithAuth("${API_URL}/v1/api/genres").then(res => res.json()).then(setGenres).catch(console.error)
+    fetchWithAuth(`${API_URL}/v1/api/locations`).then(res => res.json()).then(setFormats).catch(console.error)
+    fetchWithAuth(`${API_URL}/v1/api/genres`).then(res => res.json()).then(setGenres).catch(console.error)
     getPeliculasPage(page, pageSize, {
       ...effectiveFilters,
       ...appliedFilters

@@ -27,6 +27,7 @@ export default function CoversPage() {
   const [loading, setLoading] = useState(true)
   const [sources, setSources] = useState<Source[]>([])
   const [filtersOpen, setFiltersOpen] = useState(false)
+   const API_URL = import.meta.env.VITE_API_URL;  
   const [filters, setFilters] = useState({
     missing: "yes", // por defecto: sin carátula
     source: "",
@@ -42,7 +43,7 @@ export default function CoversPage() {
 
 
   const loadTypes = async () => { 
-    const res = await fetchWithAuth("${API_URL}/v1/api/sources")
+    const res = await fetchWithAuth(`${API_URL}/v1/api/sources`)
     const data = await res.json()
     setSources(data)
     setLoading(false)

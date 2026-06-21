@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { LocationType } from "../../types/Location"
- const API_URL = import.meta.env.VITE_API_URL;  
+
 export default function LocationTypesPage() {
   const [types, setTypes] = useState<LocationType[]>([])
   const [loading, setLoading] = useState(true)
-
+ const API_URL = import.meta.env.VITE_API_URL;  
   const [editing, setEditing] = useState<LocationType | null>(null)
   const [form, setForm] = useState({
     id: "",
@@ -18,7 +18,7 @@ export default function LocationTypesPage() {
   }, [])
 
   const loadTypes = async () => {
-    const res = await fetchWithAuth("${API_URL}/v1/api/locationTypes")
+    const res = await fetchWithAuth(`${API_URL}/v1/api/locationTypes`)
     const data = await res.json()
     setTypes(data)
     setLoading(false)
@@ -48,7 +48,7 @@ export default function LocationTypesPage() {
         }
       )
     } else {
-      await fetchWithAuth("${API_URL}/v1/api/locationTypes", {
+      await fetchWithAuth(`${API_URL}/v1/api/locationTypes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)

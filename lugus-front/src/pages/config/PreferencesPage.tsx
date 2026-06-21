@@ -12,11 +12,11 @@ export default function PreferencesPage() {
     const { favoritos, save } = useUserPreferences()
     const [selected, setSelected] = useState<Genre[]>(favoritos)
     const [genres, setGenres] = useState<Genre[]>([])
-
+    const API_URL = import.meta.env.VITE_API_URL;  
     useEffect(() => {
         const load = async () => {
             const genRes = await
-                fetchWithAuth("${API_URL}/v1/api/genres")
+                fetchWithAuth(`${API_URL}/v1/api/genres`)
 
             setGenres(await genRes.json())
 

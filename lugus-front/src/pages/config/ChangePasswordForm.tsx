@@ -7,7 +7,7 @@ export default function ChangePasswordForm() {
     const [repeatPassword, setRepeatPassword] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
-
+    const API_URL = import.meta.env.VITE_API_URL;  
     const logout = useLogout()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -24,7 +24,7 @@ export default function ChangePasswordForm() {
             return
         }
    
-        const res = await fetch("${API_URL}/api/auth/change-password", {
+        const res = await fetch(`${API_URL}/api/auth/change-password`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
