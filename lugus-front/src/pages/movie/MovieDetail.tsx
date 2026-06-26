@@ -1,7 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { getFilmById } from "../../api/filmService"
-import { formatIconsFormat, formatIconsGenero } from "../../utils/formatIcons"
-import Chip from "../../components/ui/Chip"
+import { formatIconsGenero } from "../../utils/formatIcons"
 import { PencilLine, Undo2 } from "lucide-react"
 import { countries, normalizeCountry } from "../../utils/countries"
 import { useEffect, useState } from "react"
@@ -11,6 +10,7 @@ import { OwnedButton } from "../../components/OwnedButton"
 import Modal from "../../components/ui/Modal"
 import { useAuth } from "../../context/AuthContext"
 import { FavouritedButton } from "../../components/FavouritedButton"
+import { EditionCard } from "./EditionCard"
 
 export async function getOmdbInfo(imdbId: string) {
     const API_URL = import.meta.env.VITE_API_URL;
@@ -32,6 +32,7 @@ export default function MovieDetail() {
     const [omdbOpen, setOmdbOpen] = useState(false);
     const [omdbData, setOmdbData] = useState<any>(null);
     const [omdbLoading, setOmdbLoading] = useState(false);
+    const [editionIndex, setEditionIndex] = useState(0);
 
     useEffect(() => {
         if (!id) return
@@ -189,52 +190,53 @@ export default function MovieDetail() {
 
 
                         </div>
-                        {/* TARJETA DE INFORMACIÓN ADICIONAL */}
-                        <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 h-fit">
 
-                            <h2 className="text-xl font-semibold mb-3">Información adicional</h2>
-                            <div className="w-full h-px bg-lugus-gray mb-4"></div>
+                        <div className="p-6 h-fit">
+                            <EditionCard
+                                ediciones={movie.editions}
+                                index={editionIndex}
+                                onChangeIndex={setEditionIndex}
+                                />
 
-                            <ul className="text-sm space-y-2">
-                                <li> <Chip icon={formatIconsFormat[movie.format.descripcion] ?? "💿"} label={movie.format.descripcion} color="blue" /></li>
-                                <li><strong>Código:</strong> {movie.mgmtCode}</li>
-                                <li><strong>Comprado:</strong> {movie.owned ? "Sí" : "No"}</li>
-                                <li><strong>Estantería:</strong> {movie.location ?? "–"}</li>
-                                <li><strong>Pack:</strong> {movie.pack ? movie.pack.title : '-'}</li>
-                                <li><strong>Estado:</strong> {movie.condition?.desc}</li>
-                                <li><strong>Steelbook:</strong> {movie.steelbook ? "Sí" : "No"}</li>
-                                <li><strong>Funda:</strong> {movie.slipcover ? "Sí" : "No"}</li>
-                                <li><br /></li>
-                                <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
-                                <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
-                                <li>
-                                    <strong>Puntuación personal:</strong>{" "}
-                                    {movie.lbRating != null ? `${movie.lbRating}/5` : "-"}
-                                </li>
+                            
+                            {/* TARJETA DE INFORMACIÓN ADICIONAL */}
+                            <div className="bg-[#1f1f1f] border border-lugus-gray rounded-lg p-6 mt-4 h-fit">
 
-                                <li>
-                                    <OwnedButton film={movie} />
-                                    <FavouritedButton film={movie} />
-                                </li>
-                                <li><a href={movie.imdbUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] 
-                                     border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
-                                    <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb" className="w-6 h-6 inline-block" /></span> Ver en IMDb
-                                </a>
-                                </li>
-                                {/* Abrimos un modal con la informacion recuperada de OMDb */}
-                                {isAdmin && movie.imdbId &&
-                                    (<li>
-                                        <button
-                                            onClick={openOmdbModal}
-                                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded">
-                                            Ver info OMDb
-                                        </button>
-                                    </li>)}
-                            </ul>
+                                <h2 className="text-xl font-semibold mb-3">Información adicional</h2>
+                                <div className="w-full h-px bg-lugus-gray mb-4"></div>
 
+                                <ul className="text-sm space-y-2">
+                                    <li><strong>Visto:</strong> {movie.watched ? "Sí" : "No"}</li>
+                                    <li><strong>Última revisión:</strong> {movie.lastSeen ?? "–"}</li>
+                                    <li>
+                                        <strong>Puntuación personal:</strong>{" "}
+                                        {movie.lbRating != null ? `${movie.lbRating}/5` : "-"}
+                                    </li>
+
+                                    <li>
+                                        <OwnedButton film={movie} />
+                                        <FavouritedButton film={movie} />
+                                    </li>
+                                    <li><a href={movie.imdbUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-3 py-2 mt-4 rounded bg-[#1f1f1f] 
+                                        border border-lugus-gray text-lugus-gray text-sm hover:bg-[#2a2a2a]">
+                                        <span><img src="/icons/IMDb_square.svg" alt="Ver en IMDb" className="w-6 h-6 inline-block" /></span> Ver en IMDb
+                                    </a>
+                                    </li>
+                                    {/* Abrimos un modal con la informacion recuperada de OMDb */}
+                                    {isAdmin && movie.imdbId &&
+                                        (<li>
+                                            <button
+                                                onClick={openOmdbModal}
+                                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded">
+                                                Ver info OMDb
+                                            </button>
+                                        </li>)}
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
                 </div>

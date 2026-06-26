@@ -1,49 +1,34 @@
-import type { Condition } from "./Condition"
-import type { Format } from "./Format"
+import type { Edition } from "./Edition"
+
 
 export interface Pelicula {
   id: number
   title: string
   titleMgmt: string
-  format: Format
   year: number
   genreCode: string
   genreDesc: string
-  mgmtCode: string
-  notes?: string | ''
-
-  pack?: Pack | null
-  steelbook: boolean
-  slipcover: boolean
-  owned: boolean
-  mine: boolean
-  favorite: boolean
-  
   imdbId?: string | null
   rating?: number | null
   votes?: number | null
-  
-  situation?: string | null
-  
-  condition?: Condition | null
-  father?: Pelicula | null
-  
+
   director: Director[] | []
   casting: Cast[] |  []
-  trailerUrl?: string | null
-  
-  coverSrc?: string | ''
-  synopsis?: string | null
-  imdbUrl?: string | undefined
-  duration: number
-  
-  lastSeen?: string | null
-  watched: boolean
-  lbRating?: number | ''
+  editions: Edition[] | []
 
-  location?: string | ''
+  coverSrc?: string 
+  synopsis?: string | null
+  imdbUrl?: string 
+  lastSeen?: string | null
+  lbRating?: number 
   group?: Group | null
-  country: string | ''
+  country: string 
+  trailerUrl?: string | null
+  mine: boolean
+  favorite: boolean
+  duration: number
+  watched: boolean
+  notes: string 
 }
 
 export interface Pack {

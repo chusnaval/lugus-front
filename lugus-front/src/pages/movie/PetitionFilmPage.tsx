@@ -5,7 +5,8 @@ import { fetchWithAuth } from "../../api/fetchWithAuth"
 import type { Location } from "../../types/Location"
 import type { Format } from "../../types/Format"
 import type { Genre } from "../../types/Genre"
- const API_URL = import.meta.env.VITE_API_URL;  
+import type { Pelicula } from "../../types/Pelicula"
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function PetitionFilmPage() {
     const [locations, setLocations] = useState<Location[]>([])
@@ -20,17 +21,23 @@ export default function PetitionFilmPage() {
         title: "",
         titleMgmt: "",
         year: "",
-        format: "",
         genreCode: "",
         coverSrc: "",
         imdbId: "",
         faId: "",
-        steelbook: false,
-        slipcover: false,
-        owned: false,
-        location: "",
-        mngtCode: "",
-        notes: ""
+        trailerUrl: "",
+        duration: 0,
+        editions: [] as {
+            condition: any
+            id: number
+            format: Format | null
+            steelbook: boolean
+            slipcover: boolean
+            owned: boolean
+            location: string
+            mngtCode: string
+            notes: string
+        }[]
     })
 
     useEffect(() => {
@@ -45,28 +52,78 @@ export default function PetitionFilmPage() {
             setLocations(await locRes.json())
             setFormats(await fmtRes.json())
             setGenres(await genRes.json())
-            const res = await fetchWithAuth(`${API_URL}/v1/api/imdb/${peliculaId}`)
-            const data = await res.json()
-            setForm({
-                title: data.title,
-                titleMgmt: data.titleMgmt,
-                year: data.year,
-                format: data.format,
-                genreCode: data.genreCode,
-                coverSrc: data.coverSrc,
-                imdbId: peliculaId,
-                faId: "",
-                steelbook: false,
-                slipcover: false,
-                owned: false,
-                location: "",
-                mngtCode: data.mgmtCode,
-                notes: data.notes
-            })
+            loadFilm()
         }
 
         load()
     }, [peliculaId])
+
+    const loadFilm = async () => {
+        const res = await fetch(`${API_URL}/v1/api/imdb/${peliculaId}`, {
+            credentials: "include",
+            headers: { "Content-Type": "application/json" }
+        })
+
+        const data: Pelicula = await res.json()
+
+        setForm({
+            title: data.title,
+            titleMgmt: data.titleMgmt,
+            year: '' + data.year,
+            genreCode: data.genreCode,
+            coverSrc: data.coverSrc ?? "",
+            imdbId: data.imdbId ?? "",
+            faId: "",
+            trailerUrl: data.trailerUrl ?? "",
+            duration: data.duration ?? 0,
+
+            editions: data.editions.map(ed => ({
+                condition: ed.condition ?? null,
+                id: ed.id,
+                format: ed.format,
+                steelbook: ed.steelbook,
+                slipcover: ed.slipcover,
+                owned: ed.owned,
+                location: ed.location ?? "",
+                mngtCode: ed.mgmtCode,
+                notes: ed.notes ?? ""
+            }))
+        })
+    }
+
+    const updateEdition = (index: number, field: string, value: any) => {
+        const updated = [...form.editions]
+        updated[index] = { ...updated[index], [field]: value }
+        setForm({ ...form, editions: updated })
+    }
+
+    const addEdition = () => {
+        setForm({
+            ...form,
+            editions: [
+                ...form.editions,
+                {
+                    condition: null,
+                    id: 0,
+                    format: null,
+                    steelbook: false,
+                    slipcover: false,
+                    owned: false,
+                    location: "",
+                    mngtCode: "",
+                    notes: ""
+                }
+            ]
+        })
+    }
+
+    const removeEdition = (index: number) => {
+        setForm({
+            ...form,
+            editions: form.editions.filter((_, i) => i !== index)
+        })
+    }
+
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -93,7 +150,7 @@ export default function PetitionFilmPage() {
 
     return (
         <div className="p-8 text-gray-200">
-            <h1 className="text-2xl font-bold text-[#d4af37] mb-6">Añadir película</h1>
+            <h1 className="text-2xl font-bold text-[#d4af37] mb-6">Editar película</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
 
@@ -129,21 +186,14 @@ export default function PetitionFilmPage() {
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
                     />
                 </div>
-
-                {/* Formato */}
                 <div>
-                    <label className="block mb-1">Formato</label>
-                    <select
-                        name="format"
-                        value={form.format}
+                    <label className="block mb-1">Duración</label>
+                    <input
+                        name="duration"
+                        value={form.duration}
                         onChange={handleChange}
-                        className="bg-[#111] border border-[#333] p-2 rounded w-full"
-                    >
-                        <option value="">Selecciona formato</option>
-                        {formats.map(fmt => (
-                            <option key={fmt.codigo} value={fmt.codigo}>{fmt.descripcion}</option>
-                        ))}
-                    </select>
+                        className="w-full bg-[#111] border border-[#333] p-2 rounded"
+                    />
                 </div>
 
                 {/* Género */}
@@ -185,74 +235,119 @@ export default function PetitionFilmPage() {
                     />
                 </div>
 
-                {/* Filmaffinity ID */}
                 <div>
-                    <label className="block mb-1">Filmaffinity ID</label>
+                    <label className="block mb-1">Trailer oficial (YouTube)</label>
                     <input
-                        name="faId"
-                        value={form.faId}
+                        name="trailerUrl"
+                        value={form.trailerUrl}
                         onChange={handleChange}
-                        placeholder="123456"
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
                     />
                 </div>
 
-                {/* Flags */}
-                <div className="grid grid-cols-2 gap-4">
+                <h2 className="text-xl font-bold text-[#d4af37] mt-10">Ediciones</h2>
 
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="steelbook" checked={form.steelbook} onChange={handleChange} />
-                        <span>Steelbook</span>
-                    </label>
+                {form.editions.map((ed, idx) => (
+                    <div key={idx} className="border border-[#333] p-4 rounded mt-4">
 
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="slipcover" checked={form.slipcover} onChange={handleChange} />
-                        <span>Slipcover</span>
-                    </label>
+                        <div className="flex justify-between items-center mb-2">
+                            <h3 className="text-lg font-semibold">Edición {idx + 1}</h3>
 
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="owned" checked={form.owned} onChange={handleChange} />
-                        <span>Comprada</span>
-                    </label>
-                </div>
+                            {form.editions.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => removeEdition(idx)}
+                                    className="text-red-400 hover:text-red-600"
+                                >
+                                    Eliminar
+                                </button>
+                            )}
+                        </div>
 
-                {/* Ubicación */}
-                <div>
-                    <label className="block mb-1">Ubicación</label>
-                    <select
-                        name="location"
-                        value={form.location}
-                        onChange={handleChange}
-                        className="bg-[#111] border border-[#333] p-2 rounded w-full">
-                        <option value="">Selecciona ubicación</option>
-                        {locations.map(loc => (
-                            <option key={loc.codigo} value={loc.codigo}>{loc.descripcion}</option>
-                        ))}
-                    </select>
-                </div>
+                        {/* Formato */}
+                        <label className="block mb-1">Formato</label>
+                        <select
+                            value={ed.format?.codigo}
+                            onChange={(e) => updateEdition(idx, "format", e.target.value)}
+                            className="bg-[#111] border border-[#333] p-2 rounded w-full"
+                        >
+                            <option value="">Selecciona formato</option>
+                            {formats.map(fmt => (
+                                <option key={fmt.codigo} value={fmt.codigo}>{fmt.descripcion}</option>
+                            ))}
+                        </select>
 
-                {/* Código gestión */}
-                <div>
-                    <label className="block mb-1">Código gestión</label>
-                    <input
-                        name="mngtCode"
-                        value={form.mngtCode}
-                        onChange={handleChange}
-                        placeholder="LUG-00123"
-                        className="w-full bg-[#111] border border-[#333] p-2 rounded"
-                    />
-                </div>
+                        {/* Flags */}
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={ed.steelbook}
+                                    onChange={(e) => updateEdition(idx, "steelbook", e.target.checked)}
+                                />
+                                <span>Steelbook</span>
+                            </label>
 
-                {/* Notas */}
-                <div>
-                    <label className="block mb-1">Notas</label>
-                    <textarea
-                        name="notes"
-                        value={form.notes}
-                        onChange={handleChange}
-                        className="w-full bg-[#111] border border-[#333] p-2 rounded h-24"
-                    />
-                </div>
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={ed.slipcover}
+                                    onChange={(e) => updateEdition(idx, "slipcover", e.target.checked)}
+                                />
+                                <span>Slipcover</span>
+                            </label>
+
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={ed.owned}
+                                    onChange={(e) => updateEdition(idx, "owned", e.target.checked)}
+                                />
+                                <span>Comprada</span>
+                            </label>
+                        </div>
+
+                        {/* Ubicación */}
+                        <label className="block mt-4 mb-1">Ubicación</label>
+                        <select
+                            value={ed.location}
+                            onChange={(e) => updateEdition(idx, "location", e.target.value)}
+                            className="bg-[#111] border border-[#333] p-2 rounded w-full"
+                        >
+                            <option value="">Selecciona ubicación</option>
+                            {locations.map(loc => (
+                                <option key={loc.codigo} value={loc.codigo}>{loc.descripcion}</option>
+                            ))}
+                        </select>
+
+                        {/* Código gestión */}
+                        <label className="block mt-4 mb-1">Código gestión</label>
+                        <input
+                            value={ed.mngtCode}
+                            onChange={(e) => updateEdition(idx, "mngtCode", e.target.value)}
+                            className="w-full bg-[#111] border border-[#333] p-2 rounded"
+                        />
+
+                        {/* Notas */}
+                        <label className="block mt-4 mb-1">Notas</label>
+                        <textarea
+                            value={ed.notes}
+                            onChange={(e) => updateEdition(idx, "notes", e.target.value)}
+                            className="w-full bg-[#111] border border-[#333] p-2 rounded h-20"
+                        />
+                    </div>
+                ))}
+
+                <button
+                    type="button"
+                    onClick={addEdition}
+                    className="mt-4 px-3 py-2 bg-[#444] rounded hover:bg-[#555]"
+                >
+                    + Añadir otra edición
+                </button>
+
+
+
 
                 {/* Botón */}
                 <button
