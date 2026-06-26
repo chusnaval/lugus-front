@@ -86,7 +86,6 @@ export default function DashboardText() {
           columns={[
             { key: "title", label: "Título" },
             { key: "year", label: "Año" },
-            { key: "format", label: "Formato" },
             { key: "genreDesc", label: "Genero" },
           ]}
           data={ultimas}

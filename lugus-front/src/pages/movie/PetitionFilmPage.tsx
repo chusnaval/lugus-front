@@ -80,7 +80,7 @@ export default function PetitionFilmPage() {
             editions: data.editions.map(ed => ({
                 condition: ed.condition ?? null,
                 id: ed.id,
-                format: ed.format,
+                format: ed.format || null,
                 steelbook: ed.steelbook,
                 slipcover: ed.slipcover,
                 owned: ed.owned,

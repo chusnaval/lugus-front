@@ -44,7 +44,13 @@ export function EditionCard({ ediciones, index, onChangeIndex }: EditionCardProp
         {/* Formato */}
         <li>
           <span className="inline-flex items-center gap-2">
-            <span><Chip icon={formatIconsFormat[e.format.descripcion] ?? "💿"} label={e.format.descripcion} color="blue" /></span>
+            <span>
+              <Chip
+                icon={formatIconsFormat[e.format?.descripcion ?? ""] ?? "💿"}
+                label={e.format?.descripcion ?? "-"}
+                color="blue"
+              />
+            </span>
           </span>
         </li>
 
