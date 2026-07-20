@@ -158,7 +158,7 @@ export default function OwnedFilmsTab() {
                         bg-black/70 
                         opacity-0 
                         group-hover:opacity-100 
-                        transition-opacity 
+                        transition-opacity                         
                         flex flex-col justify-end p-3">
                 <p className="text-white font-semibold text-sm">{p.title}</p>
                 <p className="text-gray-300 text-xs">{p.year} · {p.editions?.[0]?.format?.descripcion ?? "—"}</p>

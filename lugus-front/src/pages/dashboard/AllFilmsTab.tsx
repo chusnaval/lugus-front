@@ -141,7 +141,7 @@ export default function AllFilmsTab() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
         {data.content.map(p => (
           <Link key={p.id} to={`/films/${p.id}`}>
-            <div className="relative bg-lugus-bgAlt rounded-lg overflow-hidden shadow-md hover:scale-[1.02] transition-transform group">
+            <div className={`relative bg-lugus-bgAlt rounded-lg overflow-hidden shadow-md hover:scale-[1.02] transition-transform group    ${p.editions?.[0]?.owned === false ? 'border border-red-500' : ''}`}>
               {p.coverSrc ? (
                 <img
                   src={p.coverSrc}
@@ -155,13 +155,17 @@ export default function AllFilmsTab() {
               )}
 
               {/* OVERLAY HOVER */}
-              <div className="
-                        absolute inset-0 
-                        bg-black/70 
-                        opacity-0 
-                        group-hover:opacity-100 
-                        transition-opacity 
-                        flex flex-col justify-end p-3">
+              <div
+                className={`
+                  absolute inset-0 
+                  bg-black/70 
+                  opacity-0 
+                  group-hover:opacity-100 
+                  transition-opacity                         
+                  flex flex-col justify-end p-3
+                  ${p.editions?.[0]?.owned === false ? 'border border-red-500' : ''}
+                `}>
+
                 <p className="text-white font-semibold text-sm">{p.title}</p>
                 <p className="text-gray-300 text-xs">{p.year} · {p.editions?.[0]?.format?.descripcion ?? "—"}</p>
                 <p className="text-gray-400 text-xs">{p.genreDesc}</p>
