@@ -180,7 +180,10 @@ export default function AdminPeliculaEditPage() {
                 notes: ed.notes,
 
                 condition: ed.condition
-                    ? { id: ed.condition, desc: "" }
+                    ? {
+                         id: ed.condition.id,
+                         desc:  ed.condition.desc 
+                    }
                     : null
             })),
 
