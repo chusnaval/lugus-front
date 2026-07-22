@@ -1,17 +1,17 @@
 import { ResponsiveBar } from "@nivo/bar"
 import type { FilmStats } from "../../types/FilmStats"
 
-
-const genreColors = {
-  accion: "#f1c40f",
-  terror: "#3498db",
-  comedia: "#bdc3c7",
-  drama: "#e74c3c",
-  aventura: "#8e44ad",
-  cienciaFiccion: "#000000",
-  thriller: "#e67e22",
-  animacion: "#2ecc71",
+const categoryColors = {
+  arteEntretenimiento: "#f1c40f",
+  literaturaNarrativa: "#3498db",
+  cienciaFiccion: "#bdc3c7",
+  accion: "#e74c3c",
+  misterio: "#8e44ad",
+  terror: "#000000",
+  conflicto: "#e67e22",
+  documental: "#2ecc71",
 }
+
 
 const customTheme = {
   axis: {
@@ -41,15 +41,15 @@ const customTheme = {
   }
 };
 
-export default function GenresBarChart({ stats }: { stats: FilmStats }) {
+export default function CategoriesBarChart({ stats }: { stats: FilmStats }) {
 const data = Object
-  .entries(stats.numerosPorGenero)
+  .entries(stats.numerosPorCategoria)
   .sort((a, b) => b[1] - a[1])        // ordenar por valor descendente
   .slice(0, 8)                        // quedarte con los 8 primeros
   .map(([cat, value]) => ({
     categoria: cat,
     valor: value,
-    color: genreColors[cat as keyof typeof genreColors],
+    color: categoryColors[cat as keyof typeof categoryColors],
   }))
 
 

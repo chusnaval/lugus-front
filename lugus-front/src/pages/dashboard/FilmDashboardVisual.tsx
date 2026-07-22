@@ -17,6 +17,7 @@ import FormatPieChart from "../../components/ui/FormatPieChart"
 import GenresBarChart from "../../components/ui/GenresBarChart"
 import { useUserPreferences } from "../../api/useUserPreferences"
 import { formatText } from "../../utils/textos"
+import CategoriesBarChart from "../../components/ui/CategoriesBarChart"
 
 export default function FilmDashboardVisual() {
 
@@ -32,7 +33,7 @@ export default function FilmDashboardVisual() {
     uhd: 0,
     digital: 0,
     notOwned: 0,
-    generosPorCategoria: {
+    numerosPorCategoria: {
       arteEntretenimiento: 0,
       literaturaNarrativa: 0,
       cienciaFiccion: 0,
@@ -41,7 +42,30 @@ export default function FilmDashboardVisual() {
       terror: 0,
       conflicto: 0,
       documental: 0
-    }
+    },
+   numerosPorGenero :{
+            animacion: 0,
+	        anime: 0,
+	        infantil: 0,
+	        musical: 0,
+	        navidena: 0,
+	        drama: 0,
+	        romantica: 0,
+	        comedia: 0,
+	        cienciaFiccion: 0,
+	        accion: 0,
+	        aventura: 0,
+	        fantasia: 0,
+	        thriller: 0,
+	        misterio: 0,
+	        crimen: 0,
+	        terror: 0,
+	        belico: 0,
+	        western: 0,
+	        documental: 0,
+	        deportes: 0
+        }
+    
   })
 
 
@@ -236,9 +260,12 @@ useEffect(() => {
 
         <Card className="h-[410px]">
           <h3 className="text-lg font-semibold mb-2">Distribución por categoría</h3>
+          <CategoriesBarChart stats={stats} />
+        </Card>
+        <Card className="h-[410px]">
+          <h3 className="text-lg font-semibold mb-2">Distribución por genero</h3>
           <GenresBarChart stats={stats} />
         </Card>
-
 
         <Card className="h-64">
           <h3 className="text-lg font-semibold mb-2">Estado de la Colección</h3>

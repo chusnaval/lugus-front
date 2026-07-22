@@ -25,7 +25,7 @@ export default function HomeDashboardVisual() {
         uhd: 0,
         digital: 0,
         notOwned: 0,
-        generosPorCategoria: {
+        numerosPorCategoria: {
             arteEntretenimiento: 0,
             literaturaNarrativa: 0,
             cienciaFiccion: 0,
