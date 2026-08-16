@@ -73,7 +73,7 @@ export default function AdminPeliculaEditPage() {
                 steelbook: ed.steelbook,
                 slipcover: ed.slipcover,
                 owned: ed.owned,
-                location: ed.location ?? "",
+                location: ed.locationCode ?? "",
                 mngtCode: ed.mgmtCode,
                 notes: ed.notes ?? ""
             }))
