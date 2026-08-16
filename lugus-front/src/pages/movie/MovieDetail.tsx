@@ -53,6 +53,14 @@ export default function MovieDetail() {
         setOmdbOpen(true);
     };
 
+    const closeOmdbModal = (event: React.MouseEvent<HTMLDivElement>) => {
+        const target = event.target as HTMLElement;
+
+        if (target.id !== "omdbModal" && omdbOpen) {
+            setOmdbOpen(false);
+        }
+    }
+
     if (loading) return <div>Cargando...</div>
     if (!movie) {
         return (
@@ -69,7 +77,7 @@ export default function MovieDetail() {
 
 
     return (
-        <div className="max-w-[1600px] mx-auto px-8">
+        <div className="max-w-[1600px] mx-auto px-8" onClick={(e) => closeOmdbModal(e)}>
 
             <div className="flex flex-col md:flex-row gap-10">
 
@@ -257,7 +265,7 @@ export default function MovieDetail() {
                 {omdbLoading && <div>Cargando datos de OMDb…</div>}
 
                 {omdbData && (
-                    <div>
+                    <div id="omdbModal">
                         <h2 className="text-2xl mb-2">{omdbData.Title}</h2>
                         <p className="text-sm text-neutral-400 mb-4">
                             {omdbData.Year} • {omdbData.Genre}
