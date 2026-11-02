@@ -368,8 +368,7 @@ export default function AdminPeliculaEditPage() {
                         <select
                             value={ed.location}
                             onChange={(e) => updateEdition(idx, "location", e.target.value)}
-                            className="bg-[#111] border border-[#333] p-2 rounded w-full"
-                        >
+                            className="bg-[#111] border border-[#333] p-2 rounded w-full">
                             <option value="">Selecciona ubicación</option>
                             {locations.map(loc => (
                                 <option key={loc.codigo} value={loc.codigo}>{loc.descripcion}</option>
