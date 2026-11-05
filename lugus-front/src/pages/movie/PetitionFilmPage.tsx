@@ -220,7 +220,7 @@ export default function PetitionFilmPage() {
                         value={form.coverSrc}
                         onChange={handleChange}
                         className="w-full bg-[#111] border border-[#333] p-2 rounded"
-                    />
+                    /><i>* Si se deja en blanco se intentará asignar automáticamente</i>
                 </div>
 
                 {/* IMDb ID */}
