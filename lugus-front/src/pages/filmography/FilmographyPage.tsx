@@ -8,6 +8,7 @@ interface FilmographyApiItem {
   id: number
   nconst: string
   peliculaId: number
+  formatoId: number
   title: string
   startyear: number
   category: string
@@ -45,6 +46,7 @@ export default function FilmographyPage() {
       items={items.map(item => ({
         id: item.peliculaId,
         imdbId: item.tconst,
+        formatoId: item.formatoId,
         type: item.type,
         title: item.title,
         year: item.startyear,
