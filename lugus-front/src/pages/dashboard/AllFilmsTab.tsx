@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 import Tab from "../../components/ui/Tab"
 import { FileSpreadsheet, FileText, FileType, LucideSearch, Stars } from "lucide-react"
@@ -26,25 +26,34 @@ export default function AllFilmsTab() {
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
   const [filtersOpen, setFiltersOpen] = useState(false)
-  const [filters, setFilters] = useState({})
-  const [appliedFilters, setAppliedFilters] = useState({})
+  const [filters, setFilters] = useState<Record<string, string>>({})
+  const [appliedFilters, setAppliedFilters] = useState<Record<string, string>>({})
   const [formats, setFormats] = useState<Format[]>([])
   const [genres, setGenres] = useState<Genre[]>([])
   const pageSize = 24
+  const [searchParams] = useSearchParams();
+  const formatParam = searchParams.get("format");
+
   const effectiveFilters = {
     ...filters
   }
  const API_URL = import.meta.env.VITE_API_URL;  
+ 
   useEffect(() => {
 
     setLoading(true)
     fetchWithAuth(`${API_URL}/v1/api/formats`).then(res => res.json()).then(setFormats).catch(console.error)
     fetchWithAuth(`${API_URL}/v1/api/genres`).then(res => res.json()).then(setGenres).catch(console.error)
+    if(formatParam){
+      appliedFilters.format = formatParam;
+    }
+
     getPeliculasPage(page, pageSize, {
       ...effectiveFilters,
       ...appliedFilters
     })
       .then((res) => setData(res))
+      .catch(() => setLoading(false))
       .finally(() => setLoading(false))
 
   }, [page, appliedFilters])

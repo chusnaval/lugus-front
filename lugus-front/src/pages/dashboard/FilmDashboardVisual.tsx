@@ -135,34 +135,36 @@ useEffect(() => {
           <Card className="md:col-span-1">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <LayersMinus className="w-5 h-5" />
+                 <Link to="/films/all" className="px-3 py-1 transition-colors">
               {stats.totalFilms} Total películas
+              </Link>
             </h3>
           </Card>
 
           <Card className="md:col-span-2 flex flex-wrap items-center gap-3">
             {/* tus chips */}
             <div className="flex items-center gap-3">
-              <Chip icon={formatIconsFormat['DVD']} label="" color="muted" title="DVD" /> {stats.dvd}
+              <Link to="/films/all?format=1" className="flex items-center gap-3"><Chip icon={formatIconsFormat['DVD']} label="" color="muted" title="DVD" /> {stats.dvd} </Link>
             </div>
             <div className="w-px h-5 bg-gray-600 opacity-40"></div>
 
             <div className="flex items-center gap-3">
-              <Chip icon={formatIconsFormat['Blu-ray']} label="" color="blue" title="Blu-ray" /> {stats.bluray}
+              <Link to="/films/all?format=2" className="flex items-center gap-3"><Chip icon={formatIconsFormat['Blu-ray']} label="" color="blue" title="Blu-ray" /> {stats.bluray}</Link>
             </div>
             <div className="w-px h-5 bg-gray-600 opacity-40"></div>
 
             <div className="flex items-center gap-3">
-              <Chip icon={formatIconsFormat['UHD']} label="" color="gold" title="UHD" /> {stats.uhd}
+             <Link to="/films/all?format=3" className="flex items-center gap-3"> <Chip icon={formatIconsFormat['UHD']} label="" color="gold" title="UHD" /> {stats.uhd} </Link>
             </div>
             <div className="w-px h-5 bg-gray-600 opacity-40"></div>
 
             <div className="flex items-center gap-3">
-              <Chip icon={formatIconsFormat['Digital']} label="" color="green" title="Digital" /> {stats.digital}
+              <Link to="/films/all?format=4" className="flex items-center gap-3"><Chip icon={formatIconsFormat['Digital']} label="" color="green" title="Digital" />{stats.digital}</Link>
             </div>
             <div className="w-px h-5 bg-gray-600 opacity-40"></div>
 
             <div className="flex items-center gap-3">
-              <Chip icon={formatIconsFormat['None']} label="" color="red" title="No Disponible" /> {stats.notOwned}
+             <Link to="/films/pending" className="flex items-center gap-3"> <Chip icon={formatIconsFormat['None']} label="" color="red" title="No Disponible" /> {stats.notOwned}</Link>
             </div>
           </Card>
         </div>
