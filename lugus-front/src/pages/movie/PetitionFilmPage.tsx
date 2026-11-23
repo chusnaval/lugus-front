@@ -31,6 +31,7 @@ export default function PetitionFilmPage() {
             condition: any
             id: number
             format: Format | null
+            formatCode: string
             steelbook: boolean
             slipcover: boolean
             owned: boolean
@@ -81,6 +82,7 @@ export default function PetitionFilmPage() {
                 condition: ed.condition ?? null,
                 id: ed.id,
                 format: ed.format || null,
+                formatCode: ed.formatCode?? "",
                 steelbook: ed.steelbook,
                 slipcover: ed.slipcover,
                 owned: ed.owned,
@@ -106,6 +108,7 @@ export default function PetitionFilmPage() {
                     condition: null,
                     id: 0,
                     format: null,
+                    formatCode: "",
                     steelbook: false,
                     slipcover: false,
                     owned: false,
@@ -267,8 +270,8 @@ export default function PetitionFilmPage() {
                         {/* Formato */}
                         <label className="block mb-1">Formato</label>
                         <select
-                            value={ed.format?.codigo}
-                            onChange={(e) => updateEdition(idx, "format", e.target.value)}
+                            value={ed.formatCode}
+                            onChange={(e) => updateEdition(idx, "formatCode", e.target.value)}
                             className="bg-[#111] border border-[#333] p-2 rounded w-full"
                         >
                             <option value="">Selecciona formato</option>

@@ -31,7 +31,7 @@ export default function AdminPeliculaEditPage() {
         editions: [] as {
             condition: any
             id: number
-            format: Format | null
+            formatCode: string
             steelbook: boolean
             slipcover: boolean
             owned: boolean
@@ -69,7 +69,7 @@ export default function AdminPeliculaEditPage() {
             editions: data.editions.map(ed => ({
                 condition: ed.condition ?? "",
                 id: ed.id,
-                format: ed.format,
+                formatCode: ed.format?.codigo ?? "",
                 steelbook: ed.steelbook,
                 slipcover: ed.slipcover,
                 owned: ed.owned,
@@ -94,7 +94,7 @@ export default function AdminPeliculaEditPage() {
                 {
                     condition: "",
                     id: 0,
-                    format: null,
+                    formatCode: "",
                     steelbook: false,
                     slipcover: false,
                     owned: false,
@@ -164,13 +164,8 @@ export default function AdminPeliculaEditPage() {
             editions: form.editions.map(ed => ({
                 id: ed.id,
 
-                format: ed.format
-                    ? {
-                        codigo: ed.format.codigo,
-                        descripcion: ed.format.descripcion
-                    }
-                    : null,
-
+                formatCode: ed.formatCode,
+                format: null,
                 steelbook: ed.steelbook,
                 slipcover: ed.slipcover,
                 owned: ed.owned,
@@ -212,8 +207,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Título */}
                 <div>
-                    <label className="block mb-1">Título</label>
+                    <label htmlFor="title" className="block mb-1">Título</label>
                     <input
+                        id="title"
                         name="title"
                         value={form.title}
                         onChange={handleChange}
@@ -223,8 +219,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Título gestión */}
                 <div>
-                    <label className="block mb-1">Título (gestión)</label>
+                    <label htmlFor="titleMgmt" className="block mb-1">Título (gestión)</label>
                     <input
+                        id="titleMgmt"
                         name="titleMgmt"
                         value={form.titleMgmt}
                         onChange={handleChange}
@@ -234,8 +231,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Año */}
                 <div>
-                    <label className="block mb-1">Año</label>
+                    <label htmlFor="year" className="block mb-1">Año</label>
                     <input
+                        id="year"
                         name="year"
                         value={form.year}
                         onChange={handleChange}
@@ -243,8 +241,9 @@ export default function AdminPeliculaEditPage() {
                     />
                 </div>
                 <div>
-                    <label className="block mb-1">Duración</label>
+                    <label htmlFor="duration" className="block mb-1">Duración</label>
                     <input
+                        id="duration"
                         name="duration"
                         value={form.duration}
                         onChange={handleChange}
@@ -254,8 +253,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Género */}
                 <div>
-                    <label className="block mb-1">Género</label>
+                    <label htmlFor="genreCode" className="block mb-1">Género</label>
                     <select
+                        id="genreCode"
                         name="genreCode"
                         value={form.genreCode}
                         onChange={handleChange}
@@ -270,8 +270,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* Portada */}
                 <div>
-                    <label className="block mb-1">Portada (URL)</label>
+                    <label htmlFor="coverSrc" className="block mb-1">Portada (URL)</label>
                     <input
+                        id="coverSrc"
                         name="coverSrc"
                         value={form.coverSrc}
                         onChange={handleChange}
@@ -281,8 +282,9 @@ export default function AdminPeliculaEditPage() {
 
                 {/* IMDb ID */}
                 <div>
-                    <label className="block mb-1">IMDb ID</label>
+                    <label htmlFor="imdbId" className="block mb-1">IMDb ID</label>
                     <input
+                        id="imdbId"
                         name="imdbId"
                         value={form.imdbId}
                         onChange={handleChange}
@@ -292,8 +294,9 @@ export default function AdminPeliculaEditPage() {
                 </div>
 
                 <div>
-                    <label className="block mb-1">Trailer oficial (YouTube)</label>
+                    <label htmlFor="trailerUrl" className="block mb-1">Trailer oficial (YouTube)</label>
                     <input
+                        id="trailerUrl"
                         name="trailerUrl"
                         value={form.trailerUrl}
                         onChange={handleChange}
@@ -321,10 +324,11 @@ export default function AdminPeliculaEditPage() {
                         </div>
 
                         {/* Formato */}
-                        <label className="block mb-1">Formato</label>
+                        <label htmlFor={`edition-format-${idx}`} className="block mb-1">Formato</label>
                         <select
-                            value={ed.format?.codigo}
-                            onChange={(e) => updateEdition(idx, "format", e.target.value)}
+                            id={`edition-format-${idx}`}
+                            value={ed.formatCode}
+                            onChange={(e) => updateEdition(idx, "formatCode", e.target.value)}
                             className="bg-[#111] border border-[#333] p-2 rounded w-full"
                         >
                             <option value="">Selecciona formato</option>
@@ -364,8 +368,9 @@ export default function AdminPeliculaEditPage() {
                         </div>
 
                         {/* Ubicación */}
-                        <label className="block mt-4 mb-1">Ubicación</label>
+                        <label htmlFor={`edition-location-${idx}`} className="block mt-4 mb-1">Ubicación</label>
                         <select
+                            id={`edition-location-${idx}`}
                             value={ed.location}
                             onChange={(e) => updateEdition(idx, "location", e.target.value)}
                             className="bg-[#111] border border-[#333] p-2 rounded w-full">
@@ -376,16 +381,18 @@ export default function AdminPeliculaEditPage() {
                         </select>
 
                         {/* Código gestión */}
-                        <label className="block mt-4 mb-1">Código gestión</label>
+                        <label htmlFor={`edition-mngt-code-${idx}`} className="block mt-4 mb-1">Código gestión</label>
                         <input
+                            id={`edition-mngt-code-${idx}`}
                             value={ed.mngtCode}
                             onChange={(e) => updateEdition(idx, "mngtCode", e.target.value)}
                             className="w-full bg-[#111] border border-[#333] p-2 rounded"
                         />
 
                         {/* Notas */}
-                        <label className="block mt-4 mb-1">Notas</label>
+                        <label htmlFor={`edition-notes-${idx}`} className="block mt-4 mb-1">Notas</label>
                         <textarea
+                            id={`edition-notes-${idx}`}
                             value={ed.notes}
                             onChange={(e) => updateEdition(idx, "notes", e.target.value)}
                             className="w-full bg-[#111] border border-[#333] p-2 rounded h-20"

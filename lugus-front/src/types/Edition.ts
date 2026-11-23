@@ -4,6 +4,7 @@ import type { Format } from "./Format"
 export interface Edition {
   id: number
   format: Format| null
+  formatCode: string
   locationCode?: string
   location?: string
   mgmtCode: string
