@@ -25,6 +25,7 @@ export default function AddMoviePage() {
         editions: [
             {
                 format: null as Format | null,
+                formatCode: "",
                 steelbook: false,
                 slipcover: false,
                 owned: false,
@@ -42,6 +43,7 @@ export default function AddMoviePage() {
                 ...form.editions,
                 {
                     format: null,
+                    formatCode: "",
                     steelbook: false,
                     slipcover: false,
                     owned: false,
@@ -216,10 +218,10 @@ export default function AddMoviePage() {
                         {/* Formato */}
                         <label className="block mb-1">Formato</label>
                         <select
-                            value={ed.format?.codigo ?? ""}
+                            value={ed.formatCode ?? ""}
                             onChange={(e) => {
                                 const fmt = formats.find(f => f.codigo === e.target.value)
-                                updateEdition(idx, "format", fmt || null)
+                                updateEdition(idx, "formatCode", fmt || null)
                             }}
                             className="bg-[#111] border border-[#333] p-2 rounded w-full"
                         >
